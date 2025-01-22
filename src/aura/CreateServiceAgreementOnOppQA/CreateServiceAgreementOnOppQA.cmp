@@ -1,0 +1,203 @@
+<aura:component description="CreateServiceAgreementOnOppQA" extends="c:aura_Base" implements="force:lightningQuickActionWithoutHeader,force:appHostable,force:hasRecordId" access="global">
+
+    <aura:set attribute="processor" value="CreateServiceAgreementOnOppQAMetaProc"/>
+
+    <aura:attribute name="hideContentOnBusy" type="Boolean" default="{!true}"/>
+    <aura:attribute name="doNavigate" type="Boolean" default="{!true}"/>
+
+    <aura:handler name="init" value="{!this}" action="{!c.baseHandleInit}"/>
+
+    <lightning:notificationsLibrary aura:id="notifLib"/>
+
+    <aura:attribute name="serviceAgreementDetails" type="Aura.Component[]">
+        <div class="slds-grid slds-grid_vertical-align-start slds-m-vertical_medium">
+            <div class="slds-col slds-size_1-of-11 slds-p-right_small slds-m-top_x-small">
+                <span>The following <b>Price Book</b> will be applied to the newly created Service Agreement:</span>
+
+            </div>
+
+            <div class="slds-col slds-size_4-of-12  slds-p-right_small">
+                <c:aura_Lookup
+                        label="Pricebook"
+                        object="maica_cc__Price_List__c"
+                        searchField="Name"
+                        placeholder="Select a Price List..."
+                        iconName="standard:pricebook"
+                        limit="8"
+                        errorMessage="Error"
+                        showRecentRecords="{!true}"
+                        disabled="{!true}"
+                        required="{!true}"
+                        value="{!v.meta.dto.serviceAgreement.maica_cc__Price_List__c}"
+                        class="label-hidden"
+                />
+            </div>
+        </div>
+
+        <div class="slds-grid slds-m-vertical_small slds-gutters">
+            <div class="slds-col slds-size_1-of-4">
+                <lightning:input label="Agreement Start Date"
+                                 value="{!v.meta.dto.serviceAgreement.maica_cc__Start_Date__c}"
+                                 disabled="{!v.isBusy}"
+                                 type="date"
+                                 required="{!true}"
+                />
+            </div>
+
+            <div class="slds-col slds-size_1-of-4">
+                <lightning:input label="Agreement End Date"
+                                 value="{!v.meta.dto.serviceAgreement.maica_cc__End_Date__c}"
+                                 disabled="{!v.isBusy}"
+                                 type="date"
+                />
+            </div>
+
+            <div class="slds-col slds-size_1-of-2">
+                <c:aura_Lookup label="Service Provider"
+                                 object="Account"
+                                 subtitleField="maica_cc__ABN__c"
+                                 subtitleFieldPrefix="ABN: "
+                                 searchField="Name,maica_cc__ABN__c,maica_cc__ABN_Search_Format__c"
+                                 searchMode="SOQL"
+                                 filter="maica_cc__ABN__c != NULL"
+                                 placeholder="Select a Service Provider..."
+                                 iconName="standard:account"
+                                 order="Name"
+                                 limit="10"
+                                 loadingMessage="Loading..."
+                                 errorMessage="Error"
+                                 showRecentRecords="{!true}"
+                                 disabled="{!v.isBusy}"
+                                 value="{!v.meta.dto.serviceAgreement.maica_cc__Service_Provider__c}"
+                />
+            </div>
+        </div>
+    </aura:attribute>
+
+    <aura:attribute name="agreementItems" type="Aura.Component[]">
+        <lightning:card title="Agreement Items" class="slds-card_boundary slds-m-vertical_medium">
+            <aura:set attribute="actions">
+                <lightning:button label="Add" iconName="utility:add" variant="brand" disabled="{!v.isBusy}" onclick="{!c.handleAddItemClick}"/>
+            </aura:set>
+
+            <div class="slds-m-horizontal_small">
+                <aura:if isTrue="{!empty(v.meta.dto.agreementItems)}">
+                    <p class="slds-text-align_center slds-m-vertical_medium slds-text-title">No Agreement Items</p>
+                    <aura:set attribute="else">
+                        <table class="slds-table slds-table_fixed-layout slds-no-row-hover slds-m-vertical_medium " role="grid">
+                            <thead>
+                            <tr class="slds-line-height_reset">
+                                <th scope="col" style="{!if(v.meta.dto.isCombinationFunding == true, 'width: 33%;', 'width: 50%;')}">
+                                    Support Item
+                                </th>
+                                <th scope="col" style="width: 15%;">
+                                    Quantity
+                                </th>
+                                <th scope="col" style="width: 15%;">
+                                    Rate
+                                </th>
+                                <th scope="col" style="{!if(v.meta.dto.isCombinationFunding == true, 'width: 7%;', 'width: 5%;')}">
+                                    <span>Mode&nbsp;</span>
+                                    <lightning:helptext content="Indicates if the Support Category can be delivered in a flexible manner, meaning an alternative Support Item can be delivered."/>
+                                </th>
+                                <aura:if isTrue="{!v.meta.dto.isCombinationFunding == true}">
+                                    <th scope="col" style="width: 15%;">
+                                        <span>Funding Type&nbsp;</span>
+                                        <!--                                    <lightning:helptext content="Indicates if the Support Category can be delivered in a flexible manner, meaning an alternative Support Item can be delivered."/>-->
+                                    </th>
+                                </aura:if>
+                                <th scope="col" style="width: 10%;" class="slds-text-align_right">
+                                    Total
+                                </th>
+                                <th class="slds-text-align_right" scope="col" style="width: 5%;">
+                                    <div class="slds-truncate slds-assistive-text" id="column-group-header"></div>
+                                </th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <aura:iteration items="{!v.meta.dto.agreementItems}" var="item" indexVar="indexVar">
+                                <c:CreateServiceAgreementOnOppItem item="{!item}"
+                                                                   index="{!indexVar}"
+                                                                   isBusy="{!v.isBusy}"
+                                                                   oppLineItemsMap="{!v.meta.dto.oppLineItemsMap}"
+                                                                   onRemove="{!c.handleRemoveItemClick}"
+                                                                   onChange="{!c.handleItemsChange}"
+                                                                   onOppLineItemUpdate="{!c.handleOppLineItemUpdate}"
+                                                                   meta="{!v.meta}"
+                                                                   aura:id="itemCmp"
+                                >
+                                    <aura:set attribute="oppLineItemsSelector">
+                                        <c:aura_Select label="Product"
+                                                         class="label-hidden"
+                                                         required="{!true}"
+                                                         value="{!item.oppLineItemId}"
+                                                         options="{!v.meta.selectOptions.oppLineItemsOptions}"
+                                        />
+                                    </aura:set>
+                                </c:CreateServiceAgreementOnOppItem>
+                            </aura:iteration>
+                            </tbody>
+                            <tfoot>
+                            <tr>
+                                <td colspan="{!if(v.meta.dto.isCombinationFunding == true, '6', '5')}" class="slds-text-align_right" style="position: static;">
+                                    <strong>
+                                        <lightning:formattedNumber value="{!v.meta.totals.grandTotal || 0}"
+                                                                   style="currency"
+                                                                   currencyDisplayAs="symbol"
+                                        />
+                                    </strong>
+                                </td>
+                                <td></td>
+                            </tr>
+                            </tfoot>
+                        </table>
+                    </aura:set>
+                </aura:if>
+            </div>
+        </lightning:card>
+    </aura:attribute>
+
+    <aura:attribute name="mainBody" type="Aura.Component[]">
+        <aura:if isTrue="{!v.meta.dto.existedAgreement}">
+            <c:aura_ScopedNotification theme="warning">
+                An Active <a href="{!'/' + v.meta.dto.existedAgreement.Id}" target="_blank">Service Agreement</a> already exists for this Opportunity record.
+                <br/>
+                Please confirm you want to create another Service Agreement for selected Opportunity.
+            </c:aura_ScopedNotification>
+            <aura:set attribute="else">
+                <c:aura_ScopedNotification>
+                    Please confirm you want to create another Service Agreement for selected Opportunity.
+                </c:aura_ScopedNotification>
+            </aura:set>
+        </aura:if>
+
+        {!v.serviceAgreementDetails}
+
+        {!v.agreementItems}
+
+    </aura:attribute>
+
+<!--    <c:AssertPermissionSet permSetApiName="Maica_Manage_Plan_Service_Booking" showToast="true" closeQuickAction="true">-->
+        <c:aura_QuickActionModal aura:id="modal"
+                                   title="Create Service Agreement"
+                                   heightPX="650px"
+                                   widthPercentage="65"
+                                   maxWidthRem="80"
+                                   minWidthRem="40"
+                                   refreshOnCancel="{!true}">
+
+            {!v.mainBody}
+
+            <aura:set attribute="footer">
+                <lightning:button type="button"
+                                  disabled="{!or(empty(v.meta.dto.agreementItems), v.isBusy)}"
+                                  label="Confirm"
+                                  variant="brand"
+                                  onclick="{!c.handleConfirmClick}">
+                </lightning:button>
+            </aura:set>
+
+        </c:aura_QuickActionModal>
+<!--    </c:AssertPermissionSet>-->
+
+</aura:component>

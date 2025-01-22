@@ -1,0 +1,7 @@
+.THIS .slds-form-element .slds-form-element__label{
+    display: none;
+}
+
+.THIS lightning-helptext.bucket .slds-form-element__icon{
+    padding: 0;
+}

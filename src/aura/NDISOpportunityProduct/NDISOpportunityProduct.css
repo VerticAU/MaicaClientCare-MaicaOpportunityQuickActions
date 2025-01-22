@@ -1,0 +1,41 @@
+.THIS .warning {
+    color: rgb(254, 147, 57);
+}
+
+.THIS .info {
+    color: rgb(112, 110, 107);
+}
+
+.THIS .slds-card__header {
+    /*padding:0.75rem 1rem 0.75rem;*/
+    margin: 0;
+}
+
+.THIS .slds-card__header .slds-no-flex {
+    display: grid;
+}
+
+.THIS .slds-card__body {
+    margin-top: 0;
+    padding-top: 0.75rem;
+}
+
+.THIS .slds-text-heading_small, .THIS .slds-text-heading--small {
+    font-size: 0.9rem;
+    line-height: 1.5;
+}
+
+.THIS .icon-medium .slds-media .slds-media__figure .slds-icon {
+    width: 1.8rem;
+    height: 1.8rem;
+    fill: rgb(255, 255, 255);
+}
+
+.THIS .slds-grid .slds-col {
+    max-width: 100%;
+}
+
+.THIS .slds-form-element__icon {
+    padding-top: 0;
+    padding-left: 5px;
+}

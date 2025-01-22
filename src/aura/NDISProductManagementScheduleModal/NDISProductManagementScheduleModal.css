@@ -1,0 +1,23 @@
+.THIS .slds-notify.slds-notify_toast {
+    width: 100%;
+    justify-content: center;
+    text-align: center;
+}
+
+.THIS .slds-notify_container {
+    z-index: 0 !important;
+}
+
+.THIS lightning-helptext.slds-icon-text-success .slds-button__icon{
+    fill: var(--lwc-colorTextSuccess,rgb(46, 132, 74));
+}
+.THIS .favorite{
+    position: absolute;
+    left: 0px;
+    display: block;
+    top: 6px;
+}
+
+/*.THIS .slds-form-element__label {*/
+/*    display: none;*/
+/*}*/

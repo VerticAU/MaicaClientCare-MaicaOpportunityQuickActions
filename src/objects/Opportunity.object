@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fields>
+        <fullName>Agreement_Duration__c</fullName>
+        <description>The number of months between the Agreement Start Date and End Date</description>
+        <externalId>false</externalId>
+        <formula>((YEAR( Agreement_End_Date__c ) - YEAR( Agreement_Start_Date__c ))*12) + (MONTH(Agreement_End_Date__c) - MONTH(Agreement_Start_Date__c))</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <inlineHelpText>The number of months between the Agreement Start Date and End Date</inlineHelpText>
+        <label>Agreement Duration</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Agreement_End_Date__c</fullName>
+        <externalId>false</externalId>
+        <label>Agreement End Date</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Agreement_Start_Date__c</fullName>
+        <externalId>false</externalId>
+        <label>Agreement Start Date</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Funding_Type__c</fullName>
+        <externalId>false</externalId>
+        <label>Funding Type</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetName>maica_cc__Funding_Type</valueSetName>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>NDIS_Funding__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <inlineHelpText>Represents the NDIS Funding for which this Service Agreement is being developed.</inlineHelpText>
+        <label>NDIS Funding</label>
+        <referenceTo>maica_cc__Funding__c</referenceTo>
+        <relationshipLabel>Opportunities</relationshipLabel>
+        <relationshipName>Opportunities</relationshipName>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Participant__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Participant</label>
+        <referenceTo>Contact</referenceTo>
+        <relationshipLabel>Opportunities (Participant)</relationshipLabel>
+        <relationshipName>Opportunities</relationshipName>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+</CustomObject>

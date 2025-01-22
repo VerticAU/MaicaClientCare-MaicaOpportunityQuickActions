@@ -1,0 +1,186 @@
+<aura:component description="aura_QuickActionModal" access="public">
+
+    <aura:attribute name="title" type="String" default="Title" access="public"/>
+    <aura:attribute name="footer" type="Aura.Component[]" access="public"></aura:attribute>
+    <aura:attribute name="customHeader" type="Aura.Component[]" access="public"></aura:attribute>
+    <aura:attribute name="showCancel" type="Boolean" default="true" access="public"/>
+    <aura:attribute name="isBusy" type="Boolean" default="false" access="public"/>
+    <aura:attribute name="cancelLabel" type="String" default="Cancel" access="public"/>
+    <aura:attribute name="refreshOnCancel" type="Boolean" default="false" access="public"/>
+    <aura:attribute name="overrideModalWidth" type="Boolean" default="{!true}" access="public"/>
+
+    <aura:attribute name="heightPX" type="Integer" default="200" access="public"/>
+    <aura:attribute name="heightPercentage" type="Integer" access="public"/>
+    <aura:attribute name="widthPercentage" type="Integer" default="50" access="public"/>
+    <aura:attribute name="maxWidthRem" type="Integer" default="40" access="public"/>
+    <aura:attribute name="minWidthRem" type="Integer" default="20" access="public"/>
+
+    <aura:attribute name="isClosed" type="Boolean" default="{!false}" access="private"/>
+
+    <aura:attribute name="contentHeight" type="Integer" default="80px" access="public"/>
+
+    <aura:attribute name="errors" type="String[]" default="[]" access="public"/>
+
+    <aura:handler name="init" value="{!this}" action="{!c.handleInit}"/>
+    <aura:handler value="{! v.heightPX }" name="change" action="{! c.handleHeightChange }"/>
+    <aura:handler value="{! v.heightPercentage }" name="change" action="{! c.handleHeightChange }"/>
+
+    <aura:method name="setScrollable" access="public" action="{!c.handleSetScrollable}">
+        <aura:attribute name="isScrollable" type="Boolean" access="public" required="true"></aura:attribute>
+    </aura:method>
+
+    <aura:method name="close" access="public" action="{!c.handleCancel}">
+    </aura:method>
+
+    <aura:method name="scrollTop" access="public" action="{!c.handleScrollTop}">
+    </aura:method>
+
+    <aura:method name="validate" access="public" action="{!c.handleValidate}">
+        <aura:attribute name="options" type="Map"/>
+    </aura:method>
+
+    <aura:method name="showErrors" action="{!c.handleShowErrors}">
+        <aura:attribute name="errors" type="List"/>
+        <aura:attribute name="isScrollTop" type="Boolean" default="true"/>
+    </aura:method>
+
+    <aura:handler event="force:closeQuickAction" action="{!c.handleCloseQuickAction}"/>
+
+    <c:aura_Utils context="{!this}"/>
+
+
+    <!--    <aura:html tag="style">-->
+    <!--        .slds-modal__container {-->
+    <!--            height: auto !important;-->
+    <!--        }-->
+    <!--    </aura:html>-->
+
+    <aura:if isTrue="{!v.overrideModalWidth == true}">
+        <style>
+
+            .uiModal.forceModal[aria-hidden="true"] {
+                display: none !important;
+            }
+
+            .uiModal.forceModal.active .slds-modal__container {
+                width: {! v.widthPercentage }% !important;
+                max-width: {! v.maxWidthRem }rem !important;
+                min-width: {! v.minWidthRem }rem !important;
+            }
+
+            /*.slds-modal__container{*/
+            /*max-width: 70rem !important;*/
+            /*width:90% !important;*/
+
+            /*}*/
+
+            .uiModal.forceModal.active .modal-container > .modal-body {
+                height: {! if(not(empty(v.heightPercentage)), v.heightPercentage + '%', v.heightPX + 'px') } !important;
+                max-height: {! if(not(empty(v.heightPercentage)), v.heightPercentage + '%', v.heightPX + 'px') } !important;
+            }
+
+
+        </style>
+    </aura:if>
+
+    <style>
+
+        .abstractModalSubContainer > .content-modal {
+            height: {! v.contentHeight } !important;
+        }
+
+        .uiModal.forceModal.active .modal-body {
+            height: auto !important;
+            padding: 0;
+        }
+
+        .uiModal.forceModal.active .cuf-content {
+            padding: 0 !important;
+        }
+
+        .uiModal.forceModal.active .forceChatterLightningComponent .bodyWrapper {
+            height: 100%;
+            width: 100%;
+            padding: 0;
+            box-sizing: border-box
+        }
+
+        .abstractModalContainer {
+            height: {! if(not(empty(v.heightPercentage)), v.heightPercentage + '%', v.heightPX + 'px') };
+            overflow: auto;
+        }
+
+        .abstractModalSubContainer {
+            position: relative;
+            height: {! if(not(empty(v.heightPercentage)), v.heightPercentage + '%', v.heightPX + 'px') };
+            min-height: {! if(not(empty(v.heightPercentage)), v.heightPercentage + '%', v.heightPX + 'px') };
+        }
+
+        .quick-actions-panel, .quick-actions-panel > .slds-modal__content {
+            height: unset !important;
+            max-height: unset !important;
+            padding: 0;
+        }
+    </style>
+
+    <div class="abstractModalContainer">
+        <div class="abstractModalSubContainer">
+            <div class="modal-header slds-modal__header">
+                <aura:if isTrue="{! not(empty(v.customHeader)) }">
+                    {! v.customHeader }
+                    <aura:set attribute="else">
+                        <h2 class="title slds-text-heading--medium">
+                            {! v.title }
+                        </h2>
+                    </aura:set>
+                </aura:if>
+            </div>
+            <div aura:id="modal-body" class="content-modal slds-scrollable slds-modal__content slds-p-around--medium">
+                <div aura:id="scrollerWrapper">
+                    <c:aura_ErrorMessages aura:id="errorMessages" />
+                    <!--<aura:if isTrue="{! not(empty(v.errors)) }">-->
+
+                    <!--<div class="pageLevelErrors" tabindex="-1">-->
+                    <!--<div class="desktop forcePageError" aria-live="assertive"-->
+                    <!--data-aura-class="forcePageError">-->
+                    <!--<div class="genericNotification">-->
+                    <!--<span class="genericError uiOutputText"-->
+                    <!--data-aura-class="uiOutputText">-->
+                    <!--Review the errors on this page.-->
+                    <!--</span>-->
+                    <!--</div>-->
+                    <!--<ul class="errorsList">-->
+                    <!--<aura:iteration items="{! v.errors }" var="error">-->
+                    <!--<li>-->
+                    <!--{# error }-->
+                    <!--</li>-->
+                    <!--</aura:iteration>-->
+                    <!--</ul>-->
+                    <!--</div>-->
+                    <!--</div>-->
+
+                    <!--</aura:if>-->
+
+                    <div>
+                        <aura:if isTrue="{! v.isBusy }">
+                            <lightning:spinner alternativeText="Loading..."/>
+                        </aura:if>
+
+                        {! v.body }
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer slds-modal__footer" style="position: absolute;bottom: 0;width: 100%;">
+                <div class="forceChangeRecordTypeFooter">
+                    <aura:if isTrue="{! v.showCancel }">
+                        <lightning:button variant="neutral" tabindex="-1" label="{!v.cancelLabel}" onclick="{!c.handleCancel}"/>
+                    </aura:if>
+                    <aura:if isTrue="{! not(empty(v.footer)) }">
+                        {! v.footer }
+                    </aura:if>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</aura:component>

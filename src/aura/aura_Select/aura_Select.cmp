@@ -1,0 +1,50 @@
+<aura:component description="aura_Select" access="public">
+
+    <!-- Attributes -->
+    <aura:attribute name="label" type="String"/>
+    <aura:attribute name="name" type="String"/>
+    <aura:attribute name="value" type="String"/>
+    <aura:attribute name="class" type="String"/>
+    <aura:attribute name="variant" type="String"/>
+    <aura:attribute name="noneLabel" type="String" default="-- None --"/>
+    <aura:attribute name="noneDisabled" type="String" default="{!false}"/>
+    <aura:attribute name="required" type="Boolean" default="{!false}"/>
+    <aura:attribute name="disabled" type="Boolean" default="{!false}"/>
+    <aura:attribute name="readonly" type="Boolean" default="{!false}"/>
+
+    <aura:attribute name="oldValue" type="Object"/>
+
+
+    <aura:attribute name="isDepended" type="Boolean"/>
+    <aura:attribute name="dependsOn" type="String"/>
+    <aura:attribute name="dependentOptions" type="Map" default="{}"/>
+
+    <aura:attribute name="options" type="List" default="[]"/>
+
+    <!-- Events -->
+    <aura:registerEvent name="onChange" type="c:aura_ComponentEvent"/>
+
+    <!-- Handlers -->
+    <aura:handler name="init" value="{!this}" action="{!c.handleInit}"/>
+    <aura:handler name="change" value="{!v.dependsOn}" action="{!c.handleDependentChange}"/>
+    <aura:handler name="change" value="{!v.dependentOptions}" action="{!c.handleDependentChange}"/>
+    <aura:handler name="change" value="{!v.isDepended}" action="{!c.handleDependentChange}"/>
+    <aura:handler name="change" value="{!v.value}" action="{!c.handleValueChange2}"/>
+    <!--    <aura:handler name="change" value="{!v.value}" action="{!c.handleValueChange}"/>-->
+
+    <lightning:select label="{!v.label}"
+                      value="{!v.value}"
+                      class="{!v.class}"
+                      variant="{!v.variant}"
+                      required="{!v.required}"
+                      readonly="{!v.readonly}"
+                      onchange="{!c.handleValueChange}"
+                      name="{!v.name}"
+                      disabled="{!v.disabled}">
+        <option value="" label="{!v.noneLabel}" disabled="{!v.noneDisabled}">{!v.noneLabel}</option>
+        <aura:iteration items="{!v.options}" var="option">
+            <option value="{#option.value}" label="{#option.label}">{#option.label}</option>
+        </aura:iteration>
+    </lightning:select>
+
+</aura:component>

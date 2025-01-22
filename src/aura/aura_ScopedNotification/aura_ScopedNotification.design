@@ -1,0 +1,7 @@
+<design:component label="Maica - Scoped Notification">
+    <design:attribute label="Content" name="content" />
+    <design:attribute label="CSS Class" name="class" />
+    <design:attribute label="Icon" name="iconName" description="SLDS Icon Name i.e. utility:info"/>
+    <design:attribute label="Icon Variant" name="iconVariant" description="Default: info" dataSource="info,bare,inverse,success,warning,error"/>
+    <design:attribute label="Theme" name="theme" dataSource="info,success,warning,error"/>
+</design:component>

@@ -1,0 +1,131 @@
+<aura:component description="NDISOpportunityProduct" access="public">
+    <aura:attribute name="item" type="Map" access="public"/>
+    <aura:attribute name="isBusy" type="Boolean" access="public"/>
+    <aura:attribute name="index" type="Integer" access="public"/>
+    <aura:attribute name="meta" type="Map" access="public"/>
+
+    <!-- Handlers -->
+    <aura:handler name="change" value="{!v.item}" action="{!c.handleItemChange}"/>
+
+    <aura:handler name="change" value="{!v.item.UnitPrice}" action="{!c.updateLineTotal}"/>
+    <aura:handler name="change" value="{!v.item.Quantity}" action="{!c.updateLineTotal}"/>
+
+    <aura:registerEvent name="onChange" type="c:aura_ComponentEvent"/>
+    <aura:registerEvent name="onEdit" type="c:aura_ComponentEvent"/>
+    <aura:registerEvent name="onRemove" type="c:aura_ComponentEvent"/>
+    <aura:registerEvent name="onDuplicate" type="c:aura_ComponentEvent"/>
+
+    <c:aura_Utils context="{!this}"/>
+    <lightning:notificationsLibrary aura:id="notifyLib"/>
+
+    <tr class="slds-hint-parent">
+        <td role="gridcell">
+            <div class="slds-truncate">
+                <lightning:formattedDateTime value="{!v.item.Start_Date__c}"
+                                             year="numeric"
+                                             month="short"
+                                             day="2-digit"/>
+            </div>
+        </td>
+        <td role="gridcell">
+            <div class="slds-truncate">
+                <lightning:formattedDateTime value="{!v.item.End_Date__c}"
+                                             year="numeric"
+                                             month="short"
+                                             day="2-digit"/>
+            </div>
+        </td>
+        <td role="gridcell">
+            <div style="display: flex;justify-content: space-between;">
+                <div class="slds-truncate" title="{!v.item.Product2.Support_Category__r.Name}">
+                    <a target="_blank" href="{!'/' + v.item.Product2.Support_Category__c}">{!v.item.Product2.Support_Category__r.Name}</a>
+                </div>
+            </div>
+        </td>
+        <td role="gridcell">
+            <div style="display: flex;justify-content: space-between;">
+                <div class="slds-truncate" title="{!v.item.Product2.Name}">
+                    <a target="_blank" href="{!'/' + v.item.Product2.Id}">{!v.item.Product2.Name}</a>
+                </div>
+            </div>
+        </td>
+        <td role="gridcell">
+            <div class="slds-cell-wrap">
+                <lightning:input label="Quantity"
+                                 type="number"
+                                 variant="label-hidden"
+                                 value="{!v.item.Quantity}"
+                                 disabled="{!v.isBusy}"
+                                 min="0.01"
+                                 step="0.01"
+                                 required="{!true}"
+                                 messageWhenRangeUnderflow="Required"
+                />
+            </div>
+        </td>
+        <td role="gridcell">
+            <div class="slds-cell-wrap">
+                <lightning:input label="Rate"
+                                 type="number"
+                                 formatter="currency"
+                                 min="0.01"
+                                 step="0.01"
+                                 variant="label-hidden"
+                                 required="{!true}"
+                                 value="{!v.item.UnitPrice}"
+                                 disabled="{!v.isBusy}"
+                />
+            </div>
+        </td>
+        <td role="gridcell">
+            <div class="slds-truncate" style="{!'color:' + v.item.usageProgressColor + ';'}">
+                <lightning:formattedNumber value="{!v.item.TotalPrice || 0}"
+                                           style="currency"
+                                           currencyDisplayAs="symbol"
+                />
+            </div>
+        </td>
+        <aura:if isTrue="{!v.meta.dto.isCombinationFunding == true}">
+            <td role="gridcell">
+                <div class="slds-truncate">
+                    <c:aura_Select label="Funding Type"
+                                     variant="label-hidden"
+                                     class="label-hidden"
+                                     required="{!true}"
+                                     options="{!v.meta.selectOptions.fundingTypeOptions}"
+                                     value="{!v.item.Funding_Type__c}"
+                                     disabled="{!v.isBusy}"
+                    />
+                </div>
+            </td>
+        </aura:if>
+        <td role="gridcell">
+            <div class="slds-truncate slds-text-align_right">
+                <aura:if isTrue="{!v.item.isExceedsCategoryRemaining == true}">
+                    <lightning:helptext iconVariant="warning" content="{!'Total Amount exceeds the Plan Budget Remaining Amount for Support Category: ' + v.item.totalRemainingFormatted}"
+                                        iconName="utility:warning"
+                                        class="slds-p-around_none"
+                    />
+                </aura:if>
+            </div>
+        </td>
+        <td role="gridcell">
+            <div class="slds-text-align_right">
+                <div class="slds-grid slds-grid_vertical-align-center">
+                    <div class="slds-col slds-size_3-of-12">
+                        <lightning:buttonIcon iconName="utility:edit" alternativeText="Edit" disabled="{!v.isBusy}" onclick="{!c.handleEditItemClick}"/>
+                    </div>
+
+                    <div class="slds-col slds-size_3-of-12">
+                        <lightning:buttonIcon iconName="utility:delete" alternativeText="Delete" disabled="{!v.isBusy}" onclick="{!c.handleRemoveItemClick}"/>
+                    </div>
+
+                    <div class="slds-col slds-size_3-of-12">
+                        <lightning:buttonIcon iconName="utility:copy" alternativeText="Duplicate" disabled="{!v.isBusy}" onclick="{!c.handleDuplicateItemClick}"/>
+                    </div>
+
+                </div>
+            </div>
+        </td>
+    </tr>
+</aura:component>

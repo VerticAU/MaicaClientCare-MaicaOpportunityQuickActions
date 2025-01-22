@@ -1,0 +1,127 @@
+<aura:component description="NDISProductManagementQA" implements="force:lightningQuickActionWithoutHeader,force:appHostable" extends="c:aura_Base" access="public">
+
+    <!-- Attribute Overrides -->
+    <aura:set attribute="processor" value="NDISProductManagementQAMetaProc"/>
+    <aura:set attribute="hideContentOnBusy" value="{!true}"/>
+    <aura:set attribute="spinner"></aura:set>
+
+    <!-- Handlers -->
+    <aura:handler name="init" value="{!this}" action="{!c.baseHandleInit}"/>
+
+    <aura:handler name="change" value="{!v.meta.dto.items}" action="{!c.handleItemsChange}"/>
+    <aura:handler name="change" value="{!v.meta.dto.items}" action="{!c.refreshTotals}"/>
+
+    <lightning:notificationsLibrary aura:id="notifLib"/>
+    <c:aura_ModalService aura:id="modalService"/>
+
+    <c:aura_QuickActionModal aura:id="modal"
+                             title="Product Management"
+                             widthPercentage="95"
+                             maxWidthRem="90"
+                             minWidthRem="40"
+                             refreshOnCancel="{!true}"
+                             heightPX="720">
+
+        <lightning:card class="slds-card_boundary slds-m-vertical_medium" title="Support Items">
+            <aura:set attribute="actions">
+                <lightning:button label="Add" iconName="utility:add" disabled="{!v.isBusy}" onclick="{!c.handleAddItemClick}"/>
+            </aura:set>
+            <div class="slds-m-horizontal_small">
+                <aura:if isTrue="{!empty(v.meta.dto.items)}">
+                    <p class="slds-text-align_center slds-m-vertical_medium slds-text-title">No Items</p>
+                    <aura:set attribute="else">
+                        <table aura:id="oppProducts" class="slds-table slds-table_fixed-layout slds-no-row-hover slds-m-vertical_medium " role="grid">
+                            <thead>
+                            <tr class="slds-line-height_reset">
+                                <th scope="col" style="width: 10%;">
+                                    Start Date
+                                </th>
+                                <th scope="col" style="width: 10%;">
+                                    End Date
+                                </th>
+                                <th scope="col" style="width: 16%;">
+                                    Support Category
+                                </th>
+                                <th scope="col" style="width: 23%;">
+                                    Support Item
+                                </th>
+                                <th scope="col" style="width: 8%;">
+                                    Quantity
+                                </th>
+                                <th scope="col" style="width: 9%;">
+                                    Rate
+                                </th>
+                                <th scope="col" class="slds-text-align_right1" style="width: 9%;">
+                                    Total
+                                </th>
+                                <aura:if isTrue="{!v.meta.dto.isCombinationFunding == true}">
+                                    <th scope="col" style="width: 150px;">
+                                        <span>Funding Type&nbsp;</span>
+                                    </th>
+                                </aura:if>
+                                <th scope="col" style="width: 30px;">
+                                </th>
+                                <th scope="col" class="slds-text-align_right" style="width: 150px;">
+                                    Actions
+                                </th>
+                            </tr>
+                            </thead>
+
+                            <tbody>
+                            <aura:iteration items="{!v.meta.dto.items}" var="item" indexVar="indexVar">
+                                <c:NDISOpportunityProduct item="{!item}"
+                                                          isBusy="{!v.isBusy}"
+                                                          index="{!indexVar}"
+                                                          meta="{!v.meta}"
+                                                          onEdit="{!c.handleEditItemClick}"
+                                                          onRemove="{!c.handleRemoveItemClick}"
+                                                          onDuplicate="{!c.handleDuplicateItemClick}"
+                                                          onChange="{!c.refreshTotals}"
+                                                          aura:id="itemCmp"
+                                >
+                                </c:NDISOpportunityProduct>
+                            </aura:iteration>
+                            </tbody>
+
+                            <tfoot>
+                            <tr>
+                                <td colspan="6" class="slds-text-align_right" style="padding-top: 10px">
+                                    Total Amount:
+                                </td>
+                                <td colspan="5" class="slds-p-top_small" style="padding-top: 10px">
+                                    <strong>
+                                        <lightning:formattedNumber value="{!v.meta.summary.totalAmount || 0}"
+                                                                   style="currency"
+                                                                   currencyDisplayAs="symbol"
+                                        />
+                                    </strong>
+                                </td>
+                            </tr>
+                            </tfoot>
+                        </table>
+                    </aura:set>
+                </aura:if>
+            </div>
+        </lightning:card>
+
+        <aura:set attribute="footer">
+            <div class="slds-float_left" style="padding-top: 4px;">
+                <aura:if isTrue="{!not(empty(v.meta.dto.activePlan))}">
+                    <a target="_blank" href="{!'/' + v.meta.dto.activePlan.Id}" style="position: relative;display: inline-block;top: 2px;">{!v.meta.dto.activePlan.Name}</a>
+                    <lightning:helptext content="Only allow the Products within the recorded Participant's Plan Details (Active Plan)"
+                                        style="position: relative;top: -2px;left: 4px;"
+                    />
+                </aura:if>
+            </div>
+            <lightning:button label="Submit"
+                              aura:id="confirmBtn"
+                              variant="brand"
+                              type="submit"
+                              disabled="{!v.isBusy}"
+                              onclick="{!c.handleConfirmClick}"
+                              class="slds-m-left_x-small"
+            />
+        </aura:set>
+
+    </c:aura_QuickActionModal>
+</aura:component>

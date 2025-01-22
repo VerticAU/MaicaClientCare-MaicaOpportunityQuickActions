@@ -1,0 +1,7 @@
+.THIS.slds-scoped-notification{
+    border-radius: 5px !important;
+}
+
+.THIS .slds-media__body{
+    line-height: 25px;
+}

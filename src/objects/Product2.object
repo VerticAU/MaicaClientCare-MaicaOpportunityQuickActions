@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fields>
+        <fullName>Category_Funding__c</fullName>
+        <description>Indicates if the Product provides funding at the Support Category level, i.e. for any Support Item within the Category</description>
+        <externalId>false</externalId>
+        <formula>Id = Support_Category__r.maica_cc__Category_Support_Item__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <inlineHelpText>Indicates if the Product provides funding at the Support Category level, i.e. for any Support Item within the Category</inlineHelpText>
+        <label>Category Funding</label>
+        <trackHistory>false</trackHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Category_Number__c</fullName>
+        <externalId>false</externalId>
+        <formula>Support_Category__r.maica_cc__Category_Number__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Category Number</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Favourite__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <inlineHelpText>This represents a Product that is commonly used within Service Delivery so will be displayed as a priority in the NDIS Product Management console.</inlineHelpText>
+        <label>Favourite</label>
+        <trackHistory>false</trackHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Favourite_Item__c</fullName>
+        <externalId>false</externalId>
+        <formula>IMAGE(IF(Favourite__c = TRUE, &quot;/resource/maica_cc__Maica_Images/star.png&quot;, &quot;/resource/maica_cc__Maica_Images/star_grey.png&quot;),&quot;&quot;)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Favourite Item</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Service_Day__c</fullName>
+        <externalId>false</externalId>
+        <label>Service Day</label>
+        <required>false</required>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Weekday</fullName>
+                    <default>false</default>
+                    <label>Weekday</label>
+                </value>
+                <value>
+                    <fullName>Saturday</fullName>
+                    <default>false</default>
+                    <label>Saturday</label>
+                </value>
+                <value>
+                    <fullName>Sunday</fullName>
+                    <default>false</default>
+                    <label>Sunday</label>
+                </value>
+                <value>
+                    <fullName>Public Holiday</fullName>
+                    <default>false</default>
+                    <label>Public Holiday</label>
+                </value>
+                <value>
+                    <fullName>Anytime</fullName>
+                    <default>false</default>
+                    <label>Anytime</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Service_Time__c</fullName>
+        <externalId>false</externalId>
+        <label>Service Time</label>
+        <required>false</required>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Daytime</fullName>
+                    <default>false</default>
+                    <label>Daytime</label>
+                </value>
+                <value>
+                    <fullName>Afternoon</fullName>
+                    <default>false</default>
+                    <label>Afternoon</label>
+                </value>
+                <value>
+                    <fullName>Evening</fullName>
+                    <default>false</default>
+                    <label>Evening</label>
+                </value>
+                <value>
+                    <fullName>Night</fullName>
+                    <default>false</default>
+                    <label>Night</label>
+                </value>
+                <value>
+                    <fullName>Anytime</fullName>
+                    <default>false</default>
+                    <label>Anytime</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Support_Category__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <description>Represents the Support Category associated with this Product.</description>
+        <externalId>false</externalId>
+        <label>Support Category</label>
+        <referenceTo>maica_cc__Support_Category__c</referenceTo>
+        <relationshipLabel>Products</relationshipLabel>
+        <relationshipName>Products</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Support_Item_Number__c</fullName>
+        <caseSensitive>false</caseSensitive>
+        <description>Unique NDIS Reference Number derived from Support Category, Sequence Number, Registration Group, Outcome Domain and Support Purpose</description>
+        <externalId>true</externalId>
+        <inlineHelpText>Unique NDIS Reference Number derived from Support Category, Sequence Number, Registration Group, Outcome Domain and Support Purpose</inlineHelpText>
+        <label>Support Item Number</label>
+        <length>55</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>true</unique>
+    </fields>
+    <fields>
+        <fullName>Support_Item_Type__c</fullName>
+        <externalId>false</externalId>
+        <label>Support Item Type</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Price Limited Supports</fullName>
+                    <default>false</default>
+                    <label>Price Limited Supports</label>
+                </value>
+                <value>
+                    <fullName>Quotable Supports</fullName>
+                    <default>false</default>
+                    <label>Quotable Supports</label>
+                </value>
+                <value>
+                    <fullName>Unit Price = $1</fullName>
+                    <default>false</default>
+                    <label>Unit Price = $1</label>
+                </value>
+                <value>
+                    <fullName>Deliverable Service</fullName>
+                    <default>false</default>
+                    <label>Deliverable Service</label>
+                </value>
+                <value>
+                    <fullName>Basic Subsidy</fullName>
+                    <default>false</default>
+                    <label>Basic Subsidy</label>
+                </value>
+                <value>
+                    <fullName>Care Management Fee</fullName>
+                    <default>false</default>
+                    <label>Care Management Fee</label>
+                </value>
+                <value>
+                    <fullName>Package Management Fee</fullName>
+                    <default>false</default>
+                    <label>Package Management Fee</label>
+                </value>
+                <value>
+                    <fullName>Basic Daily Fee</fullName>
+                    <default>false</default>
+                    <label>Basic Daily Fee</label>
+                </value>
+                <value>
+                    <fullName>Income Tested Fee</fullName>
+                    <default>false</default>
+                    <label>Income Tested Fee</label>
+                </value>
+                <value>
+                    <fullName>Veterans&apos; Supplement</fullName>
+                    <default>false</default>
+                    <label>Veterans&apos; Supplement</label>
+                </value>
+                <value>
+                    <fullName>Dementia and Cognition Supplement</fullName>
+                    <default>false</default>
+                    <label>Dementia and Cognition Supplement</label>
+                </value>
+                <value>
+                    <fullName>Enteral Feeding Supplement</fullName>
+                    <default>false</default>
+                    <label>Enteral Feeding Supplement</label>
+                </value>
+                <value>
+                    <fullName>Oxygen Supplement</fullName>
+                    <default>false</default>
+                    <label>Oxygen Supplement</label>
+                </value>
+                <value>
+                    <fullName>Top-Up Supplement</fullName>
+                    <default>false</default>
+                    <label>Top-Up Supplement</label>
+                </value>
+                <value>
+                    <fullName>Hardship Supplement</fullName>
+                    <default>false</default>
+                    <label>Hardship Supplement</label>
+                </value>
+                <value>
+                    <fullName>Viability Supplement</fullName>
+                    <default>false</default>
+                    <label>Viability Supplement</label>
+                </value>
+                <value>
+                    <fullName>Client Contribution</fullName>
+                    <default>false</default>
+                    <label>Client Contribution</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Support_Purpose__c</fullName>
+        <externalId>false</externalId>
+        <formula>TEXT(Support_Category__r.maica_cc__Support_Purpose__c)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Support Purpose</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>PACE_Support_Category__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>PACE Support Category</label>
+        <referenceTo>maica_cc__Support_Category__c</referenceTo>
+        <relationshipLabel>Products (PACE Support Category)</relationshipLabel>
+        <relationshipName>Pace_Products</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Lookup</type>
+    </fields>
+</CustomObject>

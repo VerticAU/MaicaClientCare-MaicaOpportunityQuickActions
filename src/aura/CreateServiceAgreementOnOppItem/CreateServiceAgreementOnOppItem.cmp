@@ -1,0 +1,120 @@
+<aura:component description="CreateServiceAgreementOnOppItem" controller="CommonCtrl" access="global">
+
+    <!-- ATTRIBUTES -->
+    <aura:attribute name="meta" type="Map" access="public"/>
+    <aura:attribute name="item" type="Map" access="public"/>
+    <aura:attribute name="isBusy" type="Boolean" access="public"/>
+    <aura:attribute name="index" type="Integer" access="public"/>
+    <aura:attribute name="oppLineItemsMap" type="Map" access="public"/>
+
+    <aura:attribute name="isDuplicateFlexibleCategory" type="Boolean" access="public"/>
+    <aura:attribute name="isDuplicateLockedProduct" type="Boolean" access="public"/>
+
+    <aura:attribute name="oppLineItemsSelector" type="Aura.Component[]" access="public"></aura:attribute>
+
+    <!-- Handlers -->
+    <aura:handler name="init" value="{!this}" action="{!c.handleInit}"/>
+    <aura:handler name="change" value="{!v.item}" action="{!c.handleItemChange}"/>
+    <aura:handler name="change" value="{!v.item.oppLineItemId}" action="{!c.handleProductChange}"/>
+
+    <aura:registerEvent name="onChange" type="c:aura_ComponentEvent"/>
+    <aura:registerEvent name="onRemove" type="c:aura_ComponentEvent"/>
+    <aura:registerEvent name="onOppLineItemUpdate" type="c:aura_ComponentEvent"/>
+
+    <c:aura_Utils context="{!this}"/>
+    <lightning:notificationsLibrary aura:id="notifLib"/>
+
+    <tr class="slds-hint-parent">
+        <aura:if isTrue="{!v.item.maica_cc__Support_Item__c}">
+            <td>
+                <div style="display: flex;justify-content: space-between;">
+                    <div class="slds-truncate" title="{!v.item.maica_cc__Support_Item__r.Name}">
+                        <a href="{!'/' + v.item.maica_cc__Support_Item__c}" target="_blank">{!v.item.maica_cc__Support_Item__r.Name}</a>
+                    </div>
+                    <aura:if isTrue="{!v.isDuplicateFlexibleCategory}">
+                        <div style="margin-left: 4px;margin-top: -5px;">
+                            <lightning:helptext iconVariant="warning"
+                                                iconName="utility:warning"
+                                                content="Agreement already has a Flexible Item for this Support Category."
+                            />
+                        </div>
+                    </aura:if>
+                    <aura:if isTrue="{!v.isDuplicateLockedProduct}">
+                        <div style="margin-left: 4px;margin-top: -5px;">
+                            <lightning:helptext iconVariant="warning"
+                                                iconName="utility:warning"
+                                                content="Agreement already has a Locked Item for this Support Category + Item combination."
+                                                class="slds-show_inline"
+                            />
+                        </div>
+                    </aura:if>
+                </div>
+            </td>
+
+            <td>
+                <div class="slds-cell-wrap">
+                    <lightning:input label="Quantity"
+                                     type="number"
+                                     variant="label-hidden"
+                                     value="{!v.item.maica_cc__Quantity__c}"
+                                     disabled="{!or(v.isBusy, v.item.maica_cc__Support_Item__r.maica_cc__Category_Funding__c == true)}"
+                                     step="0.01"
+                                     min="0"
+                                     required="{!true}"
+                    />
+                </div>
+            </td>
+
+            <td>
+                <div class="slds-cell-wrap">
+                    <lightning:input label="Rate"
+                                     type="number"
+                                     variant="label-hidden"
+                                     value="{!v.item.maica_cc__Rate__c}"
+                                     disabled="{!v.isBusy}"
+                                     required="{!true}"
+                                     min="0.01"
+                                     step="0.01"
+                    />
+                </div>
+            </td>
+
+            <aura:if isTrue="{!v.meta.dto.isCombinationFunding == true}">
+                <td>
+                    <div class="slds-cell-wrap">
+                        <c:aura_Select label="Funding Type"
+                                         variant="label-hidden"
+                                         class="label-hidden"
+                                         required="{!true}"
+                                         options="{!v.meta.selectOptions.maicaFundingTypeOptions}"
+                                         value="{!v.item.maica_cc__Funding_Type__c}"
+                                         disabled="{!v.isBusy}"
+                        />
+                    </div>
+                </td>
+            </aura:if>
+
+            <td>
+                <div class="slds-truncate slds-text-align_right">
+                    <lightning:formattedNumber value="{!(v.item.maica_cc__Quantity__c * v.item.maica_cc__Rate__c) || 0}"
+                                               style="currency"
+                                               currencyDisplayAs="symbol"
+                    />
+                </div>
+            </td>
+
+            <aura:set attribute="else">
+                <td colspan="4" tabindex="0">
+                    <div class="slds-cell-wrap">
+                        {!v.oppLineItemsSelector}
+                    </div>
+                </td>
+            </aura:set>
+        </aura:if>
+
+        <td role="gridcell">
+            <lightning:buttonIcon iconName="utility:close" alternativeText="Remove" disabled="{!v.isBusy}" onclick="{!c.handleRemoveClick}"/>
+        </td>
+    </tr>
+
+</aura:component>

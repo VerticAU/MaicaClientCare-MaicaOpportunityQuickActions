@@ -1,0 +1,44 @@
+<aura:component description="aura_ButtonGroupSelect" access="public">
+
+    <!-- Attributes -->
+    <aura:attribute name="options" type="Map[]" access="public" default="[]" required="{!true}"/>
+
+    <aura:attribute name="label" type="String" access="public"/>
+    <aura:attribute name="value" type="String" access="public"/>
+
+    <!--  single or multiple  -->
+    <aura:attribute name="mode" type="String" access="public" default="multiple"/>
+
+    <aura:attribute name="required" type="Boolean" access="public" default="{!false}"/>
+    <aura:attribute name="disabled" type="Boolean" access="public" default="{!false}"/>
+
+    <aura:attribute name="class" type="String" access="public"/>
+    <aura:attribute name="buttonClass" type="String" access="public"/>
+
+    <aura:attribute name="variantActive" type="String" access="public" default="brand"/>
+    <aura:attribute name="variantInactive" type="String" access="public" default="neutral"/>
+
+    <!-- Handlers -->
+    <aura:handler name="init" value="{!this}" action="{!c.handleInit}"/>
+    <aura:handler name="change" value="{!v.value}" action="{!c.refresh}"/>
+
+    <!-- Methods -->
+    <!-- <aura:method name="refresh" action="{!c.handleInit}"></aura:method> -->
+    <div>
+        <lightning:input required="{!v.required}" label="{!v.label}" value="{!v.value}" class="slds-hide"/>
+        <aura:if isTrue="{!not(empty(v.options))}">
+            <lightning:buttonGroup class="{!v.class}">
+                <aura:iteration items="{!v.options}" var="option">
+                    <lightning:button label="{!option.label}"
+                                      value="{!option.value}"
+                                      disabled="{!v.disabled}"
+                                      onclick="{!c.handleButtonClick}"
+                                      class="{!v.buttonClass}"
+                                      aura:id="btn"
+                    />
+                </aura:iteration>
+            </lightning:buttonGroup>
+        </aura:if>
+    </div>
+
+</aura:component>

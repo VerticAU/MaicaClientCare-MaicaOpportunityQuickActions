@@ -1,0 +1,25 @@
+<aura:component description="aura_Modal" extends="c:aura_Base" extensible="true" access="public">
+
+    <aura:attribute name="footer" type="Aura.Component[]"></aura:attribute>
+
+    <aura:attribute name="overlayLib" type="Aura.Component"></aura:attribute>
+    <aura:attribute name="modalInstance" type="Map"/>
+    <aura:attribute name="heightPX" type="Integer"/>
+
+    <aura:method name="closeModal" action="{!c.handleCloseModal}">
+        <aura:attribute name="response" type="Object"/>
+    </aura:method>
+
+    <aura:method name="cancelModal" action="{!c.handleCancelModal}">
+        <aura:attribute name="response" type="Object"/>
+    </aura:method>
+
+    <aura:handler name="init" value="{!this}" action="{!c.handleInit}"/>
+
+    <lightning:overlayLibrary aura:id="overlayLib"/>
+
+    <div style="{!if(not(empty(v.heightPX)), 'min-height: ' + v.heightPX + 'px', '')}">
+        {!v.body}
+    </div>
+
+</aura:component>

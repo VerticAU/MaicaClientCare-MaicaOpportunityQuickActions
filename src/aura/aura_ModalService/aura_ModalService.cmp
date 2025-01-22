@@ -1,0 +1,41 @@
+<aura:component description="aura_ModalService" access="public">
+
+    <aura:attribute name="isBusy" type="Boolean" default="{!false}" access="private"/>
+
+    <aura:attribute name="defaultModalContent" type="Aura.Component[]">
+        <div class="slds-spinner_container slds-is-fixed">
+            <div role="status" class="slds-spinner slds-spinner_medium">
+                <span class="slds-assistive-text">Loading</span>
+                <div class="slds-spinner__dot-a"></div>
+                <div class="slds-spinner__dot-b"></div>
+            </div>
+        </div>
+    </aura:attribute>
+
+    <aura:method name="show" action="{!c.handleShow}" access="global">
+        <aura:attribute name="componentName" type="String"/>
+        <aura:attribute name="payload" type="Map"/>
+        <aura:attribute name="modalAttributes" type="Map"/>
+    </aura:method>
+
+    <lightning:overlayLibrary aura:id="overlayLib"/>
+
+    <aura:if isTrue="{!v.isBusy == true}">
+        {!v.defaultModalContent}
+    </aura:if>
+
+
+    <!--<c:strike_modal aura:id="modal"-->
+    <!--title="Modal Title"-->
+    <!--size="medium"-->
+    <!--allowEscapeClose="{!false}"-->
+    <!--showHeader="{!false}"-->
+    <!--showFooter="{!false}"-->
+    <!--showClose="{!true}"-->
+    <!--showModal="{!false}">-->
+
+    <!--{!v.modalContent}-->
+
+    <!--</c:strike_modal>-->
+
+</aura:component>

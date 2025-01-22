@@ -1,0 +1,11 @@
+.THIS .label-hidden.slds-form-element > label {
+    display: none;
+}
+
+.THIS table tr {
+    /*vertical-align: top;*/
+}
+
+.THIS th .slds-form-element__icon{
+    padding-top: 0;
+}
