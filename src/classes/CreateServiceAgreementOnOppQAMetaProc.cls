@@ -59,7 +59,7 @@ public with sharing class CreateServiceAgreementOnOppQAMetaProc extends Metadata
                 WITH USER_MODE
         ];
 
-        Set<Id> productIds = Utils.sObjects.getIdFieldValues(oppLineItems), OpportunityLineItem.Product2Id);
+        Set<Id> productIds = Utils.sObjects.getIdFieldValues(oppLineItems, OpportunityLineItem.Product2Id);
         List<maica_cc__Support_Item__c> supportItems = [
                 SELECT Id, Name, maica_cc__Support_Category__c, maica_cc__Service_Day__c, maica_cc__Service_Time__c,
                         maica_cc__Quantity_Unit_Of_Measure__c
