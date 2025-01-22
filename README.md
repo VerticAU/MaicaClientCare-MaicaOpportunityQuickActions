@@ -1,7 +1,9 @@
 # MaicaClientCare-Opportunity
+
 Product Management + Create Service Agreement features.
 
-<a href="https://githubsfdeploy.herokuapp.com">
-  <img alt="Deploy to Salesforce"
-       src="https://raw.githubusercontent.com/afawcett/githubsfdeploy/master/deploy.png">
-</a>
+## Pre-install setup
+
+1. Create the `Related_Opportunity__c` lookup on the `maica_cc__Service_Agreement__c` object.
+
+[![Deploy to Salesforce](https://raw.githubusercontent.com/afawcett/githubsfdeploy/master/deploy.png)](https://githubsfdeploy.herokuapp.com)
