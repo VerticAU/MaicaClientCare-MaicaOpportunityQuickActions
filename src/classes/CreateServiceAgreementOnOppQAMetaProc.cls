@@ -91,7 +91,7 @@ public with sharing class CreateServiceAgreementOnOppQAMetaProc extends Metadata
         }
 
         maica_cc__Service_Agreement__c existedAgreement = (maica_cc__Service_Agreement__c) Utils.arrays.firstOrNull(
-                [SELECT Id FROM maica_cc__Service_Agreement__c WHERE Related_Opportunity__c = :recordId AND Status__c = 'Active' WITH USER_MODE]
+                [SELECT Id FROM maica_cc__Service_Agreement__c WHERE Related_Opportunity__c = :recordId AND maica_cc__Status__c = 'Active' WITH USER_MODE]
         );
 
         this.response.put('existedAgreement', existedAgreement);
