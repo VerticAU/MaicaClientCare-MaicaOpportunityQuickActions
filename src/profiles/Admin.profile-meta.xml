@@ -155,6 +155,16 @@
         <field>Product2.Support_Purpose__c</field>
         <readable>true</readable>
     </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Product2.Support_Item__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Pricebook2.Price_List__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
 
     <objectPermissions>
         <allowCreate>true</allowCreate>
@@ -181,6 +191,15 @@
         <allowRead>true</allowRead>
         <modifyAllRecords>true</modifyAllRecords>
         <object>OpportunityLineItem</object>
+        <viewAllRecords>true</viewAllRecords>
+    </objectPermissions>
+    <objectPermissions>
+        <allowCreate>true</allowCreate>
+        <allowDelete>true</allowDelete>
+        <allowEdit>true</allowEdit>
+        <allowRead>true</allowRead>
+        <modifyAllRecords>true</modifyAllRecords>
+        <object>Pricebook2</object>
         <viewAllRecords>true</viewAllRecords>
     </objectPermissions>
 

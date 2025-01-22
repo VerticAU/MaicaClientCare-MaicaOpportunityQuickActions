@@ -4,15 +4,6 @@
             return;
         }
 
-        if(!helper.validateItems(cmp, event, helper)){
-            cmp.find('modal').showErrors([
-                'Please review the rows.'
-            ], false);
-            return;
-        } else {
-            cmp.find('modal').showErrors([], false);
-        }
-
         cmp.set('v.hideContentOnBusy', false);
 
         helper.execute(
