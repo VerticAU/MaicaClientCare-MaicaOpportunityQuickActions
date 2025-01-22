@@ -39,7 +39,7 @@ public with sharing class CreateServiceAgreementOnOppQAMetaProc extends Metadata
                 maica_cc__Start_Date__c = opportunityVar.Agreement_Start_Date__c,
                 maica_cc__End_Date__c = opportunityVar.Agreement_End_Date__c,
                 maica_cc__Price_List__c = priceListVar.Id,
-//                Related_Opportunity__c = opportunityVar.Id,
+                Related_Opportunity__c = opportunityVar.Id,
                 maica_cc__Participant__c = opportunityVar.Participant__c,
                 maica_cc__Service_Provider__c = opportunityVar.AccountId,
                 maica_cc__Funding_Type__c = opportunityVar.Funding_Type__c,
@@ -90,11 +90,11 @@ public with sharing class CreateServiceAgreementOnOppQAMetaProc extends Metadata
             });
         }
 
-//        maica_cc__Service_Agreement__c existedAgreement = (maica_cc__Service_Agreement__c) Utils.arrays.firstOrNull(
-//                [SELECT Id FROM maica_cc__Service_Agreement__c WHERE Related_Opportunity__c = :recordId AND Status__c = 'Active' WITH USER_MODE]
-//        );
+        maica_cc__Service_Agreement__c existedAgreement = (maica_cc__Service_Agreement__c) Utils.arrays.firstOrNull(
+                [SELECT Id FROM maica_cc__Service_Agreement__c WHERE Related_Opportunity__c = :recordId AND Status__c = 'Active' WITH USER_MODE]
+        );
 
-//        this.response.put('existedAgreement', existedAgreement);
+        this.response.put('existedAgreement', existedAgreement);
         this.response.put('oppLineItemsMap', oppLineItemsMap);
         this.response.put('serviceAgreement', serviceAgreementVar);
         this.response.put('agreementItems', agreementItems);
