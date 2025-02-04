@@ -12,13 +12,13 @@
         <type>Lookup</type>
     </fields>
     <fields>
-        <fullName>Category_Funding__c</fullName>
-        <description>Indicates if the Product provides funding at the Support Category level, i.e. for any Support Item within the Category</description>
+        <fullName>Bucket__c</fullName>
+        <description>Indicates if the Product is the Bucket, or Category Level, Product for the related Support Category</description>
         <externalId>false</externalId>
-        <formula>Id = Support_Category__r.maica_cc__Category_Support_Item__c</formula>
+        <formula>Id = Support_Category__r.Category_Product__c</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
-        <inlineHelpText>Indicates if the Product provides funding at the Support Category level, i.e. for any Support Item within the Category</inlineHelpText>
-        <label>Category Funding</label>
+        <inlineHelpText>Indicates if the Product is the Bucket, or Category Level, Product for the related Support Category</inlineHelpText>
+        <label>Bucket</label>
         <trackHistory>false</trackHistory>
         <type>Checkbox</type>
     </fields>

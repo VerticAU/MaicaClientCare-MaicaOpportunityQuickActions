@@ -87,7 +87,7 @@
                 item.Service_Time__c = isCategoryItem ? null : sourceItem.Service_Time__c;
                 item.Quantity = isCategoryItem ? 1 : sourceItem.Quantity;
                 item.Allow_Support_Item_Change__c = true;
-                item.Price_List_Entry__c = selectedEntry.Id;
+                // item.Price_List_Entry__c = selectedEntry.Id;
                 item.Product2Id = selectedEntry.Product2Id;
                 item.Product2 = selectedEntry.Product2;
                 item.UnitPrice = isCategoryItem ? item.UnitPrice : selectedEntry.maica_cc__Unit_Price__c;
