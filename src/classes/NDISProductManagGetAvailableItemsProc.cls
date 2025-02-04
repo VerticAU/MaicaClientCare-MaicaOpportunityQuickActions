@@ -20,7 +20,7 @@ public with sharing class NDISProductManagGetAvailableItemsProc extends Abstract
                 'Product2.Id,' +
                 'Product2.Name,' +
                 'Product2.QuantityUnitOfMeasure,' +
-                'Product2.Category_Funding__c,' +
+                'Product2.Bucket__c,' +
                 'Product2.Support_Category__c,' +
                 'Product2.Support_Category__r.Name,' +
                 'Product2.Support_Category__r.maica_cc__Category_Number__c,' +
@@ -50,10 +50,10 @@ public with sharing class NDISProductManagGetAvailableItemsProc extends Abstract
         };
 
         if (isCategoryProduct == true) {
-            conditions.add('Product2.Category_Funding__c = true');
+            conditions.add('Product2.Bucket__c = true');
         } else {
 
-            conditions.add('Product2.Category_Funding__c != true');
+            conditions.add('Product2.Bucket__c != true');
 
             if (String.isNotBlank(serviceDay)) {
                 List<String> serviceDays = new List<String>{

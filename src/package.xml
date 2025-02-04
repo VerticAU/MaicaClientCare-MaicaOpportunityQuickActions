@@ -13,7 +13,10 @@
         <name>QuickAction</name>
     </types>
     <types>
-        <members>*</members>
+        <members>Opportunity</members>
+        <members>OpportunityLineItem</members>
+        <members>Pricebook2</members>
+        <members>Product2</members>
         <name>CustomObject</name>
     </types>
     <types>
@@ -23,6 +26,13 @@
     <types>
         <members>*</members>
         <name>Layout</name>
+    </types>
+    <types>
+        <members>maica_cc__Service_Agreement__c.Related_Opportunity__c</members>
+        <members>maica_cc__Price_List__c.Price_Book__c</members>
+        <members>maica_cc__Support_Item__c.Product__c</members>
+        <members>maica_cc__Support_Category__c.Category_Product__c</members>
+        <name>CustomField</name>
     </types>
     <version>59.0</version>
 </Package>
