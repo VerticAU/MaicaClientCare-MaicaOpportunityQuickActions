@@ -39,7 +39,7 @@
 
     handleEditItemClick: function (cmp, event, helper) {
         var payload = event.getParam('payload');
-        payload.item.type = payload.item.type || (payload.item.Product2.Category_Funding__c == true ? 'Category' : 'Item');
+        payload.item.type = payload.item.type || (payload.item.Product2.Bucket__c == true ? 'Category' : 'Item');
         cmp.find('modalService').show(
             'c:NDISProductManagementScheduleModal',
             {
