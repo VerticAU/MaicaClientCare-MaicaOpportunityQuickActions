@@ -53,7 +53,7 @@ public with sharing class CreateServiceAgreementOnOppQAMetaProc extends Metadata
                         Schedule_Count__c, Schedule_Day__c,
                         Service_Frequency__c, Service_Day__c, Service_Time__c,
                         Service_Duration__c, Funding_Type__c,
-                        Product2.Category_Funding__c
+                        Product2.Bucket__c
                 FROM OpportunityLineItem
                 WHERE OpportunityId = :recordId
                 WITH USER_MODE
@@ -62,7 +62,7 @@ public with sharing class CreateServiceAgreementOnOppQAMetaProc extends Metadata
         Set<Id> productIds = Utils.sObjects.getIdFieldValues(oppLineItems, OpportunityLineItem.Product2Id);
         List<maica_cc__Support_Item__c> supportItems = [
                 SELECT Id, Name, maica_cc__Support_Category__c, maica_cc__Service_Day__c, maica_cc__Service_Time__c,
-                        maica_cc__Quantity_Unit_Of_Measure__c
+                        maica_cc__Quantity_Unit_Of_Measure__c, maica_cc__Category_Funding__c, Product__c
                 FROM maica_cc__Support_Item__c
                 WHERE Product__c IN :productIds
         ];
