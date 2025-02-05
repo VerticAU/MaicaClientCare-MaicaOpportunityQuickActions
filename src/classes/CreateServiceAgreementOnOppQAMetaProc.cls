@@ -52,7 +52,7 @@ public with sharing class CreateServiceAgreementOnOppQAMetaProc extends Metadata
                 SELECT Product2Id, Product2.Name, Product2.Support_Category__c, Quantity, UnitPrice,
                         Schedule_Count__c, Schedule_Day__c,
                         Service_Frequency__c, Service_Day__c, Service_Time__c,
-                        Service_Duration__c, Allow_Support_Item_Change__c, Funding_Type__c,
+                        Service_Duration__c, Funding_Type__c,
                         Product2.Bucket__c
                 FROM OpportunityLineItem
                 WHERE OpportunityId = :recordId
@@ -82,7 +82,7 @@ public with sharing class CreateServiceAgreementOnOppQAMetaProc extends Metadata
                     'maica_cc__Service_Duration__c' => item.Service_Duration__c,
                     'maica_cc__Service_Frequency__c' => item.Service_Frequency__c,
                     'maica_cc__Service_Time__c' => item.Service_Time__c,
-                    'maica_cc__Allow_Support_Item_Change__c' => item.Allow_Support_Item_Change__c,
+//                    'maica_cc__Allow_Support_Item_Change__c' => item.Allow_Support_Item_Change__c,
                     'maica_cc__Funding_Type__c' => item.Funding_Type__c,
                     'oppLineItemId' => item.Id
             });
