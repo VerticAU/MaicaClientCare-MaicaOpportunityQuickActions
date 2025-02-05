@@ -48,7 +48,7 @@ public with sharing class NDISProductManagementQAMetaProc extends MetadataProces
                         Product2.Support_Category__r.maica_cc__Support_Purpose__c, Product2.Category_Funding__c,
                         Start_Date__c, End_Date__c, Schedule_Count__c, Schedule_Day__c,
                         Service_Day__c, Service_Time__c, Period_Type__c,
-                        TotalPrice, PricebookEntryId, Allow_Support_Item_Change__c, Funding_Type__c
+                        TotalPrice, PricebookEntryId, Funding_Type__c
                 FROM OpportunityLineItem
                 WHERE OpportunityId = :opportunityId
                 WITH USER_MODE
