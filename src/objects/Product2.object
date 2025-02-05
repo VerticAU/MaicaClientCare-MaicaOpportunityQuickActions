@@ -46,7 +46,7 @@
         <type>MultiselectPicklist</type>
         <valueSet>
             <restricted>true</restricted>
-            <valueSetName>Claim_Type</valueSetName>
+            <valueSetName>maica_cc__Claim_Type</valueSetName>
         </valueSet>
         <visibleLines>4</visibleLines>
     </fields>
