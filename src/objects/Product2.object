@@ -13,11 +13,15 @@
     </fields>
     <fields>
         <fullName>Bucket__c</fullName>
-        <description>Indicates if the Product is the Bucket, or Category Level, Product for the related Support Category</description>
+        <description>Indicates if the Product is the Bucket, or Category Level, Product for the related Support
+            Category
+        </description>
         <externalId>false</externalId>
         <formula>Id = Support_Category__r.Category_Product__c</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
-        <inlineHelpText>Indicates if the Product is the Bucket, or Category Level, Product for the related Support Category</inlineHelpText>
+        <inlineHelpText>Indicates if the Product is the Bucket, or Category Level, Product for the related Support
+            Category
+        </inlineHelpText>
         <label>Bucket</label>
         <trackHistory>false</trackHistory>
         <type>Checkbox</type>
@@ -34,10 +38,25 @@
         <unique>false</unique>
     </fields>
     <fields>
+        <fullName>Claim_Types__c</fullName>
+        <externalId>false</externalId>
+        <label>Claim Types</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>MultiselectPicklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetName>Claim_Type</valueSetName>
+        </valueSet>
+        <visibleLines>4</visibleLines>
+    </fields>
+    <fields>
         <fullName>Favourite__c</fullName>
         <defaultValue>false</defaultValue>
         <externalId>false</externalId>
-        <inlineHelpText>This represents a Product that is commonly used within Service Delivery so will be displayed as a priority in the NDIS Product Management console.</inlineHelpText>
+        <inlineHelpText>This represents a Product that is commonly used within Service Delivery so will be displayed as
+            a priority in the NDIS Product Management console.
+        </inlineHelpText>
         <label>Favourite</label>
         <trackHistory>false</trackHistory>
         <type>Checkbox</type>
@@ -52,6 +71,22 @@
         <trackHistory>false</trackHistory>
         <type>Text</type>
         <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Funding_Source__c</fullName>
+        <description>Indicates the Funding Source that the Support Category applies to.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Indicates the Funding Source that the Support Category applies to. Determines what fields are
+            displayed on the page.
+        </inlineHelpText>
+        <label>Funding Source</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetName>maica_cc__Funding_Source</valueSetName>
+        </valueSet>
     </fields>
     <fields>
         <fullName>Service_Day__c</fullName>
@@ -145,9 +180,13 @@
     <fields>
         <fullName>Support_Item_Number__c</fullName>
         <caseSensitive>false</caseSensitive>
-        <description>Unique NDIS Reference Number derived from Support Category, Sequence Number, Registration Group, Outcome Domain and Support Purpose</description>
+        <description>Unique NDIS Reference Number derived from Support Category, Sequence Number, Registration Group,
+            Outcome Domain and Support Purpose
+        </description>
         <externalId>true</externalId>
-        <inlineHelpText>Unique NDIS Reference Number derived from Support Category, Sequence Number, Registration Group, Outcome Domain and Support Purpose</inlineHelpText>
+        <inlineHelpText>Unique NDIS Reference Number derived from Support Category, Sequence Number, Registration Group,
+            Outcome Domain and Support Purpose
+        </inlineHelpText>
         <label>Support Item Number</label>
         <length>55</length>
         <required>false</required>

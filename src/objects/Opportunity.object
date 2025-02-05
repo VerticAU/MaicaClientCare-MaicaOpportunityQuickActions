@@ -35,15 +35,59 @@
     </fields>
     <fields>
         <fullName>Funding_Type__c</fullName>
+        <description>Represents how the funding is managed (based on the Funding Source).</description>
         <externalId>false</externalId>
+        <inlineHelpText>Represents how the funding is managed (based on the Funding Source).</inlineHelpText>
         <label>Funding Type</label>
         <required>false</required>
-        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <controllingField>Funding_Source__c</controllingField>
+            <restricted>true</restricted>
+            <valueSetName>maica_cc__Funding_Type</valueSetName>
+            <valueSettings>
+                <controllingFieldValue>NDIS</controllingFieldValue>
+                <valueName>Agency Managed</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>NDIS</controllingFieldValue>
+                <valueName>Plan Managed</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>NDIS</controllingFieldValue>
+                <valueName>Self Managed</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>NDIS</controllingFieldValue>
+                <valueName>Combination</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Home Care Package</controllingFieldValue>
+                <valueName>Home Care Package</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Block Funding</controllingFieldValue>
+                <controllingFieldValue>Self Funded</controllingFieldValue>
+                <controllingFieldValue>Partner Organisation</controllingFieldValue>
+                <valueName>Other</valueName>
+            </valueSettings>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Funding_Source__c</fullName>
+        <description>Represents the source or program providing the funding to the Participant.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Represents the source or program providing the funding to the Participant.</inlineHelpText>
+        <label>Funding Source</label>
+        <required>true</required>
+        <trackHistory>false</trackHistory>
         <trackTrending>false</trackTrending>
         <type>Picklist</type>
         <valueSet>
             <restricted>true</restricted>
-            <valueSetName>maica_cc__Funding_Type</valueSetName>
+            <valueSetName>maica_cc__Funding_Source</valueSetName>
         </valueSet>
     </fields>
     <fields>
