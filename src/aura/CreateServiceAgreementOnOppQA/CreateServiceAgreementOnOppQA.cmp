@@ -96,10 +96,10 @@
                                 <th scope="col" style="width: 15%;">
                                     Rate
                                 </th>
-                                <th scope="col" style="{!if(v.meta.dto.isCombinationFunding == true, 'width: 7%;', 'width: 5%;')}">
-                                    <span>Mode&nbsp;</span>
-                                    <lightning:helptext content="Indicates if the Support Category can be delivered in a flexible manner, meaning an alternative Support Item can be delivered."/>
-                                </th>
+<!--                                <th scope="col" style="{!if(v.meta.dto.isCombinationFunding == true, 'width: 7%;', 'width: 5%;')}">-->
+<!--                                    <span>Mode&nbsp;</span>-->
+<!--                                    <lightning:helptext content="Indicates if the Support Category can be delivered in a flexible manner, meaning an alternative Support Item can be delivered."/>-->
+<!--                                </th>-->
                                 <aura:if isTrue="{!v.meta.dto.isCombinationFunding == true}">
                                     <th scope="col" style="width: 15%;">
                                         <span>Funding Type&nbsp;</span>
