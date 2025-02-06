@@ -521,8 +521,8 @@
                                                                 </div>
                                                             </td>
                                                             <td role="gridcell" class="slds-cell-wrap">
-                                                                <div class="slds-truncate" scope="col" title="{!item.maica_cc__Unit_Price__c}">
-                                                                    <lightning:formattedNumber value="{!item.maica_cc__Unit_Price__c}"
+                                                                <div class="slds-truncate" scope="col" title="{!item.UnitPrice}">
+                                                                    <lightning:formattedNumber value="{!item.UnitPrice}"
                                                                                                style="currency"
                                                                                                currencyDisplayAs="symbol"
                                                                     />
