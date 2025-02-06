@@ -30,7 +30,11 @@ public with sharing class CreateServiceAgreementOnOppQAMetaProc extends Metadata
         maica_cc__Price_List__c priceListVar = (maica_cc__Price_List__c) Utils.arrays.firstOrException([
                 SELECT Id
                 FROM maica_cc__Price_List__c
-                WHERE Price_Book__c = :opportunityVar.Pricebook2Id
+                WHERE Price_Book__c = :opportunityVar.Pricebook2Id AND
+                Id IN (
+                    SELECT Price_List__c FROM Pricebook2
+                    WHERE Id = :opportunityVar.Pricebook2Id
+                )
         ], 'No related Price List with Price_Book__c: ' + opportunityVar.Pricebook2Id);
 
         maica_cc__Funding__c activePacePlanVar = opportunityVar.Participant__c == null ? null : getActivePacePlan(opportunityVar.Participant__c);
