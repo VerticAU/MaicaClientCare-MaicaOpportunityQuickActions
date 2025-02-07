@@ -90,7 +90,7 @@
                 // item.Price_List_Entry__c = selectedEntry.Id;
                 item.Product2Id = selectedEntry.Product2Id;
                 item.Product2 = selectedEntry.Product2;
-                item.UnitPrice = isCategoryItem ? item.UnitPrice : selectedEntry.maica_cc__Unit_Price__c;
+                item.UnitPrice = isCategoryItem ? item.UnitPrice : selectedEntry.UnitPrice;
                 item.TotalPrice = (item.UnitPrice || 0) * (item.Quantity || 0);
                 return item;
             }),
