@@ -20,7 +20,7 @@ public with sharing class CreateServiceAgreementOnOppQAMetaProc extends Metadata
         Opportunity opportunityVar = (Opportunity) Utils.arrays.firstOrException([
             SELECT Id, Agreement_Start_Date__c, Agreement_End_Date__c, Pricebook2Id, StageName,
                 Participant__c, Participant__r.FirstName, Participant__r.LastName, AccountId, Funding_Type__c,
-                Funding_Source__c, Pricebook2.Name
+                Funding_Source__c, Pricebook2.Name, Funding_Administrator__c
             FROM Opportunity
             WHERE Id = :recordId
             WITH USER_MODE
@@ -49,6 +49,7 @@ public with sharing class CreateServiceAgreementOnOppQAMetaProc extends Metadata
             maica_cc__Service_Provider__c = opportunityVar.AccountId,
             maica_cc__Funding_Type__c = opportunityVar.Funding_Type__c,
             maica_cc__Funding_Source__c = opportunityVar.Funding_Source__c,
+            maica_cc__Funding_Administrator__c = opportunityVar.Funding_Administrator__c,
             Name = Utils.strings.joinNonBlank(new List<String>{
                 'Service Agreement', opportunityVar.Participant__r?.FirstName, opportunityVar.Participant__r?.LastName
             }, ' ')
