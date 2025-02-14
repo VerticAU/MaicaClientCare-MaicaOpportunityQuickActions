@@ -33,9 +33,9 @@
                         <valueListItems>
                             <value>Global.NewCase</value>
                         </valueListItems>
-                        <valueListItems>
-                            <value>Global.NewNote</value>
-                        </valueListItems>
+<!--                        <valueListItems>-->
+<!--                            <value>Global.NewNote</value>-->
+<!--                        </valueListItems>-->
                         <valueListItems>
                             <value>FeedItem.RypplePost</value>
                         </valueListItems>
