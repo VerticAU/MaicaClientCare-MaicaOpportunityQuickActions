@@ -123,4 +123,20 @@
         <trackTrending>false</trackTrending>
         <type>Lookup</type>
     </fields>
+    <validationRules>
+        <fullName>Funding_Administrator_Required</fullName>
+        <active>true</active>
+        <description>Ensures that the Funding Administrator lookup is populated when the Funding Source meets specific criteria.</description>
+        <errorConditionFormula>AND(
+            ISBLANK(Funding_Administrator__c),
+            OR(
+            ISPICKVAL(Funding_Type__c, &quot;Plan Managed&quot;),
+            ISPICKVAL(Funding_Type__c, &quot;Combination&quot;),
+            ISPICKVAL(Funding_Type__c, &quot;Home Care Package&quot;),
+            ISPICKVAL(Funding_Source__c, &quot;Partner Organisation&quot;),
+            ISPICKVAL(Funding_Source__c, &quot;Block Funding&quot;)
+            )
+            )</errorConditionFormula>
+        <errorMessage>Please provide the Funding Administrator.</errorMessage>
+    </validationRules>
 </CustomObject>
