@@ -222,3 +222,4 @@
         <object>Pricebook2</object>
         <viewAllRecords>true</viewAllRecords>
     </objectPermissions>
+</Profile>
