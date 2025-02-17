@@ -117,7 +117,7 @@
         <label>Participant</label>
         <referenceTo>Contact</referenceTo>
         <relationshipLabel>Opportunities (Participant)</relationshipLabel>
-        <relationshipName>Opportunities</relationshipName>
+        <relationshipName>Participant_Opportunities</relationshipName>
         <required>false</required>
         <trackFeedHistory>false</trackFeedHistory>
         <trackTrending>false</trackTrending>
