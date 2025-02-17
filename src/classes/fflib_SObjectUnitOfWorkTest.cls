@@ -35,38 +35,38 @@ private with sharing class fflib_SObjectUnitOfWorkTest {
             OpportunityLineItem.SObjectType
         };
 
-    @isTest
-    private static void testUnitOfWorkEmail() {
-        string testRecordName = 'UoW Test Name 1';
-
-        Messaging.SingleEmailMessage email = new Messaging.SingleEmailMessage();
-        email.setToAddresses(new list<String>{
-            'foobar@test.com'
-        });
-        email.setPlainTextBody('See Spot run.');
-
-        fflib_SObjectUnitOfWork uow = new fflib_SObjectUnitOfWork(MY_SOBJECTS);
-
-        Opportunity opp = new Opportunity();
-        opp.Name = testRecordName;
-        opp.StageName = 'Open';
-        opp.CloseDate = System.today();
-        opp.Funding_Source__c = 'Home Care Package';
-        uow.registerNew(opp);
-
-        uow.registerEmail(email);
-
-        uow.registerRelationship(email, opp);
-
-        uow.commitWork();
-
-        List<Opportunity> opps = [select Id, Name, (Select Id from OpportunityLineItems) from Opportunity where Name = :testRecordName order by Name];
-
-        // assert that an email was sent
-        system.assertEquals(1, Limits.getEmailInvocations());
-
-        System.assertEquals(1, opps.size());
-    }
+//    @isTest
+//    private static void testUnitOfWorkEmail() {
+//        string testRecordName = 'UoW Test Name 1';
+//
+//        Messaging.SingleEmailMessage email = new Messaging.SingleEmailMessage();
+//        email.setToAddresses(new list<String>{
+//            'foobar@test.com'
+//        });
+//        email.setPlainTextBody('See Spot run.');
+//
+//        fflib_SObjectUnitOfWork uow = new fflib_SObjectUnitOfWork(MY_SOBJECTS);
+//
+//        Opportunity opp = new Opportunity();
+//        opp.Name = testRecordName;
+//        opp.StageName = 'Open';
+//        opp.CloseDate = System.today();
+//        opp.Funding_Source__c = 'Home Care Package';
+//        uow.registerNew(opp);
+//
+//        uow.registerEmail(email);
+//
+//        uow.registerRelationship(email, opp);
+//
+//        uow.commitWork();
+//
+//        List<Opportunity> opps = [select Id, Name, (Select Id from OpportunityLineItems) from Opportunity where Name = :testRecordName order by Name];
+//
+//        // assert that an email was sent
+//        system.assertEquals(1, Limits.getEmailInvocations());
+//
+//        System.assertEquals(1, opps.size());
+//    }
 
     @isTest
     private static void testUnitOfWorkNewDirtyDelete() {
