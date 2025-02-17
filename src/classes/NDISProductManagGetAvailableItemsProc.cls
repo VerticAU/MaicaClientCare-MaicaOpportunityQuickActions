@@ -145,7 +145,7 @@ public with sharing class NDISProductManagGetAvailableItemsProc extends Abstract
                 }
             }
 
-            conditions.add('Product2.maica_cc__Support_Category__c IN :categoryIds');
+            conditions.add('Product2.Support_Category__c IN :categoryIds');
         }
 
         queryFactory.setCondition(String.join(conditions, ' AND '));
