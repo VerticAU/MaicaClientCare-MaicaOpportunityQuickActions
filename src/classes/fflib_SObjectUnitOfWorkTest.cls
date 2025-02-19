@@ -72,6 +72,10 @@ private with sharing class fflib_SObjectUnitOfWorkTest {
     private static void testUnitOfWorkNewDirtyDelete() {
         // Insert Opporunities with UnitOfWork
         {
+            maica_cc__Support_Category__c supportCategory = new maica_cc__Support_Category__c(
+                Name = 'Test'
+            );
+            insert supportCategory;
             fflib_SObjectUnitOfWork uow = new fflib_SObjectUnitOfWork(MY_SOBJECTS);
             for (Integer o = 0; o < 10; o++) {
                 Opportunity opp = new Opportunity();
@@ -86,6 +90,7 @@ private with sharing class fflib_SObjectUnitOfWorkTest {
                 for (Integer i = 0; i < o + 1; i++) {
                     Product2 product = new Product2();
                     product.Name = opp.Name + ' : Product : ' + i;
+                    product.Support_Category__c = supportCategory.Id;
                     uow.registerNew(new List<SObject>{
                         product
                     });
@@ -233,6 +238,10 @@ private with sharing class fflib_SObjectUnitOfWorkTest {
     private static void testDerivedUnitOfWork_CommitSuccess() {
         // Insert Opporunities with UnitOfWork
         DerivedUnitOfWork uow = new DerivedUnitOfWork(MY_SOBJECTS);
+        maica_cc__Support_Category__c supportCategory = new maica_cc__Support_Category__c(
+            Name = 'Test'
+        );
+        insert supportCategory;
         for (Integer o = 0; o < 10; o++) {
             Opportunity opp = new Opportunity();
             opp.Name = 'UoW Test Name ' + o;
@@ -245,6 +254,7 @@ private with sharing class fflib_SObjectUnitOfWorkTest {
             for (Integer i = 0; i < o + 1; i++) {
                 Product2 product = new Product2();
                 product.Name = opp.Name + ' : Product : ' + i;
+                product.Support_Category__c = supportCategory.Id;
                 uow.registerNew(new List<SObject>{
                     product
                 });

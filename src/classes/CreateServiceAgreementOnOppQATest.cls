@@ -64,8 +64,14 @@ private class CreateServiceAgreementOnOppQATest {
         );
         insert opportunityVar;
 
+        maica_cc__Support_Category__c supportCategory = new maica_cc__Support_Category__c(
+            Name = 'Test'
+        );
+        insert supportCategory;
+
         Product2 productVar = new Product2(
-            Name = 'testProduct'
+            Name = 'testProduct',
+            Support_Category__c = supportCategory.Id
         );
         insert productVar;
 
