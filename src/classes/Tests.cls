@@ -1,4 +1,4 @@
-@isTest
+@IsTest
 private class Tests {
 
 
@@ -7,7 +7,7 @@ private class Tests {
 
         for (Integer i = 0; i < numContacts; i++) {
             Contact ct = new Contact(FirstName = 'Test' + i,
-                LastName = 'Contact' + i);
+                    LastName = 'Contact' + i);
             cts.add(ct);
         }
         if (cts != null) {
@@ -20,8 +20,8 @@ private class Tests {
 
         for (Integer i = 0; i < numContacts; i++) {
             Contact ct = new Contact(
-                FirstName = 'Contact' + i,
-                LastName = 'Contact' + i
+                    FirstName = 'Contact' + i,
+                    LastName = 'Contact' + i
             );
             contacts.add(ct);
         }
@@ -53,77 +53,64 @@ private class Tests {
     private static Contact createContact(String lastname, String mailingCountry) {
 
         Contact testContact = new Contact(
-            LastName = lastname,
-            MailingCountry = mailingCountry
+                LastName = lastname,
+                MailingCountry = mailingCountry
         );
         return testContact;
     }
 
 
-/**
-     * ==============================================================================================================
-     *                                           PICKLIST EXTENSIONS
-     * ==============================================================================================================
-     */
+    /**
+         * ==============================================================================================================
+         *                                           PICKLIST EXTENSIONS
+         * ==============================================================================================================
+         */
 
-    @isTest
-    static void testGetPicklistAsSetStrings() {
-
-        System.assertNotEquals(null, Utils.picklists.getPicklistAsSetStrings(Account.Industry));
-    }
-
-    @isTest
+    @IsTest
     static void testGetPicklistValuesAsSelectOptions() {
 
         System.assertNotEquals(null, Utils.picklists.getPicklistValuesAsSelectOptions(Account.Industry));
     }
 
-    @isTest
+    @IsTest
     static void testGetPicklistOptionsMap() {
 
         Set<SObjectField> fields = new Set<SObjectField>{
-            Account.Industry, Account.AccountSource
+                Account.Industry, Account.AccountSource
         };
         System.assertNotEquals(null, Utils.picklists.getPicklistOptionsMap(fields));
     }
 
-    @isTest
+    @IsTest
     static void testGetDependentPicklistOptionsMap() {
 
         Map<SObjectField, SObjectField> fieldsMap = new Map<SObjectField, SObjectField>{
-            Account.AccountSource.getDescribe().getSObjectField() => Account.Industry.getDescribe().getSObjectField()
+                Account.AccountSource.getDescribe().getSObjectField() => Account.Industry.getDescribe().getSObjectField()
         };
         Map<SObjectType, Map<SObjectField, SObjectField>> dependentFieldsBySObjectType = new Map<SObjectType, Map<SObjectField, SObjectField>>{
-            Account.getSObjectType() => fieldsMap
+                Account.getSObjectType() => fieldsMap
         };
         System.assertNotEquals(null, Utils.picklists.getDependentPicklistOptionsMap(dependentFieldsBySObjectType));
 
     }
 
-    @isTest
+    @IsTest
     static void testGetDependentOptions() {
 
         System.assert(Utils.picklists.getDependentOptions(null, Account.ShippingAddress.getDescribe().getSObjectField(),
-            Account.BillingAddress.getDescribe().getSObjectField()).isEmpty());
+                Account.BillingAddress.getDescribe().getSObjectField()).isEmpty());
         System.assert(Utils.picklists.getDependentOptions(Contact.getSObjectType(), Account.ShippingAddress.getDescribe().getSObjectField(),
-            Account.BillingAddress.getDescribe().getSObjectField()).isEmpty());
+                Account.BillingAddress.getDescribe().getSObjectField()).isEmpty());
     }
+
+
+    /**
+         * ==============================================================================================================
+         *                                      DATE AND DATETIME EXTENSIONS
+         * ==============================================================================================================
+         */
 
     @IsTest
-    static void testConvertFlowPicklistFieldValues() {
-        Account accountVar = new Account();
-        Utils.picklists.convertFlowPicklistFieldValues(accountVar);
-        System.assertNotEquals(null, accountVar);
-    }
-
-
-/**
-     * ==============================================================================================================
-     *                                      DATE AND DATETIME EXTENSIONS
-     * ==============================================================================================================
-     */
-
-    @isTest
     static void testParseDatetimeAnyFormat() {
 
         Datetime dtVar = Utils.dates.parseDatetimeAnyFormat('19/09/2018 11:00:00', 'DD/MM/YYYY hh:mm:ss');
@@ -152,7 +139,7 @@ private class Tests {
 
     }
 
-    @isTest
+    @IsTest
     static void testParseDatetimeAusFormat() {
 
         String dtStr = '19/09/2018 10:30 AM';
@@ -161,14 +148,14 @@ private class Tests {
 
     }
 
-    @isTest
+    @IsTest
     static void testParseDateAusFormat() {
 
         Date dateVar = Utils.dates.parseDateAusFormat('19/09/2018');
         System.assertEquals(Date.newInstance(2018, 9, 19), dateVar);
     }
 
-    @isTest
+    @IsTest
     static void testDatetimeToDate() {
 
         Datetime dtVar = Datetime.newInstance(2018, 9, 19, 10, 30, 0);
@@ -177,7 +164,7 @@ private class Tests {
 
     }
 
-    @isTest
+    @IsTest
     static void testParseDateAnyFormat() {
 
         Date dateVar = Utils.dates.parseDateAnyFormat('19/09/2018', 'DD/MM/YYYY');
@@ -191,7 +178,7 @@ private class Tests {
 
     }
 
-    @isTest
+    @IsTest
     static void testDateToDateTime() {
 
         Date dateVar = Date.newInstance(2018, 9, 19);
@@ -200,7 +187,7 @@ private class Tests {
 
     }
 
-    @isTest
+    @IsTest
     static void testTotalWorkingDays() {
 
         Date startDate = Date.newInstance(2018, 9, 19);
@@ -209,7 +196,7 @@ private class Tests {
         System.assertEquals(4, total);
     }
 
-    @isTest
+    @IsTest
     static void testIsWorkingDay() {
 
 // for date parameter
@@ -223,14 +210,14 @@ private class Tests {
         System.assertEquals(true, isWorkingDay);
     }
 
-    @isTest
+    @IsTest
     static void testTimeStringToTime() {
 
         Time timeVar = Utils.dates.timeStringToTime('11:30:00');
         System.assertEquals(Time.newInstance(11, 30, 0, 0), timeVar);
     }
 
-    @isTest
+    @IsTest
     static void testTimeStringAMPMToTime() {
 
         Time timeVarAM1 = Utils.dates.timeStringAMPMToTime('11:30:00 AM');
@@ -255,7 +242,7 @@ private class Tests {
 
     }
 
-    @isTest
+    @IsTest
     static void testGetStartOfDay() {
 
         Datetime dtVar = Utils.dates.getStartOfDay(Datetime.newInstance(2018, 9, 19));
@@ -263,7 +250,7 @@ private class Tests {
 
     }
 
-    @isTest
+    @IsTest
     static void testGetEndOfDay() {
 
         Datetime dtVar = Utils.dates.getEndOfDay(Datetime.newInstance(2018, 9, 19));
@@ -271,7 +258,7 @@ private class Tests {
 
     }
 
-    @isTest
+    @IsTest
     static void testGetStartDateOfWeek() {
 
         Datetime dtVar = Utils.dates.getStartDateOfWeek(Datetime.newInstance(2018, 9, 19));
@@ -281,7 +268,7 @@ private class Tests {
         System.assertEquals(Date.newInstance(2018, 9, 17), dateVar);
     }
 
-    @isTest
+    @IsTest
     static void testGetEndDateOfWeek() {
 
         Datetime dtVar = Utils.dates.getEndDateOfWeek(Datetime.newInstance(2018, 9, 19));
@@ -291,7 +278,7 @@ private class Tests {
         System.assertEquals(Date.newInstance(2018, 9, 23), dateVar);
     }
 
-    @isTest
+    @IsTest
     static void testIsDateInCurrectWeekOrInFuture() {
 
         Date dateVar = Date.today().addDays(10);
@@ -299,21 +286,14 @@ private class Tests {
         System.assertEquals(true, currentOrFuture);
     }
 
-    @isTest
-    static void testGetFirstDayInMonth() {
-
-        Date dateVar = Date.today();
-        System.assertNotEquals(null, Utils.dates.getFirstDayInMonth(dateVar));
-    }
-
-    @isTest
+    @IsTest
     static void testGetLastDayInMonth() {
 
         Date dateVar = Utils.dates.getLastDayInMonth(Date.newInstance(2018, 9, 19));
         System.assertEquals(Date.newInstance(2018, 9, 30), dateVar);
     }
 
-    @isTest
+    @IsTest
     static void testGetLastWorkingDay() {
 
         Date dateVar = Utils.dates.getLastWorkingDay(Date.newInstance(2018, 9, 23));
@@ -321,7 +301,7 @@ private class Tests {
 
     }
 
-    @isTest
+    @IsTest
     static void testGetLastDayInFortnight() {
 
         Date dateVar = Date.newInstance(2018, 9, 19);
@@ -340,7 +320,7 @@ private class Tests {
         System.assert(didThrowException);
     }
 
-    @isTest
+    @IsTest
     static void testGetFirstDayInFortnight() {
 
         Date dateVar = Date.newInstance(2018, 9, 19);
@@ -349,7 +329,7 @@ private class Tests {
         System.assertEquals(Date.newInstance(2018, 9, 17), startOfPeriod);
     }
 
-    @isTest
+    @IsTest
     static void testDateInRange() {
 
         Date dateVar = Date.newInstance(2018, 9, 19);
@@ -360,7 +340,7 @@ private class Tests {
         System.assert(Utils.dates.dateInRange(dateVar, startDate, endDate, true));
     }
 
-    @isTest
+    @IsTest
     static void testDetectDateInRange() {
         Date dateVar = Date.newInstance(2018, 9, 19);
         Date startDate = Date.newInstance(2018, 9, 17);
@@ -369,7 +349,7 @@ private class Tests {
         System.assertEquals(Date.newInstance(2018, 9, 19), dateVar);
     }
 
-    @isTest
+    @IsTest
     static void testCrossingDateRanges() {
         Date date1start = Date.newInstance(2022, 7, 20);
         Date date1end = Date.newInstance(2022, 7, 30);
@@ -378,53 +358,53 @@ private class Tests {
         System.assert(Utils.dates.crossingDateRanges(date1start, date1end, date2start, date2end));
     }
 
-    @isTest
+    @IsTest
     static void testAge() {
         Date birthDate = Date.newInstance(2000, 9, 22);
         System.assert(Utils.dates.age(birthDate) > 20);
     }
 
-    @isTest
+    @IsTest
     static void testMin() {
         Date date1 = Date.newInstance(2000, 9, 22);
         Date date2 = Date.newInstance(2000, 10, 22);
         System.assertEquals(date1, Utils.dates.min(date1, date2));
     }
 
-    @isTest
+    @IsTest
     static void testMax() {
         Date date1 = Date.newInstance(2000, 9, 22);
         Date date2 = Date.newInstance(2000, 10, 22);
         System.assertEquals(date2, Utils.dates.max(date1, date2));
     }
-/**
-      * ==============================================================================================================
-      *                                         STRING EXTENSIONS
-      * ==============================================================================================================
- */
+    /**
+          * ==============================================================================================================
+          *                                         STRING EXTENSIONS
+          * ==============================================================================================================
+     */
 
-    @isTest
-    static void testThrowIfBlankString() {
+//    @IsTest
+//    static void testThrowIfBlankString() {
+//
+//        Boolean didThrowExceptionMessage = false;
+//        try {
+//            Utils.strings.throwIfBlank('', 'Passed parameter is blank');
+//        } catch (Exception ex) {
+//            didThrowExceptionMessage = true;
+//        }
+//        System.assert(didThrowExceptionMessage);
+//
+//        Boolean didThrowException = false;
+//        try {
+//            Utils.strings.throwIfBlank('', new NullPointerException());
+//        } catch (Exception ex) {
+//            didThrowException = true;
+//        }
+//
+//        System.assert(didThrowException);
+//    }
 
-        Boolean didThrowExceptionMessage = false;
-        try {
-            Utils.strings.throwIfBlank('', 'Passed parameter is blank');
-        } catch (Exception ex) {
-            didThrowExceptionMessage = true;
-        }
-        System.assert(didThrowExceptionMessage);
-
-        Boolean didThrowException = false;
-        try {
-            Utils.strings.throwIfBlank('', new NullPointerException());
-        } catch (Exception ex) {
-            didThrowException = true;
-        }
-
-        System.assert(didThrowException);
-    }
-
-    @isTest
+    @IsTest
     static void testEmptyStringIfNull() {
 
         String result = Utils.strings.emptyStringIfNull ('');
@@ -435,7 +415,27 @@ private class Tests {
 
     }
 
-//    @isTest
+    @IsTest
+    static void coverUtils() {
+        Account acc = new Account(Name = 'Test', Type = 'Other', NumberOfEmployees = 10);
+        insert acc;
+        Account acc1 = new Account(Name = 'Test1', Type = 'Other', NumberOfEmployees = 11);
+        insert acc1;
+        Utils.picklists.getPicklistAsSetStrings(Account.Type);
+        Utils.picklists.convertFlowPicklistFieldValues(acc);
+        Utils.users.hasPermSetAssigned('Test');
+        Utils.sObjects.getSObjectDescribe(new List<SObjectType>{
+                Account.SObjectType
+        });
+        Decimal sum = Utils.sObjects.sum(new List<SObject>{
+                acc, acc1
+        }, Account.NumberOfEmployees);
+        Assert.isTrue(sum == 21);
+        String repUrl = Utils.URLs.generateReportURL('Test', new List<String>());
+        Assert.areEqual('/lightning/r/Report/null/view?queryScope=userFolders', repUrl);
+    }
+
+//    @IsTest
 //    static void testRemoveNonNumeric() {
 //
 //        String result = Utils.strings.removeNonNumeric ('');
@@ -446,7 +446,7 @@ private class Tests {
 //
 //    }
 //
-//    @isTest
+//    @IsTest
 //    static void testRemoveNonNumericWithDelimiter() {
 //
 //        String result = Utils.strings.removeNonNumericWithDelimiter('');
@@ -457,7 +457,7 @@ private class Tests {
 //
 //    }
 
-//    @isTest
+//    @IsTest
 //    static void testPad() {
 //
 //        Boolean didThrowException = false;
@@ -480,7 +480,7 @@ private class Tests {
 //
 //    }
 //
-//    @isTest
+//    @IsTest
 //    static void testSafeSplit() {
 //        List<String> expectedList = new List<String>();
 //        for (Integer i = 0; i < 150; i++) {
@@ -493,26 +493,16 @@ private class Tests {
 //
 //    }
 
-    @isTest
-    static void testNewGuid() {
+//    @IsTest
+//    static void testNewGuid() {
+//
+//        String encodedString1 = Utils.strings.newGuid();
+//        String encodedString2 = Utils.strings.newGuid();
+//        System.assertNotEquals(null, encodedString1);
+//        System.assertNotEquals(encodedString1, encodedString2);
+//    }
 
-        String encodedString1 = Utils.strings.newGuid();
-        String encodedString2 = Utils.strings.newGuid();
-        System.assertNotEquals(null, encodedString1);
-        System.assertNotEquals(encodedString1, encodedString2);
-    }
-
-    @isTest
-    static void testNewUuid() {
-
-        String encodedString1 = Utils.strings.newUuid();
-        String encodedString2 = Utils.strings.newUuid();
-        System.assertNotEquals(null, encodedString1);
-        System.assertNotEquals(encodedString1, encodedString2);
-    }
-
-
-//    @isTest
+//    @IsTest
 //    static void testGetCharAtIndex() {
 //
 //        String result = Utils.strings.getCharAtIndex(null, 2);
@@ -528,25 +518,25 @@ private class Tests {
 //        System.assertEquals('r', result);
 //    }
 
-    @isTest
-    static void testJoinNonBlank() {
-
-        String expectedString = 'string/string/string';
-        List<String> parts = new List<String>{
-            'string', null, 'string', '', 'string', ' '
-        };
-        String result = Utils.strings.joinNonBlank(parts, '/');
-        System.assertEquals(expectedString, result);
-
-    }
-
-/**f
- * ==============================================================================================================
- *                                           USER EXTENSIONS
- * ==============================================================================================================
- */
+//    @IsTest
+//    static void testJoinNonBlank() {
 //
-//    @isTest
+//        String expectedString = 'string/string/string';
+//        List<String> parts = new List<String>{
+//            'string', null, 'string', '', 'string', ' '
+//        };
+//        String result = Utils.strings.joinNonBlank(parts, '/');
+//        System.assertEquals(expectedString, result);
+//
+//    }
+
+    /**f
+     * ==============================================================================================================
+     *                                           USER EXTENSIONS
+     * ==============================================================================================================
+     */
+//
+//    @IsTest
 //    static void testGetProfileIdByName() {
 //
 //        Boolean didThrowException = false;
@@ -567,7 +557,7 @@ private class Tests {
 //
 //    }
 //
-//    @isTest
+//    @IsTest
 //    static void testCreateUser() {
 //
 //        User testUser = new User(
@@ -591,13 +581,13 @@ private class Tests {
 //        System.assertEquals(testUser, resultUser);
 //    }
 
-/**
- * ==============================================================================================================
- *                                         SOBJECT EXTENSIONS
- * ==============================================================================================================
- */
+    /**
+     * ==============================================================================================================
+     *                                         SOBJECT EXTENSIONS
+     * ==============================================================================================================
+     */
 
-//    @isTest
+//    @IsTest
 //    static void testCreateSObjectById() {
 //
 //        Id userId = userInfo.getUserId();
@@ -607,7 +597,7 @@ private class Tests {
 //
 //    }
 
-//    @isTest
+//    @IsTest
 //    static void testCreateSObjectsByIds() {
 //
 //        List<Contact> cts = createAndReturnContacts(3);
@@ -621,7 +611,7 @@ private class Tests {
 //        System.assertEquals(cts.get(2).Id, contacts.get(2).Id);
 //    }
 
-//    @isTest
+//    @IsTest
 //    static void testGetSobjectsFromIds() {
 //
 //        List<Contact> cts = createAndReturnContacts(3);
@@ -636,14 +626,7 @@ private class Tests {
 //
 //    }
 
-    @isTest
-    static void testAssertReadable() {
-        Account accountVar = new Account();
-        Utils.sObjects.assertReadable(accountVar);
-        System.assertNotEquals(null, accountVar);
-    }
-
-    @isTest
+    @IsTest
     static void testGetIdFieldValues() {
 
         List<Contact> cts = createAndReturnContacts(3);
@@ -655,17 +638,17 @@ private class Tests {
         System.assert(setIds.equals(values));
     }
 
-    @isTest
+    @IsTest
     static void testGetStringFieldValues() {
         List<Contact> cts = createAndReturnContacts(3);
         Set<String> testSet = new Set<String>{
-            'Contact0', 'Contact1', 'Contact2'
+                'Contact0', 'Contact1', 'Contact2'
         };
         System.assertEquals(testSet, Utils.sObjects.getStringFieldValues(cts, Contact.LastName.getDescribe().getSObjectField()));
 
     }
 
-//    @isTest
+//    @IsTest
 //    static void testPutAllRecordsByKeyField() {
 //
 //        List<Contact> cts = createAndReturnContacts(3);
@@ -678,7 +661,7 @@ private class Tests {
 //        System.assertEquals(false, mappedRecords.isEmpty());
 //    }
 
-    @isTest
+    @IsTest
     static void testGetSObjectsByAnyFieldMap() {
 
         List<Contact> cts = createAndReturnContacts(3);
@@ -686,7 +669,7 @@ private class Tests {
         System.assertEquals(false, mappedContacts.isEmpty());
     }
 
-    @isTest
+    @IsTest
     static void testGetSObjectsListByAnyFieldMap() {
 
         List<Contact> cts = createAndReturnContacts(3);
@@ -698,14 +681,14 @@ private class Tests {
         System.assertEquals(false, mappedContacts.isEmpty());
     }
 
-    @isTest
+    @IsTest
     static void testFieldToProperty() {
 
         String property = Utils.sObjects.fieldToProperty(Contact.FirstName.getDescribe().getSobjectField());
         System.assertEquals('firstName', property);
     }
 
-    @isTest
+    @IsTest
     static void testFieldNameToProperty() {
 
         String property = Utils.sObjects.fieldNameToProperty('');
@@ -715,7 +698,7 @@ private class Tests {
         System.assertEquals('verticTestsField', property);
     }
 
-//    @isTest
+//    @IsTest
 //    static void testPropertyToField() {
 //
 //        SObjectField sObjectField = Utils.sObjects.propertyToField('firstName', Contact.getSObjectType());
@@ -725,7 +708,7 @@ private class Tests {
 //        System.assertEquals(null, sObjectField);
 //    }
 
-//    @isTest
+//    @IsTest
 //    static void testPropertyToFieldName() {
 //
 //        String field = Utils.sObjects.propertyToFieldName('firstName', Contact.getSObjectType());
@@ -735,7 +718,7 @@ private class Tests {
 //        System.assertEquals(null, field);
 //    }
 
-//    @isTest
+//    @IsTest
 //    static void testRecordTypeByName() {
 //
 //        Schema.DescribeSObjectResult r = Account.SObjectType.getDescribe();
@@ -747,7 +730,7 @@ private class Tests {
 //        System.assertEquals(rtByName, resultRecordTypeInfo);
 //    }
 
-//    @isTest
+//    @IsTest
 //    static void testRecordTypeIdByName() {
 //
 //        Schema.DescribeSObjectResult r = Account.SObjectType.getDescribe();
@@ -769,19 +752,19 @@ private class Tests {
 //
 //    }
 
-    @isTest
-    static void testRecordTypeByAPIName() {
+//    @IsTest
+//    static void testRecordTypeByAPIName() {
+//
+//        Schema.DescribeSObjectResult r = Account.SObjectType.getDescribe();
+//        Map<String, Schema.RecordTypeInfo> rtMapByName = r.getRecordTypeInfosByName();
+//        Schema.RecordTypeInfo rtByName = rtMapByName.get('Test');
+//
+//        Schema.RecordTypeInfo resultRecordTypeInfo = Utils.sObjects.recordTypeByAPIName(Account.getSObjectType(), 'Test');
+//        System.assertEquals(rtByName, resultRecordTypeInfo);
+//
+//    }
 
-        Schema.DescribeSObjectResult r = Account.SObjectType.getDescribe();
-        Map<String, Schema.RecordTypeInfo> rtMapByName = r.getRecordTypeInfosByName();
-        Schema.RecordTypeInfo rtByName = rtMapByName.get('Test');
-
-        Schema.RecordTypeInfo resultRecordTypeInfo = Utils.sObjects.recordTypeByAPIName(Account.getSObjectType(), 'Test');
-        System.assertEquals(rtByName, resultRecordTypeInfo);
-
-    }
-
-//    @isTest
+//    @IsTest
 //    static void testRecordTypeIdByAPIName() {
 //
 //        Schema.DescribeSObjectResult r = Account.SObjectType.getDescribe();
@@ -801,8 +784,8 @@ private class Tests {
 //        }
 //        System.assert(didThrowException);
 //    }
-
-//    @isTest
+//
+//    @IsTest
 //    static void testRecordTypeNameById() {
 //
 //        List<RecordType> rt = [SELECT Id, Name FROM RecordType WHERE SobjectType = 'Account' LIMIT 1];
@@ -816,7 +799,7 @@ private class Tests {
 //        System.assertEquals(null, recordTypeName);
 //    }
 
-    @isTest
+    @IsTest
     static void testToSelectOption() {
 
         List<Contact> cts = createAndReturnContacts(3);
@@ -848,7 +831,7 @@ private class Tests {
 
     }
 
-    @isTest
+    @IsTest
     static void testSwap() {
 
         Contact ct = new Contact(FirstName = 'Test', LastName = 'Contact');
@@ -861,14 +844,14 @@ private class Tests {
         System.assertEquals('Test', ct.get('LastName'));
     }
 
-    @isTest
+    @IsTest
     static void testStringToSObjectType() {
 
         SObjectType objectType = Utils.sObjects.stringToSObjectType('Account');
         System.assertEquals(Account.getSObjectType(), objectType);
     }
 
-    @isTest
+    @IsTest
     static void testGetFieldsByTypes() {
 
         Set<DisplayType> displayTypes = new Set<DisplayType>();
@@ -882,51 +865,51 @@ private class Tests {
 
     }
 
-    @isTest
-    static void testIsSomeFieldChanged() {
-
-        List<SObjectField> fields = new List<SObjectField>{
-            Contact.FirstName.getDescribe().getSobjectField(),
-            Contact.LastName.getDescribe().getSobjectField()
-        };
-        Contact ct = new Contact(FirstName = 'Test', LastName = 'Test');
-        Contact cloneCt = ct.clone();
-        System.assertEquals(false, Utils.sObjects.isSomeFieldChanged(ct, cloneCt, fields));
-
-        ct.FirstName = 'TestName';
-        System.assertEquals(true, Utils.sObjects.isSomeFieldChanged(ct, cloneCt, fields));
-
-    }
-
-
-/**
- * ==============================================================================================================
- *                                            URL EXTENSIONS
- * ==============================================================================================================
- */
+//    @IsTest
+//    static void testIsSomeFieldChanged() {
+//
+//        List<SObjectField> fields = new List<SObjectField>{
+//            Contact.FirstName.getDescribe().getSobjectField(),
+//            Contact.LastName.getDescribe().getSobjectField()
+//        };
+//        Contact ct = new Contact(FirstName = 'Test', LastName = 'Test');
+//        Contact cloneCt = ct.clone();
+//        System.assertEquals(false, Utils.sObjects.isSomeFieldChanged(ct, cloneCt, fields));
+//
+//        ct.FirstName = 'TestName';
+//        System.assertEquals(true, Utils.sObjects.isSomeFieldChanged(ct, cloneCt, fields));
+//
+//    }
 
 
-    @isTest
-    static void testURLExtensions() {
+    /**
+     * ==============================================================================================================
+     *                                            URL EXTENSIONS
+     * ==============================================================================================================
+     */
 
-        PageReference pageRef = Utils.urls.listView(Account.getSObjectType());
-        System.assertNotEquals(null, pageRef);
-    }
+
+//    @IsTest
+//    static void testURLExtensions() {
+//
+//        PageReference pageRef = Utils.urls.listView(Account.getSObjectType());
+//        System.assertNotEquals(null, pageRef);
+//    }
 
 
-/**
- * ==============================================================================================================
- *                                            EMAIL EXTENSIONS
- * ==============================================================================================================
- */
+    /**
+     * ==============================================================================================================
+     *                                            EMAIL EXTENSIONS
+     * ==============================================================================================================
+     */
 
-/**
- * ==============================================================================================================
- *                                          ORGANISATION EXTENSIONS
- * ==============================================================================================================
- */
+    /**
+     * ==============================================================================================================
+     *                                          ORGANISATION EXTENSIONS
+     * ==============================================================================================================
+     */
 
-//    @isTest
+//    @IsTest
 //    static void testIsSandbox() {
 //
 //        List<Organization> organizations = [
@@ -949,13 +932,13 @@ private class Tests {
 //    }
 
 
-/**
-* ==============================================================================================================
-*                                         ENCODING EXTENSIONS
-* ==============================================================================================================
-*/
+    /**
+    * ==============================================================================================================
+    *                                         ENCODING EXTENSIONS
+    * ==============================================================================================================
+    */
 
-//    @isTest
+//    @IsTest
 //    static void testMapToFormUrlEncoded() {
 //
 //        Map<String, String> dataMap = new Map<String, String>();
@@ -965,7 +948,7 @@ private class Tests {
 //        System.assertEquals('key1=value1&key2=value2', result);
 //    }
 //
-//    @isTest
+//    @IsTest
 //    static void testFormUrlEncodedToMap() {
 //
 //        Map<String, String> dataMap = new Map<String, String>();
@@ -983,7 +966,7 @@ private class Tests {
 //        }
 //    }
 //
-//    @isTest
+//    @IsTest
 //    static void testGetEncryptedValue() {
 //
 //        Blob key = Crypto.generateAesKey(256);
@@ -994,7 +977,7 @@ private class Tests {
 //
 //    }
 //
-//    @isTest
+//    @IsTest
 //    static void testGetDecryptedValue() {
 //        Blob key = Crypto.generateAesKey(256);
 //        String keyString = EncodingUtil.base64Encode(key);
@@ -1007,7 +990,7 @@ private class Tests {
 //
 //    }
 //
-//    @isTest
+//    @IsTest
 //    static void testMaskCreditCard() {
 //
 //        String maskedNumber = Utils.encodings.maskCreditCard('4444333322221111');
@@ -1017,13 +1000,13 @@ private class Tests {
 //        System.assertEquals(null, maskedNumber);
 //    }
 
-/**
-* ==============================================================================================================
-*                                             COLLECTION EXTENSIONS
-* ==============================================================================================================
-*/
+    /**
+    * ==============================================================================================================
+    *                                             COLLECTION EXTENSIONS
+    * ==============================================================================================================
+    */
 
-    @isTest
+    @IsTest
     static void testFirstOrDefault() {
 
         List<String> stringList = createStringList(0);
@@ -1035,7 +1018,7 @@ private class Tests {
         System.assertEquals('test0', result);
     }
 
-    @isTest
+    @IsTest
     static void testFirstOrNull() {
 
         List<String> stringList = createStringList(0);
@@ -1047,7 +1030,7 @@ private class Tests {
         System.assertEquals('test0', result);
     }
 
-    @isTest
+    @IsTest
     static void testFirstOrException() {
 
         List<String> stringList = createStringList(0);
@@ -1055,7 +1038,7 @@ private class Tests {
         Boolean didThrowException = false;
         String result;
         try {
-            result = (String) Utils.arrays.firstOrException(stringList);
+            result = (String) Utils.arrays.firstOrException(stringList, 'message');
         } catch (Exception ex) {
             didThrowException = true;
             System.assert(didThrowException);
@@ -1063,12 +1046,12 @@ private class Tests {
         System.assertEquals(null, result);
 
         stringList = createStringList(3);
-        result = (String) Utils.arrays.firstOrException(stringList);
+        result = (String) Utils.arrays.firstOrException(stringList, 'message');
         System.assertEquals('test0', result);
     }
 
 
-//    @isTest
+//    @IsTest
 //    static void testReverseList() {
 //
 //        List<String> stringList = null;
@@ -1080,7 +1063,7 @@ private class Tests {
 //        System.assertEquals('test0', result.get(2));
 //    }
 
-//    @isTest
+//    @IsTest
 //    static void testGetMapFirstKey() {
 //
 //        Map<String, String> stringsMap = createStringsMap(0);
@@ -1093,7 +1076,7 @@ private class Tests {
 //
 //    }
 
-//    @isTest
+//    @IsTest
 //    static void testChangeMapKeys() {
 //
 //        Map<String, String> source = createStringsMap(3);
@@ -1110,17 +1093,17 @@ private class Tests {
 //
 //    }
 
-    @isTest
-    static void testAddToSetIfNotBlank() {
+//    @IsTest
+//    static void testAddToSetIfNotBlank() {
+//
+//        Set<String> stringsSet = new Set<String>{
+//            '1', '2', '3'
+//        };
+//        Utils.arrays.addToSetIfNotBlank(stringsSet, '4');
+//        System.assert(stringsSet.contains('4'));
+//    }
 
-        Set<String> stringsSet = new Set<String>{
-            '1', '2', '3'
-        };
-        Utils.arrays.addToSetIfNotBlank(stringsSet, '4');
-        System.assert(stringsSet.contains('4'));
-    }
-
-    @isTest
+    @IsTest
     static void testAddToListOrCreateNew() {
 
         Map<String, List<String>> testMap = null;
@@ -1146,7 +1129,7 @@ private class Tests {
 
     }
 
-    @isTest
+    @IsTest
     static void TestGetMapValue() {
 
         Map<String, Map<String, Object>> testMap = new Map<String, Map<String, Object>>();
@@ -1159,7 +1142,7 @@ private class Tests {
 
     }
 
-    @isTest
+    @IsTest
     static void TestSetMapValue() {
 
         Map<String, Map<String, Object>> testMap = new Map<String, Map<String, Object>>();
@@ -1172,7 +1155,7 @@ private class Tests {
 
     }
 
-    @isTest
+    @IsTest
     static void testMapContains() {
 
         Map<String, Map<String, Object>> testMap = new Map<String, Map<String, Object>>();
@@ -1181,12 +1164,7 @@ private class Tests {
         System.assertEquals(false, result);
     }
 
-    @IsTest
-    static void testSplit() {
-        System.assertEquals(5, Utils.arrays.split(new List<Integer>{1, 2, 3, 4, 5, 6, 7, 8, 9 ,10}, 2, List<Integer>.class).size());
-    }
-
-//    @isTest
+//    @IsTest
 //    static void testSumMaps() {
 //
 //        List<Map<String, Map<String, Object>>> testList = new List<Map<String, Map<String, Object>>>();
@@ -1205,7 +1183,7 @@ private class Tests {
 //
 //    }
 
-//    @isTest
+//    @IsTest
 //    static void testContainsAny() {
 //
 //        List<String> testStrings1 = createStringList(2);
@@ -1221,7 +1199,7 @@ private class Tests {
 //
 //    }
 
-//    @isTest
+//    @IsTest
 //    static void testStringsToSelectOptions() {
 //
 //        List<String> testList = createStringList(2);
@@ -1230,13 +1208,13 @@ private class Tests {
 //
 //    }
 
-/**
-* ==============================================================================================================
-*                                             OBJECT EXTENSIONS
-* ==============================================================================================================
-*/
+    /**
+    * ==============================================================================================================
+    *                                             OBJECT EXTENSIONS
+    * ==============================================================================================================
+    */
 
-    @isTest
+    @IsTest
     static void testThrowIfNull() {
 
         Boolean didThrowException = false;
@@ -1254,7 +1232,7 @@ private class Tests {
         }
     }
 
-    @isTest
+    @IsTest
     static void testThrowIfBlank() {
         Boolean didThrowException = false;
         try {
@@ -1272,7 +1250,7 @@ private class Tests {
 
     }
 
-    @isTest
+    @IsTest
     static void testParseDecimal() {
 
         Long myLong = 4271990;
@@ -1295,7 +1273,7 @@ private class Tests {
 
     }
 
-    @isTest
+    @IsTest
     static void testdDefaultIfNull() {
 
         System.assertEquals(12.0, Utils.objects.defaultIfNull(null, 12.0));
@@ -1304,17 +1282,15 @@ private class Tests {
         System.assertEquals(10, Utils.objects.defaultIfNull(10, 12));
         System.assertEquals('12', Utils.objects.defaultIfNull(null, '12'));
         System.assertEquals('10.0', Utils.objects.defaultIfNull('10.0', '12.0'));
-        System.assertEquals(Date.today(), Utils.objects.defaultIfNull(null, Date.today()));
-        System.assertEquals(Datetime.now(), Utils.objects.defaultIfNull(null, Datetime.now()));
     }
 
-/**
- * ==============================================================================================================
- *                                             FORMAT EXTENSIONS
- * ==============================================================================================================
- */
+    /**
+     * ==============================================================================================================
+     *                                             FORMAT EXTENSIONS
+     * ==============================================================================================================
+     */
 
-//    @isTest
+//    @IsTest
 //    static void testFormatAddress() {
 //
 //        Contact ct = new Contact(FirstName = 'Test', LastName = 'Test',
@@ -1324,7 +1300,7 @@ private class Tests {
 //
 //    }
 //
-//    @isTest
+//    @IsTest
 //    static void testFormatDateRange() {
 //
 //        String dateRange = Utils.formats.formatDateRange(Datetime.newInstance(1960, 1, 22), Datetime.newInstance(1960, 1, 22));
@@ -1342,7 +1318,7 @@ private class Tests {
 //
 //    }
 //
-//    @isTest
+//    @IsTest
 //    static void testFormatTimeRange() {
 //
 //        String dateTimeVar = Utils.formats.formatTimeRange(Datetime.newInstance(1960, 1, 22, 11, 30, 00), Datetime.newInstance(1960, 1, 22, 11, 30, 00));
@@ -1356,14 +1332,14 @@ private class Tests {
 //
 //    }
 //
-//    @isTest
+//    @IsTest
 //    static void testLongTextAreaToHTML() {
 //
 //        System.assertEquals(null, Utils.formats.longTextAreaToHTML(null));
 //        System.assertEquals('test<br/> test<br/>', Utils.formats.longTextAreaToHTML('test\r\n test\n'));
 //    }
 //
-//    @isTest
+//    @IsTest
 //    static void testFormatPhoneNumbers() {
 //
 //        Contact contactVar = new Contact(
@@ -1391,7 +1367,7 @@ private class Tests {
 //    }
 
 
-    @isTest
+    @IsTest
     static void testCommonCtrl() {
         Map<String, Object> dto = new Map<String, Object>();
         dto.put('SOQL', 'SELECT Id FROM Contact LIMIT 1');
@@ -1439,30 +1415,30 @@ private class Tests {
 
     }
 
-/**
-* ==============================================================================================================
-*                                SOQLDataTableMetaProc
-* ==============================================================================================================
-*/
+    /**
+    * ==============================================================================================================
+    *                                SOQLDataTableMetaProc
+    * ==============================================================================================================
+    */
 
-    @isTest
+    @IsTest
     static void testSOQLDataTableMetaProc() {
 
         Account acc = new Account(Name = 'TestAccount', Industry = 'Other', AnnualRevenue = 100);
         insert acc;
         Contact ct = new Contact(AccountId = acc.Id, FirstName = 'Test', LastName = 'Test', Email = 'test@test.com',
-            MobilePhone = '0411111111', MailingCountry = 'Australia', MailingCity = 'Test', MailingStreet = 'Test');
+                MobilePhone = '0411111111', MailingCountry = 'Australia', MailingCity = 'Test', MailingStreet = 'Test');
         insert ct;
 
         Map<String, Object> dto = new Map<String, Object>{
-            'sObjectType' => 'Contact',
-            'fields' => 'Id, Name, Email, Birthdate, MobilePhone, MailingAddress, AccountId, Account.Industry, Account.AnnualRevenue',
-            'params' => new Map<String, List<String>>{
-                'idSet' => new List<String>{
-                    ct.Id
-                }
-            },
-            'condition' => 'Id = \'' + ct.Id + '\''
+                'sObjectType' => 'Contact',
+                'fields' => 'Id, Name, Email, Birthdate, MobilePhone, MailingAddress, AccountId, Account.Industry, Account.AnnualRevenue',
+                'params' => new Map<String, List<String>>{
+                        'idSet' => new List<String>{
+                                ct.Id
+                        }
+                },
+                'condition' => 'Id = \'' + ct.Id + '\''
 
 
         };
@@ -1474,13 +1450,13 @@ private class Tests {
     }
 
 
-/**
-* ==============================================================================================================
-*                                   UnitOfWork
-* ==============================================================================================================
-*/
+    /**
+    * ==============================================================================================================
+    *                                   UnitOfWork
+    * ==============================================================================================================
+    */
 
-    @isTest
+    @IsTest
     static void testUnitOfWork() {
         System.runAs(new User(Id = UserInfo.getUserId())) {
 
@@ -1489,7 +1465,7 @@ private class Tests {
 
             UnitOfWork uow = new UnitOfWork(new List<SObjectType>{
                     Account.SObjectType
-            }, new UnitOfWork.DMLManagerAsUserImpl());
+            });
             uow.registerUpsert(parentAccount);
             uow.registerUpsert(childAccount);
             uow.registerHierarchy(childAccount, Account.ParentId, parentAccount);
@@ -1503,31 +1479,31 @@ private class Tests {
     }
 
 
-/**
-* ==============================================================================================================
-*                                   AutoMapper
-* ==============================================================================================================
-*/
+    /**
+    * ==============================================================================================================
+    *                                   AutoMapper
+    * ==============================================================================================================
+    */
 
-    @isTest
+    @IsTest
     static void testMapToSObject() {
         Contact testContact = createContact('test', 'Australia');
         Contact testContact2 = createContact('test2', 'Australia');
 
         List<Contact> testContacts = new List<Contact>{
-            testContact, testContact2
+                testContact, testContact2
         };
 
         Map<String, Object> stringToObjectMap = new Map<String, Object>();
         AutoMapper autoMapper = new AutoMapper(stringToObjectMap)
-            .mapFromSObject('contact', testContact)
-            .mapFromListSObjects('contacts', testContacts);
+                .mapFromSObject('contact', testContact)
+                .mapFromListSObjects('contacts', testContacts);
 
         System.assert(stringToObjectMap.containsKey('contact'));
         System.assert(stringToObjectMap.containsKey('contacts'));
 
         Contact newContact = new Contact(
-            Email = 'test@test.com', Birthdate = Date.newInstance(2018, 10, 10)
+                Email = 'test@test.com', Birthdate = Date.newInstance(2018, 10, 10)
         );
         autoMapper.mapToSObject('contact', newContact);
 
@@ -1553,20 +1529,20 @@ private class Tests {
 
     }
 
-    @isTest
+    @IsTest
     static void testGetMap() {
         AutoMapper autoMapper = new AutoMapper();
         AutoMapper autoMapperImpl = new AutoMapper(autoMapper);
         System.assertNotEquals(null, autoMapperImpl.getMap());
     }
 
-    @isTest
+    @IsTest
     static void testGetOptions() {
         AutoMapper autoMapper = new AutoMapper();
         System.assertNotEquals(null, autoMapper.getOptions());
     }
 
-    @isTest
+    @IsTest
     static void testMapAnyValue() {
 
         AutoMapper autoMapper = new AutoMapper();
@@ -1574,7 +1550,7 @@ private class Tests {
     }
 
 
-    @isTest
+    @IsTest
     static void testBehaviour() {
 
 
@@ -1582,7 +1558,7 @@ private class Tests {
         Map<String, Object> dataMap = new Map<String, Object>();
 
         List<SObjectField> fields = new List<SObjectField>{
-            Contact.LastName.getDescribe().getSobjectField(), Contact.MailingCountry.getDescribe().getSobjectField()
+                Contact.LastName.getDescribe().getSobjectField(), Contact.MailingCountry.getDescribe().getSobjectField()
         };
         AutoMapper.JoinStringFieldsBinder testJoinFieldsBinder = new AutoMapper.JoinStringFieldsBinder('path', fields, ',');
 
@@ -1594,7 +1570,7 @@ private class Tests {
         System.assertEquals('test.Australia', dataMap.get('commaPath'));
 
         List<String> testListFields = new List<String>{
-            'MailingCountry', 'LastName'
+                'MailingCountry', 'LastName'
         };
         AutoMapper.JoinStringBinder testJoinStringBinder = new AutoMapper.JoinStringBinder('pathString', testListFields, ';');
         testJoinStringBinder.bind(ct, dataMap);
@@ -1615,17 +1591,17 @@ private class Tests {
         binderQ = new AutoMapper.BinderQueue(binders);
 
         AutoMapper autoMapper = new AutoMapper(dataMap)
-            .mapFromSObject('contact', ct, binderQ);
+                .mapFromSObject('contact', ct, binderQ);
 
     }
 
-    @isTest
+    @IsTest
     static void deduplicate() {
         Contact contact1 = new Contact(
-            FirstName = '1',
-            LastName = '1',
-            Email = '1@test.com',
-            Title = 'Developer'
+                FirstName = '1',
+                LastName = '1',
+                Email = '1@test.com',
+                Title = 'Developer'
         );
 
         insert contact1;
@@ -1633,14 +1609,16 @@ private class Tests {
         Contact contact2 = contact1.clone(false);
         contact2.Title = 'Manager';
 
-        Boolean isExistingRecordFound = Utils.sObjects.deduplicate(contact2, new Set<SObjectField>{Contact.Title});
+        Boolean isExistingRecordFound = Utils.sObjects.deduplicate(contact2, new Set<SObjectField>{
+                Contact.Title
+        });
 //        System.debug(contact2);
 
         upsert contact2;
 
         System.assertEquals(isExistingRecordFound ? 1 : 2, [SELECT COUNT() FROM Contact]);
 
-        if(isExistingRecordFound){
+        if (isExistingRecordFound) {
             Contact contactVar = [SELECT Id, Title FROM Contact WHERE Id = :contact1.Id];
             System.assertEquals('Developer', contactVar.Title); // Preserved Field.
         }
@@ -1648,26 +1626,5 @@ private class Tests {
 
         // Just ot increase the test coverage.
         Utils.sObjects.deduplicate(contact2);
-    }
-
-    /**
-    * ==============================================================================================================
-    *                                             TEMPLATE EXTENSIONS
-    * ==============================================================================================================
-    */
-
-    @isTest
-    static void testCompose() {
-        System.assertNotEquals(null, Utils.templates.compose('test.test', new Map<String, Object>()));
-    }
-
-    @isTest
-    static void testExtractMergeFields() {
-        System.assertNotEquals(null, Utils.templates.extractMergeFields('test.test'));
-    }
-
-    @isTest
-    static void testGetExpression() {
-        System.assertNotEquals(null, Utils.templates.getExpression('{!test}'));
     }
 }

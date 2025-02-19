@@ -13,7 +13,9 @@ public inherited sharing class Utils {
                 picklists = new PicklistExtensions();
             }
             return picklists;
-        } private set; }
+        }
+        private set;
+    }
 
     public static DateExtensions dates {
         get {
@@ -21,7 +23,9 @@ public inherited sharing class Utils {
                 dates = new DateExtensions();
             }
             return dates;
-        } private set; }
+        }
+        private set;
+    }
 
     public static StringExtensions strings {
         get {
@@ -29,7 +33,9 @@ public inherited sharing class Utils {
                 strings = new StringExtensions();
             }
             return strings;
-        } private set; }
+        }
+        private set;
+    }
 
     public static UserExtensions users {
         get {
@@ -37,7 +43,9 @@ public inherited sharing class Utils {
                 users = new UserExtensions();
             }
             return users;
-        } private set; }
+        }
+        private set;
+    }
 
     public static SObjectExtensions sObjects {
         get {
@@ -45,7 +53,9 @@ public inherited sharing class Utils {
                 sObjects = new SObjectExtensions();
             }
             return sObjects;
-        } private set; }
+        }
+        private set;
+    }
 
     public static URLExtensions URLs {
         get {
@@ -53,7 +63,9 @@ public inherited sharing class Utils {
                 URLs = new URLExtensions();
             }
             return URLs;
-        } private set; }
+        }
+        private set;
+    }
 
     public static EmailExtensions emails {
         get {
@@ -61,7 +73,9 @@ public inherited sharing class Utils {
                 emails = new EmailExtensions();
             }
             return emails;
-        } private set; }
+        }
+        private set;
+    }
 
     public static EncodingExtensions encodings {
         get {
@@ -69,7 +83,9 @@ public inherited sharing class Utils {
                 encodings = new EncodingExtensions();
             }
             return encodings;
-        } private set; }
+        }
+        private set;
+    }
 
     public static ArrayExtensions arrays {
         get {
@@ -77,7 +93,9 @@ public inherited sharing class Utils {
                 arrays = new ArrayExtensions();
             }
             return arrays;
-        } private set; }
+        }
+        private set;
+    }
 
 //    public static FormatExtensions formats {
 //        get {
@@ -89,19 +107,23 @@ public inherited sharing class Utils {
 
     public static OrgExtensions orgs {
         get {
-            if (orgs == null){
+            if (orgs == null) {
                 orgs = new OrgExtensions();
             }
             return orgs;
-        } private set; }
+        }
+        private set;
+    }
 
     public static ObjectExtensions objects {
         get {
-            if (objects == null){
+            if (objects == null) {
                 objects = new ObjectExtensions();
             }
             return objects;
-        } private set; }
+        }
+        private set;
+    }
 
 //    public static XMLExtensions XMLs {
 //        get {
@@ -117,7 +139,9 @@ public inherited sharing class Utils {
                 templates = new TemplateExtensions();
             }
             return templates;
-        } private set; }
+        }
+        private set;
+    }
 
 
     /**
@@ -139,8 +163,8 @@ public inherited sharing class Utils {
                 picklistValues = new Set<String>();
                 List<Schema.PicklistEntry> pickListEntries = sObjectField.getDescribe().getPicklistValues();
 
-                for(Schema.PicklistEntry pickListEntryVar : pickListEntries){
-                    if (excludingValues == null || !excludingValues.contains(pickListEntryVar.getValue())){
+                for (Schema.PicklistEntry pickListEntryVar : pickListEntries) {
+                    if (excludingValues == null || !excludingValues.contains(pickListEntryVar.getValue())) {
                         picklistValues.add(pickListEntryVar.getValue());
                     }
                 }
@@ -149,27 +173,27 @@ public inherited sharing class Utils {
             return picklistValues;
         }
 
-        public List<Structs.SelectOption> getPicklistValuesAsSelectOptions(Schema.SObjectField sObjectField){
+        public List<Structs.SelectOption> getPicklistValuesAsSelectOptions(Schema.SObjectField sObjectField) {
             return getPicklistValuesAsSelectOptions(sObjectField, null);
         }
 
-        public List<Structs.SelectOption> getPicklistValuesAsSelectOptions(Schema.SObjectField sObjectField, Set<String> excuding){
+        public List<Structs.SelectOption> getPicklistValuesAsSelectOptions(Schema.SObjectField sObjectField, Set<String> excuding) {
             List<Structs.SelectOption> selectOptions = new List<Structs.SelectOption>();
             List<Schema.PicklistEntry> pickListEntries = sObjectField.getDescribe().getPicklistValues();
 
-            for( Schema.PicklistEntry pickListEntry : pickListEntries){
-                if (excuding == null || !excuding.contains(pickListEntry.getValue())){
+            for (Schema.PicklistEntry pickListEntry : pickListEntries) {
+                if (excuding == null || !excuding.contains(pickListEntry.getValue())) {
                     selectOptions.add(new Structs.SelectOption(pickListEntry.getValue(), pickListEntry.getLabel()));
                 }
             }
             return selectOptions;
         }
 
-        public Map<String, List<Structs.SelectOption>> getPicklistOptionsMap(Set<SObjectField> fields){
+        public Map<String, List<Structs.SelectOption>> getPicklistOptionsMap(Set<SObjectField> fields) {
 
             Map<String, List<Structs.SelectOption>> result = new Map<String, List<Structs.SelectOption>>();
 
-            for(SObjectField field : fields){
+            for (SObjectField field : fields) {
                 String key = this.getFieldKey(field);
                 result.put(key, this.getPicklistValuesAsSelectOptions(field));
             }
@@ -196,7 +220,7 @@ public inherited sharing class Utils {
             return result;
         }
 
-        private String getFieldKey(SObjectField field){
+        private String getFieldKey(SObjectField field) {
             return sObjects.fieldToProperty(field) + 'Options';
         }
 
@@ -269,14 +293,14 @@ public inherited sharing class Utils {
 //        }
 
         public Map<String, List<Structs.SelectOption>> getDependentOptions(Schema.SObjectType pType, Schema.SObjectField controllingField, Schema.SObjectField dependentField) {
-            Map<String,List<Structs.SelectOption>> mapResults = new Map<String,List<Structs.SelectOption>>();
+            Map<String, List<Structs.SelectOption>> mapResults = new Map<String, List<Structs.SelectOption>>();
 
             final String pControllingFieldName = controllingField.getDescribe().getName();
             final String pDependentFieldName = dependentField.getDescribe().getName();
 
             //verify/get object schema
             //Schema.SObjectType pType = Schema.getGlobalDescribe().get(pObjName);
-            if ( pType == null ) return mapResults;
+            if (pType == null) return mapResults;
             Map<String, Schema.SObjectField> objFieldMap = pType.getDescribe().fields.getMap();
 
             //verify field names
@@ -290,8 +314,8 @@ public inherited sharing class Utils {
             objFieldMap = null;
 
             //initialize results mapping
-            for(Integer pControllingIndex=0; pControllingIndex<ctrl_ple.size(); pControllingIndex++){
-                mapResults.put( ctrl_ple[pControllingIndex].getValue(), new List<Structs.SelectOption>());
+            for (Integer pControllingIndex = 0; pControllingIndex < ctrl_ple.size(); pControllingIndex++) {
+                mapResults.put(ctrl_ple[pControllingIndex].getValue(), new List<Structs.SelectOption>());
             }
             //cater for null and empty
             mapResults.put('', new List<Structs.SelectOption>());
@@ -299,16 +323,16 @@ public inherited sharing class Utils {
 
             //serialize dep entries
             List<TPicklistEntry> objDS_Entries = new List<TPicklistEntry>();
-            objDS_Entries = (List<TPicklistEntry>)JSON.deserialize(JSON.serialize(dep_ple), List<TPicklistEntry>.class);
+            objDS_Entries = (List<TPicklistEntry>) JSON.deserialize(JSON.serialize(dep_ple), List<TPicklistEntry>.class);
 
             List<Integer> validIndexes;
-            for (TPicklistEntry objDepPLE : objDS_Entries){
+            for (TPicklistEntry objDepPLE : objDS_Entries) {
 
                 validIndexes = cnvBits(objDepPLE.validFor);
                 //System.Debug('cnvBits: [' + objDepPLE.label + '] = ' + validIndexes);
 
-                for (Integer validIndex : validIndexes){
-                    mapResults.get( ctrl_ple[validIndex-1].getValue() ).add(new Structs.SelectOption(objDepPLE.value, objDepPLE.label));
+                for (Integer validIndex : validIndexes) {
+                    mapResults.get(ctrl_ple[validIndex - 1].getValue()).add(new Structs.SelectOption(objDepPLE.value, objDepPLE.label));
                 }
             }
 
@@ -395,7 +419,7 @@ public inherited sharing class Utils {
 
         public void convertFlowPicklistFieldValues(SObject recordVar) {
             Set<SObjectField> picklistFields = Utils.sObjects.getFieldsByTypes(recordVar.getSObjectType(), new Set<DisplayType>{
-                DisplayType.PICKLIST
+                    DisplayType.PICKLIST
             });
 //            System.debug(picklistFields);
             Map<String, Object> populatedFieldsMap = recordVar.getPopulatedFieldsAsMap();
@@ -506,13 +530,13 @@ public inherited sharing class Utils {
 
                 datetimeVar = Datetime.newInstance(year, month, day, hour, minute, second);
 
-                if(isGMT){
+                if (isGMT) {
                     datetimeVar = Datetime.newInstanceGmt(year, month, day, hour, minute, second);
                 } else {
                     datetimeVar = Datetime.newInstance(year, month, day, hour, minute, second);
                 }
 
-            } catch(Exception ex) {
+            } catch (Exception ex) {
                 ex.setMessage('Invalid date: ' + datetimeStr + ': ' + ex.getMessage());
                 throw ex;
             }
@@ -650,17 +674,17 @@ public inherited sharing class Utils {
         public Time timeStringToTime(String t) {
             String[] arr = t.split(':');
             return Time.newInstance(
-                Integer.valueOf(arr[0]),
-                Integer.valueOf(arr[1]),
-                0,
-                0
+                    Integer.valueOf(arr[0]),
+                    Integer.valueOf(arr[1]),
+                    0,
+                    0
             );
         }
 
         // 10:00 AM -> Time.
         public Time timeStringAMPMToTime(String t) {
 
-            if (String.isBlank(t)){
+            if (String.isBlank(t)) {
                 throw new Structs.MissingDataException('Argument is null');
             }
 
@@ -674,93 +698,93 @@ public inherited sharing class Utils {
             Integer hours = Integer.valueOf(hoursStr);
             Integer minutes = Integer.valueOf(minutesStr);
 
-            if('AM'.equals(amPMStr)){
-                if (hours == 12){
+            if ('AM'.equals(amPMStr)) {
+                if (hours == 12) {
                     hours = 0;
                 }
             } else if ('PM'.equals(amPMStr)) {
-                if (hours != 12){
+                if (hours != 12) {
                     hours = hours + 12;
                 }
             }
 
             return Time.newInstance(
-                hours,
-                minutes,
-                0,
-                0
+                    hours,
+                    minutes,
+                    0,
+                    0
             );
         }
 
 
-        public DateTime getStartOfDay(DateTime dateTimeVar){
+        public DateTime getStartOfDay(DateTime dateTimeVar) {
             return DateTime.newInstance(dateTimeVar.year(), dateTimeVar.month(), dateTimeVar.day(), 0, 0, 0);
         }
 
-        public DateTime getEndOfDay(DateTime dateTimeVar){
+        public DateTime getEndOfDay(DateTime dateTimeVar) {
             return DateTime.newInstance(dateTimeVar.year(), dateTimeVar.month(), dateTimeVar.day(), 23, 59, 9);
         }
 
-        public DateTime getStartDateOfWeek(DateTime dateTimeVar){
+        public DateTime getStartDateOfWeek(DateTime dateTimeVar) {
             Integer dayOfWeek = Integer.valueOf(dateTimeVar.format('u'));
             DateTime startDateOfWeek = dateTimeVar.addDays(-1 * (dayOfWeek - 1));
             return getStartOfDay(startDateOfWeek);
         }
 
-        public Date getStartDateOfWeek(Date dateVar){
+        public Date getStartDateOfWeek(Date dateVar) {
             return getStartDateOfWeek(DateToDateTime(dateVar)).date();
         }
 
-        public DateTime getEndDateOfWeek(DateTime dateTimeVar){
+        public DateTime getEndDateOfWeek(DateTime dateTimeVar) {
             return getEndOfDay(getStartDateOfWeek(dateTimeVar).addDays(6));
         }
 
-        public Date getEndDateOfWeek(Date dateVar){
+        public Date getEndDateOfWeek(Date dateVar) {
             return getEndDateOfWeek(DateToDateTime(dateVar)).date();
         }
 
-        public Boolean isDateInCurrectWeekOrInFuture(Date dateVar){
+        public Boolean isDateInCurrectWeekOrInFuture(Date dateVar) {
             return dateVar >= getStartDateOfWeek(Date.today());
         }
 
-        public Date getFirstDayInMonth(Date dateVar){
+        public Date getFirstDayInMonth(Date dateVar) {
             return dateVar.toStartOfMonth();
         }
 
-        public Date getLastDayInMonth(Date dateVar){
+        public Date getLastDayInMonth(Date dateVar) {
             return dateVar.addMonths(1).toStartOfMonth().addDays(-1);
         }
 
-        public Date getLastWorkingDay(Date dateVar){
-            while(!IsWorkingDay(dateVar)){
+        public Date getLastWorkingDay(Date dateVar) {
+            while (!IsWorkingDay(dateVar)) {
                 dateVar = dateVar.addDays(-1);
             }
             return dateVar;
         }
 
-        public Date getLastDayInFortnight(Date dateVar, Date startDate){
+        public Date getLastDayInFortnight(Date dateVar, Date startDate) {
 
-            if (dateVar < startDate){
+            if (dateVar < startDate) {
                 throw new Structs.UtilsException('getLastDayInFortnight error: Date should be greater than Period Start Date');
             }
 
             Date startOfThePeriod = getStartDateOfWeek(startDate);
             Date endOfThePeriod = startOfThePeriod.addDays(13);
 
-            while(dateVar > endOfThePeriod){
+            while (dateVar > endOfThePeriod) {
                 endOfThePeriod = endOfThePeriod.addDays(14);
             }
 
             return endOfThePeriod;
         }
 
-        public Date getFirstDayInFortnight(Date dateVar, Date startDate){
+        public Date getFirstDayInFortnight(Date dateVar, Date startDate) {
             Date endOfThePeriod = getLastDayInFortnight(dateVar, startDate);
             return endOfThePeriod.addDays(-13);
         }
 
         // Deprecated
-        public Date dateInRange(Date dateVar, Date startOfRange, Date endOfRange){
+        public Date dateInRange(Date dateVar, Date startOfRange, Date endOfRange) {
 
             dateVar = startOfRange > dateVar ? startOfRange : dateVar;
             dateVar = endOfRange < dateVar ? endOfRange : dateVar;
@@ -784,51 +808,51 @@ public inherited sharing class Utils {
             return !(date1end <= date2start || date1start >= date2end);
         }
 
-        public Integer age(Date birthDate, Date onDate){
+        public Integer age(Date birthDate, Date onDate) {
             Date birthDateOnDate = Date.newInstance(
-                onDate.year(),
-                birthDate.month(),
-                birthDate.day()
+                    onDate.year(),
+                    birthDate.month(),
+                    birthDate.day()
             );
             Integer age = onDate.year() - birthDate.year();
             return Math.max(birthDateOnDate > onDate ? age - 1 : age, 0);
         }
 
-        public Integer age(Date birthDate){
+        public Integer age(Date birthDate) {
             return age(birthDate, Date.today());
         }
 
-        public Date max(List<Date> dates){
+        public Date max(List<Date> dates) {
             Date maxDate;
             for (Date dateVar : dates) {
-                if(maxDate == null || dateVar > maxDate){
+                if (maxDate == null || dateVar > maxDate) {
                     maxDate = dateVar;
                 }
             }
             return maxDate;
         }
 
-        public Date max(Date date1, Date date2){
+        public Date max(Date date1, Date date2) {
             return max(new List<Date>{
-                date1,
-                date2
+                    date1,
+                    date2
             });
         }
 
-        public Date min(List<Date> dates){
+        public Date min(List<Date> dates) {
             Date minDate;
             for (Date dateVar : dates) {
-                if(minDate == null || dateVar < minDate){
+                if (minDate == null || dateVar < minDate) {
                     minDate = dateVar;
                 }
             }
             return minDate;
         }
 
-        public Date min(Date date1, Date date2){
+        public Date min(Date date1, Date date2) {
             return min(new List<Date>{
-                date1,
-                date2
+                    date1,
+                    date2
             });
         }
     }
@@ -842,17 +866,17 @@ public inherited sharing class Utils {
 
     public inherited sharing class StringExtensions {
 
-        public void throwIfBlank(String str, String message){
+        public void throwIfBlank(String str, String message) {
             this.throwIfBlank(str, new Structs.MissingDataException(message));
         }
 
-        public void throwIfBlank(String str, Exception ex){
-            if(String.isBlank(str)){
+        public void throwIfBlank(String str, Exception ex) {
+            if (String.isBlank(str)) {
                 throw ex;
             }
         }
 
-        public String emptyStringIfNull(String str){
+        public String emptyStringIfNull(String str) {
             return String.isBlank(str) ? '' : str;
         }
 
@@ -945,7 +969,7 @@ public inherited sharing class Utils {
         public String newUuid() {
 
             String giud = newGuid();
-            return giud.substring(0,8)+ '-' + giud.substring(8,12) + '-' + giud.substring(12,16) + '-' + giud.substring(16,20) + '-' + giud.substring(20);
+            return giud.substring(0, 8) + '-' + giud.substring(8, 12) + '-' + giud.substring(12, 16) + '-' + giud.substring(16, 20) + '-' + giud.substring(20);
 
         }
 //
@@ -960,11 +984,11 @@ public inherited sharing class Utils {
 //            return str.substring(index, index+1);
 //        }
 //
-        public String joinNonBlank(List<String> parts, String separator){
+        public String joinNonBlank(List<String> parts, String separator) {
             List<String> notBlankParts = new List<String>();
 
-            for(String part : parts){
-                if(String.isNotBlank(part)){
+            for (String part : parts) {
+                if (String.isNotBlank(part)) {
                     notBlankParts.add(part);
                 }
             }
@@ -983,7 +1007,7 @@ public inherited sharing class Utils {
     private final static Map<String, List<Object>> PERM_SETS_BY_USER_ID = new Map<String, List<Object>>();
 
     public inherited sharing class UserExtensions {
-        public Boolean hasPermSetAssigned(String userId, String permSetName){
+        public Boolean hasPermSetAssigned(String userId, String permSetName) {
             if (!PERM_SETS_BY_USER_ID.containsKey(userId)) {
                 List<PermissionSetAssignment> groupAssignments = [
                         SELECT PermissionSet.Name, PermissionSet.NamespacePrefix, PermissionSetGroupId
@@ -1024,12 +1048,12 @@ public inherited sharing class Utils {
             return PERM_SETS_BY_USER_ID.get(userId).contains(permSetName);
         }
 
-        public Boolean hasPermSetAssigned(String permSetName){
+        public Boolean hasPermSetAssigned(String permSetName) {
             return hasPermSetAssigned(UserInfo.getUserId(), permSetName);
         }
 
-        public void assertPermSet(String permSetName, String errorMessage){
-            if(!hasPermSetAssigned(permSetName)){
+        public void assertPermSet(String permSetName, String errorMessage) {
+            if (!hasPermSetAssigned(permSetName)) {
                 throw new Structs.AccessException(errorMessage);
             }
         }
@@ -1089,7 +1113,7 @@ public inherited sharing class Utils {
 
         public void assertReadable(SObject record) {
             assertReadable(new List<SObject>{
-                record
+                    record
             });
         }
 
@@ -1131,8 +1155,8 @@ public inherited sharing class Utils {
             SObjectType sObjTypeVar = records.get(0).getSObjectType();
             try {
                 SObjectAccessDecision decision = Security.stripInaccessible(
-                    accessType,
-                    records
+                        accessType,
+                        records
                 );
                 records = decision.getRecords();
 //                if(decision.getModifiedIndexes().isEmpty() != true){
@@ -1167,17 +1191,17 @@ public inherited sharing class Utils {
 //            return sObjects;
 //        }
 
-        public Set<Id> getIdFieldValues(List<sObject> records, Schema.SObjectField field){
+        public Set<Id> getIdFieldValues(List<sObject> records, Schema.SObjectField field) {
             return getIdFieldValues(records, '' + field);
         }
 
-        public Set<Id> getIdFieldValues(List<sObject> records, String fieldName){
+        public Set<Id> getIdFieldValues(List<sObject> records, String fieldName) {
 
             Set<Id> values = new Set<Id>();
 
-            for(sObject rec : records){
-                Id value = (Id)rec.get(fieldName);
-                if (value != null){
+            for (sObject rec : records) {
+                Id value = (Id) rec.get(fieldName);
+                if (value != null) {
                     values.add(value);
                 }
             }
@@ -1186,17 +1210,17 @@ public inherited sharing class Utils {
 
         }
 
-        public Set<String> getStringFieldValues(List<sObject> records, Schema.SObjectField field){
+        public Set<String> getStringFieldValues(List<sObject> records, Schema.SObjectField field) {
             return getStringFieldValues(records, '' + field);
         }
 
-        public Set<String> getStringFieldValues(List<sObject> records, String fieldName){
+        public Set<String> getStringFieldValues(List<sObject> records, String fieldName) {
 
             Set<String> values = new Set<String>();
 
-            for(sObject rec : records){
+            for (sObject rec : records) {
                 String value = rec.get(fieldName) == null ? null : String.valueOf(rec.get(fieldName));
-                if (value != null){
+                if (value != null) {
                     values.add(value);
                 }
             }
@@ -1239,7 +1263,7 @@ public inherited sharing class Utils {
         public Map<String, SObject> getSObjectsByAnyFieldMap(List<SObject> sObjects, String sObjectField) {
             Map<String, SObject> resultMap = new Map<String, SObject>();
             for (SObject record : sObjects) {
-                String value = (String)record.get(sObjectField);
+                String value = (String) record.get(sObjectField);
                 if (value != null) {
                     resultMap.put(value, record);
                 }
@@ -1254,12 +1278,14 @@ public inherited sharing class Utils {
         public Map<String, List<SObject>> getSObjectsListByAnyFieldMap(List<SObject> sObjects, String sObjectField) {
             Map<String, List<SObject>> resultMap = new Map<String, List<SObject>>();
             for (SObject record : sObjects) {
-                String value = (String)record.get(sObjectField);
+                String value = (String) record.get(sObjectField);
                 if (value != null) {
                     if (resultMap.containsKey(value)) {
                         resultMap.get(value).add(record);
                     } else {
-                        resultMap.put(value, new List<SObject> {record});
+                        resultMap.put(value, new List<SObject>{
+                                record
+                        });
                     }
                 }
             }
@@ -1363,13 +1389,13 @@ public inherited sharing class Utils {
 //            return null;
 //        }
 
-        public RecordTypeInfo recordTypeByAPIName(SObjectType sObjectTypeVar, String apiName){
+        public RecordTypeInfo recordTypeByAPIName(SObjectType sObjectTypeVar, String apiName) {
             return sObjectTypeVar.getDescribe().getRecordTypeInfosByDeveloperName().get(apiName);
         }
 
-        public Id recordTypeIdByAPIName(SObjectType sObjectTypeVar, String apiName){
+        public Id recordTypeIdByAPIName(SObjectType sObjectTypeVar, String apiName) {
             RecordTypeInfo recType = this.recordTypeByAPIName(sObjectTypeVar, apiName);
-            if(recType == null){
+            if (recType == null) {
                 throw new Structs.NotFoundException('No Record Type for: ' + sObjectTypeVar + ' with API Name: ' + apiName);
             }
             return recType.getRecordTypeId();
@@ -1384,31 +1410,31 @@ public inherited sharing class Utils {
 //            return null;
 //        }
 
-        public Structs.SelectOption toSelectOption(SObject sObj, String valueFieldName, String labelFieldName){
+        public Structs.SelectOption toSelectOption(SObject sObj, String valueFieldName, String labelFieldName) {
             return new Structs.SelectOption(
                     (String) sObj.get(valueFieldName),
                     (String) sObj.get(labelFieldName)
             );
         }
 
-        public Structs.SelectOption toSelectOption(SObject sObj, String labelFieldName){
+        public Structs.SelectOption toSelectOption(SObject sObj, String labelFieldName) {
             return new Structs.SelectOption(
                     (String) sObj.get('Id'),
                     (String) sObj.get(labelFieldName)
             );
         }
 
-        public Structs.SelectOption toSelectOption(SObject sObj){
+        public Structs.SelectOption toSelectOption(SObject sObj) {
             return new Structs.SelectOption(
                     (String) sObj.get('Id'),
                     (String) sObj.get('Name')
             );
         }
 
-        public List<Structs.SelectOption> toSelectOptions(List<SObject> sObjects, String valueFieldName, String labelFieldName){
+        public List<Structs.SelectOption> toSelectOptions(List<SObject> sObjects, String valueFieldName, String labelFieldName) {
             List<Structs.SelectOption> options = new List<Structs.SelectOption>();
 
-            for(SObject sObj : sObjects){
+            for (SObject sObj : sObjects) {
                 options.add(toSelectOption(sObj, valueFieldName, labelFieldName));
             }
 
@@ -1423,11 +1449,11 @@ public inherited sharing class Utils {
             return options;
         }
 
-        public List<Structs.SelectOption> toSelectOptions(List<SObject> sObjects, String labelFieldName){
+        public List<Structs.SelectOption> toSelectOptions(List<SObject> sObjects, String labelFieldName) {
             return toSelectOptions(sObjects, 'Id', labelFieldName);
         }
 
-        public List<Structs.SelectOption> toSelectOptions(List<SObject> sObjects){
+        public List<Structs.SelectOption> toSelectOptions(List<SObject> sObjects) {
             return toSelectOptions(sObjects, 'Id', 'Name');
         }
 
@@ -1437,7 +1463,7 @@ public inherited sharing class Utils {
             record.put(field2, valueOfField1);
         }
 
-        public SObjectType stringToSObjectType(String sObjectTypeStr){
+        public SObjectType stringToSObjectType(String sObjectTypeStr) {
             Utils.objects.throwIfBlank(sObjectTypeStr, 'No SObjectType');
 
             SObjectType sObjectTypeVar = Schema.getGlobalDescribe().get(sObjectTypeStr.toLowerCase());
@@ -1490,23 +1516,23 @@ public inherited sharing class Utils {
             return targetSobjectVar == null ? null : targetSobjectVar.get(pathItems.get(0));
         }
 
-        public Decimal sum(List<SObject> records, SObjectField fieldVar){
+        public Decimal sum(List<SObject> records, SObjectField fieldVar) {
             return sum(records, '' + fieldVar);
         }
 
-        public Decimal sum(List<SObject> records, String path){
+        public Decimal sum(List<SObject> records, String path) {
             Decimal sum = 0;
 
-            if(records == null){
+            if (records == null) {
                 return sum;
             }
 
             for (SObject sobj : records) {
                 Decimal val = Utils.objects.defaultIfNull(
-                    Utils.objects.parseDecimal(
-                        Utils.sObjects.getValueByPath(sobj, path)
-                    ),
-                    0
+                        Utils.objects.parseDecimal(
+                                Utils.sObjects.getValueByPath(sobj, path)
+                        ),
+                        0
                 );
                 sum += val;
             }
@@ -1622,8 +1648,8 @@ public inherited sharing class Utils {
 //            }
 //        }
 
-        public void restoreNotBlankValues(List<SObject> records, Set<SObjectField> fields){
-            if(records != null && records.isEmpty() == false && fields != null && fields.isEmpty() == false){
+        public void restoreNotBlankValues(List<SObject> records, Set<SObjectField> fields) {
+            if (records != null && records.isEmpty() == false && fields != null && fields.isEmpty() == false) {
                 SObjectType sObjectTypeVar = records.get(0).getSObjectType();
                 fflib_QueryFactory queryFactory = new fflib_QueryFactory(sObjectTypeVar);
                 queryFactory.selectField('Id');
@@ -1635,7 +1661,7 @@ public inherited sharing class Utils {
                     SObject sourceRecordVar = sourceRecordsMap.get(recordVar.Id);
                     for (SObjectField preserveField : fields) {
                         Object sourceValue = sourceRecordVar.get(preserveField);
-                        if(sourceValue != null){
+                        if (sourceValue != null) {
                             recordVar.put(preserveField, sourceValue);
                         }
                     }
@@ -1655,34 +1681,36 @@ public inherited sharing class Utils {
 //            return null;
 //        }
 
-        public Boolean deduplicate(SObject recordVar){
+        public Boolean deduplicate(SObject recordVar) {
             return deduplicate(recordVar, null);
         }
 
-        public Boolean deduplicate(SObject recordVar, Set<SObjectField> preserveFields){
+        public Boolean deduplicate(SObject recordVar, Set<SObjectField> preserveFields) {
 
-            if(recordVar == null || recordVar.Id != null){
+            if (recordVar == null || recordVar.Id != null) {
                 return false;
             }
 
             try {
                 Datacloud.FindDuplicatesResult[] results = Datacloud.FindDuplicates.findDuplicates(new List<SObject>{
-                    recordVar
+                        recordVar
                 });
                 for (Datacloud.FindDuplicatesResult dupeResult : results) {
                     for (Datacloud.DuplicateResult dupeRes : dupeResult.getDuplicateResults()) {
                         for (Datacloud.MatchResult matchRes : dupeRes.getMatchResults()) {
                             for (Datacloud.MatchRecord matchRec : matchRes.getMatchRecords()) {
                                 recordVar.Id = (string) matchRec.getRecord().get('id');
-                                Utils.sObjects.restoreNotBlankValues(new List<SObject>{recordVar}, preserveFields);
+                                Utils.sObjects.restoreNotBlankValues(new List<SObject>{
+                                        recordVar
+                                }, preserveFields);
                                 return true;
                             }
                         }
                     }
                 }
-            }catch (System.HandledException ex){ //No active duplicate rules are defined for the object type.
+            } catch (System.HandledException ex) { //No active duplicate rules are defined for the object type.
 //                System.debug(ex.getMessage());
-            }catch (Exception ex){
+            } catch (Exception ex) {
 //                System.debug(ex.getMessage()); // Other issue.
             }
             return false;
@@ -1696,29 +1724,28 @@ public inherited sharing class Utils {
                 String sObjName = sObjDescribe.getName();
 
                 dto.put(sObjName + '.name', sObjDescribe.getName())
-                    .put(sObjName + '.localName', sObjDescribe.getLocalName())
-                    .put(sObjName + '.label', sObjDescribe.getLabel())
-                    .put(sObjName + '.pluralLabel', sObjDescribe.getLabelPlural())
-                    .put(sObjName + '.keyPrefix', sObjDescribe.getKeyPrefix());
+                        .put(sObjName + '.localName', sObjDescribe.getLocalName())
+                        .put(sObjName + '.label', sObjDescribe.getLabel())
+                        .put(sObjName + '.pluralLabel', sObjDescribe.getLabelPlural())
+                        .put(sObjName + '.keyPrefix', sObjDescribe.getKeyPrefix());
 
                 for (SObjectField field : sObjDescribe.fields.getMap().values()) {
                     DescribeFieldResult fieldDescribe = field.getDescribe();
                     String fieldName = fieldDescribe.getName();
 
                     dto.put(sObjName + '.' + fieldName + '.name', fieldDescribe.getName())
-                        .put(sObjName + '.' + fieldName + '.localName', fieldDescribe.getLocalName())
-                        .put(sObjName + '.' + fieldName + '.label', fieldDescribe.getLabel())
-                        .put(sObjName + '.' + fieldName + '.helpText', fieldDescribe.getInlineHelpText())
-                        .put(sObjName + '.' + fieldName + '.defaultValue', fieldDescribe.getDefaultValue())
-                        .put(sObjName + '.' + fieldName + '.type', fieldDescribe.getType())
-                        .put(sObjName + '.' + fieldName + '.type', fieldDescribe.getType());
+                            .put(sObjName + '.' + fieldName + '.localName', fieldDescribe.getLocalName())
+                            .put(sObjName + '.' + fieldName + '.label', fieldDescribe.getLabel())
+                            .put(sObjName + '.' + fieldName + '.helpText', fieldDescribe.getInlineHelpText())
+                            .put(sObjName + '.' + fieldName + '.defaultValue', fieldDescribe.getDefaultValue())
+                            .put(sObjName + '.' + fieldName + '.type', fieldDescribe.getType())
+                            .put(sObjName + '.' + fieldName + '.type', fieldDescribe.getType());
                 }
             }
 
             return dto.getMap();
         }
     }
-
 
 
     /**
@@ -1736,26 +1763,26 @@ public inherited sharing class Utils {
         public String generateReportURL(String reportAPIName, List<String> paramValues, Boolean isSecurityEnforced) {
 
             String reportQuery = 'SELECT Id, Name\n' +
-                'FROM Report\n' +
-                'WHERE DeveloperName = :reportAPIName';
+                    'FROM Report\n' +
+                    'WHERE DeveloperName = :reportAPIName';
 
             Report reportId = (Report) Utils.arrays.firstOrNull(
-                Database.query(reportQuery + (isSecurityEnforced == true ? ' WITH USER_MODE' : ''))
+                    Database.query(reportQuery + (isSecurityEnforced == true ? ' WITH USER_MODE' : ''))
             );
 
             List<String> reportParams = new List<String>();
-            if(paramValues != null){
+            if (paramValues != null) {
                 for (Integer i = 0; i < paramValues.size(); i++) {
                     reportParams.add(String.format('fv{0}={1}', new List<String>{
-                        '' + (i + 1),
-                        EncodingUtil.urlEncode(paramValues[i], 'UTF-8')
+                            '' + (i + 1),
+                            EncodingUtil.urlEncode(paramValues[i], 'UTF-8')
                     }));
                 }
             }
 
             String reportURL = String.format('/lightning/r/Report/{0}/view?queryScope=userFolders{1}', new List<String>{
-                reportId?.Id,
-                reportParams.isEmpty() ? '' : '&' + String.join(reportParams, '&')
+                    reportId?.Id,
+                    reportParams.isEmpty() ? '' : '&' + String.join(reportParams, '&')
             });
 
             return reportURL;
@@ -1763,7 +1790,7 @@ public inherited sharing class Utils {
 //
         public PageReference listView(Schema.sObjectType destinationSObject) {
             Schema.DescribeSObjectResult destination = destinationSObject.getDescribe();
-            PageReference pageRef = new PageReference('/' + destination.getKeyPrefix() );
+            PageReference pageRef = new PageReference('/' + destination.getKeyPrefix());
             pageRef.setRedirect(true);
             return pageRef;
         }
@@ -1787,9 +1814,11 @@ public inherited sharing class Utils {
 //            return mail;
 //        }
 //
-        public Id getEmailTemplateIdByName(String templateName){
+        public Id getEmailTemplateIdByName(String templateName) {
             List<EmailTemplate> templates = [
-                SELECT Id, Name, DeveloperName FROM EmailTemplate WHERE DeveloperName = :templateName
+                    SELECT Id, Name, DeveloperName
+                    FROM EmailTemplate
+                    WHERE DeveloperName = :templateName
             ];
 
             return templates.isEmpty() ? null : templates[0].Id;
@@ -1811,7 +1840,7 @@ public inherited sharing class Utils {
 //            return mail;
 //        }
 //
-        public Boolean isEmailsTurnedOn(){
+        public Boolean isEmailsTurnedOn() {
             Boolean emailsTurnedOn = false;
             try {
                 Messaging.reserveSingleEmailCapacity(0);
@@ -1821,7 +1850,6 @@ public inherited sharing class Utils {
             return emailsTurnedOn;
         }
     }
-
 
 
     /**
@@ -1837,11 +1865,11 @@ public inherited sharing class Utils {
 
         public Boolean isSandbox() {
 
-            if(isSandbox == null){
+            if (isSandbox == null) {
                 List<Organization> organizations = [
-                    SELECT IsSandbox
-                    FROM Organization
-                    WHERE Id = :UserInfo.getOrganizationId()
+                        SELECT IsSandbox
+                        FROM Organization
+                        WHERE Id = :UserInfo.getOrganizationId()
                 ];
 
                 if (organizations.isEmpty()) {
@@ -1856,7 +1884,7 @@ public inherited sharing class Utils {
 
         public Boolean isScratch() {
 
-            if(isScratch == null){
+            if (isScratch == null) {
                 isScratch = Url.getOrgDomainUrl().getHost().contains('scratch');
             }
 
@@ -1875,12 +1903,12 @@ public inherited sharing class Utils {
     public inherited sharing class EncodingExtensions {
 //
 //        // map to application/x-www-form-urlencoded.
-        public String mapToFormUrlEncoded(Map<String, String> dataMap){
+        public String mapToFormUrlEncoded(Map<String, String> dataMap) {
             List<String> keyValuePairsEncoded = new List<String>();
-            for(String key : dataMap.keySet()){
+            for (String key : dataMap.keySet()) {
                 keyValuePairsEncoded.add(String.format('{0}={1}', new List<String>{
-                    System.EncodingUtil.urlEncode(key, 'UTF-8'),
-                    System.EncodingUtil.urlEncode(Utils.strings.emptyStringIfNull(dataMap.get(key)), 'UTF-8')
+                        System.EncodingUtil.urlEncode(key, 'UTF-8'),
+                        System.EncodingUtil.urlEncode(Utils.strings.emptyStringIfNull(dataMap.get(key)), 'UTF-8')
                 }));
             }
 
@@ -1944,24 +1972,24 @@ public inherited sharing class Utils {
 
         private final Pattern ARRAY_NOTATION = Pattern.compile('\\[(\\d+)\\]');
 
-        public Object firstOrDefault(List<Object> records, Object defaultVar){
+        public Object firstOrDefault(List<Object> records, Object defaultVar) {
             return records.isEmpty() ? defaultVar : records[0];
         }
 
-        public Object firstOrNull(List<Object> records){
+        public Object firstOrNull(List<Object> records) {
             return firstOrDefault(records, null);
         }
 
-        public Object firstOrException(List<Object> records){
+        public Object firstOrException(List<Object> records) {
             return firstOrException(records, 'The list is empty');
         }
 
-        public Object firstOrException(List<Object> records, String message){
+        public Object firstOrException(List<Object> records, String message) {
             return firstOrException(records, message, null);
         }
 
-        public Object firstOrException(List<Object> records, String message, Type exceptionType){
-            if(records == null || records.isEmpty()){
+        public Object firstOrException(List<Object> records, String message, Type exceptionType) {
+            if (records == null || records.isEmpty()) {
                 Exception ex;
                 if (exceptionType != null) {
                     ex = (Exception) exceptionType.newInstance();
@@ -2013,8 +2041,8 @@ public inherited sharing class Utils {
 //            return result;
 //        }
 
-        public void addToSetIfNotBlank(Set<String> dataSet, String value){
-            if (String.isNotBlank(value)){
+        public void addToSetIfNotBlank(Set<String> dataSet, String value) {
+            if (String.isNotBlank(value)) {
                 dataSet.add(value);
             }
         }
@@ -2064,7 +2092,7 @@ public inherited sharing class Utils {
                 Boolean isArrayKey = arrayMatcher.matches();
                 Integer index = isArrayKey ? Integer.valueOf(arrayMatcher.group(1)) : null;
 
-                if(isArrayKey && (tempArr == null || index == null || tempArr.size() <= index)){
+                if (isArrayKey && (tempArr == null || index == null || tempArr.size() <= index)) {
                     return null;
                 }
 
@@ -2096,7 +2124,9 @@ public inherited sharing class Utils {
         }
 
         public void setMapValue(Map<String, Object> dataMap, List<String> path, Object value) {
-            List<String> currentKeys = path == null ? new List<String>{null} : path;
+            List<String> currentKeys = path == null ? new List<String>{
+                    null
+            } : path;
             Map<String, Object> tempMap = dataMap;
             List<Object> tempArr = null;
 
@@ -2208,7 +2238,7 @@ public inherited sharing class Utils {
 //        }
 
         //Example: Utils.arrays.split(new List<Integer>{1, 2, 3, 4, 5, 6, 7, 8, 9 ,10}, 2, List<Integer>.class)
-        public List<List<Object>> split(List<Object> arr, Integer chunkSize, Type chunkListType){
+        public List<List<Object>> split(List<Object> arr, Integer chunkSize, Type chunkListType) {
 
             Utils.objects.throwIfNull(chunkSize, 'chunkSize is null');
 
@@ -2218,13 +2248,13 @@ public inherited sharing class Utils {
             Integer chunkCounter = 0;
             for (Object item : arr) {
                 if (chunkCounter == 0) {
-                    chunk = (List<Object>)chunkListType.newInstance();
+                    chunk = (List<Object>) chunkListType.newInstance();
                     result.add(chunk);
                 }
                 System.debug('item: ' + item);
                 chunk.add(item);
                 chunkCounter++;
-                if(chunkCounter == chunkSize){
+                if (chunkCounter == chunkSize) {
                     chunkCounter = 0;
                 }
             }
@@ -2241,66 +2271,65 @@ public inherited sharing class Utils {
 
     public inherited sharing class ObjectExtensions {
 
-        public void throwIfNull(Object obj, Exception ex){
-            if(obj == null){
+        public void throwIfNull(Object obj, Exception ex) {
+            if (obj == null) {
                 throw ex;
             }
         }
 
-        public void throwIfNull(Object obj, String message){
-            if(obj == null){
+        public void throwIfNull(Object obj, String message) {
+            if (obj == null) {
                 throw new Structs.MissingDataException(message);
             }
         }
 
-        public Boolean isBlankValue(Object obj){
-            return obj == null || (obj instanceof String && String.isBlank((String)obj));
+        public Boolean isBlankValue(Object obj) {
+            return obj == null || (obj instanceof String && String.isBlank((String) obj));
         }
 
-        public void throwIfBlank(Object obj, String message){
-            if(this.isBlankValue(obj)){
+        public void throwIfBlank(Object obj, String message) {
+            if (this.isBlankValue(obj)) {
                 throw new Structs.MissingDataException(message);
             }
         }
 
-        public Decimal parseDecimal(Object val){
-            if(val == null){
+        public Decimal parseDecimal(Object val) {
+            if (val == null) {
                 return null;
-            } else if(val instanceof Decimal){
-                return (Decimal)val;
-            } else if (val instanceof String && String.isNotBlank((String)val)){
-                return Decimal.valueOf((String)val);
-            } else if (val instanceof Integer){
-                return Decimal.valueOf((Integer)val);
-            } else if (val instanceof Long){
-                return Decimal.valueOf((Long)val);
-            } else if (val instanceof Double){
-                return Decimal.valueOf((Double)val);
+            } else if (val instanceof Decimal) {
+                return (Decimal) val;
+            } else if (val instanceof String && String.isNotBlank((String) val)) {
+                return Decimal.valueOf((String) val);
+            } else if (val instanceof Integer) {
+                return Decimal.valueOf((Integer) val);
+            } else if (val instanceof Long) {
+                return Decimal.valueOf((Long) val);
+            } else if (val instanceof Double) {
+                return Decimal.valueOf((Double) val);
             }
             throw new Structs.InvalidDataException('Unable to parse Decimal from: ' + val);
         }
 
-        public Datetime defaultIfNull(Datetime val, Datetime defaultVal){
+        public Datetime defaultIfNull(Datetime val, Datetime defaultVal) {
             return val == null ? defaultVal : val;
         }
 
-        public Date defaultIfNull(Date val, Date defaultVal){
+        public Date defaultIfNull(Date val, Date defaultVal) {
             return val == null ? defaultVal : val;
         }
 
-        public Decimal defaultIfNull(Decimal val, Decimal defaultVal){
+        public Decimal defaultIfNull(Decimal val, Decimal defaultVal) {
             return val == null ? defaultVal : val;
         }
 
-        public Integer defaultIfNull(Integer val, Integer defaultVal){
+        public Integer defaultIfNull(Integer val, Integer defaultVal) {
             return val == null ? defaultVal : val;
         }
 
-        public String defaultIfNull(String val, String defaultVal){
+        public String defaultIfNull(String val, String defaultVal) {
             return val == null ? defaultVal : val;
         }
     }
-
 
 
 //    /**
@@ -2655,12 +2684,12 @@ public inherited sharing class Utils {
 //            return (string.isNotBlank(value) || serializeNulls) ? ('<' + key + '>' + (string.isBlank(value)?'':value) + '</' + key + '>') : value;
 //        }
 
-        /*
-        @Description    : deSerializes the xml string into collection of primitive data types.
-        @Parameter      : xmlString = xml String to deSerialize
-        @Parameter      : deSerializeNodesAsArray  = collection of node names to deserialize as array (Even if xml representation is not an array)
-        @Returns        : collection of primitive data types
-        */
+    /*
+    @Description    : deSerializes the xml string into collection of primitive data types.
+    @Parameter      : xmlString = xml String to deSerialize
+    @Parameter      : deSerializeNodesAsArray  = collection of node names to deserialize as array (Even if xml representation is not an array)
+    @Returns        : collection of primitive data types
+    */
 //        private  Map<string,object> XMLToUnTyped(string xmlString){
 //            xmldom xd = new xmldom(xmlString);
 //            XMLElement document = xd.ownerDocument();
@@ -2795,44 +2824,44 @@ public inherited sharing class Utils {
      * ==============================================================================================================
      */
 
-    private class TPicklistEntry{
-        public string active {get;set;}
-        public string defaultValue {get;set;}
-        public string label {get;set;}
-        public string value {get;set;}
-        public string validFor {get;set;}
-        public TPicklistEntry(){
+    private class TPicklistEntry {
+        public string active { get; set; }
+        public string defaultValue { get; set; }
+        public string label { get; set; }
+        public string value { get; set; }
+        public string validFor { get; set; }
+        public TPicklistEntry() {
         }
     }
 
-    private class Bitset{
-        public Map<String,Integer> AlphaNumCharCodes {get;set;}
+    private class Bitset {
+        public Map<String, Integer> AlphaNumCharCodes { get; set; }
         public Map<String, Integer> Base64CharCodes { get; set; }
 
-        Bitset(){
+        Bitset() {
             LoadCharCodes();
         }
 
         //Method loads the char codes
-        private void LoadCharCodes(){
-            AlphaNumCharCodes = new Map<String,Integer>{
-                'A'=>65,'B'=>66,'C'=>67,'D'=>68,'E'=>69,'F'=>70,'G'=>71,'H'=>72,'I'=>73,'J'=>74,
-                'K'=>75,'L'=>76,'M'=>77,'N'=>78,'O'=>79,'P'=>80,'Q'=>81,'R'=>82,'S'=>83,'T'=>84,
-                'U'=>85,'V'=> 86,'W'=>87,'X'=>88,'Y'=>89,'Z'=>90
+        private void LoadCharCodes() {
+            AlphaNumCharCodes = new Map<String, Integer>{
+                    'A' => 65, 'B' => 66, 'C' => 67, 'D' => 68, 'E' => 69, 'F' => 70, 'G' => 71, 'H' => 72, 'I' => 73, 'J' => 74,
+                    'K' => 75, 'L' => 76, 'M' => 77, 'N' => 78, 'O' => 79, 'P' => 80, 'Q' => 81, 'R' => 82, 'S' => 83, 'T' => 84,
+                    'U' => 85, 'V' => 86, 'W' => 87, 'X' => 88, 'Y' => 89, 'Z' => 90
             };
             Base64CharCodes = new Map<String, Integer>();
             //lower case
             Set<String> pUpperCase = AlphaNumCharCodes.keySet();
-            for(String pKey : pUpperCase){
+            for (String pKey : pUpperCase) {
                 //the difference between upper case and lower case is 32
-                AlphaNumCharCodes.put(pKey.toLowerCase(),AlphaNumCharCodes.get(pKey)+32);
+                AlphaNumCharCodes.put(pKey.toLowerCase(), AlphaNumCharCodes.get(pKey) + 32);
                 //Base 64 alpha starts from 0 (The ascii charcodes started from 65)
-                Base64CharCodes.put(pKey,AlphaNumCharCodes.get(pKey) - 65);
-                Base64CharCodes.put(pKey.toLowerCase(),AlphaNumCharCodes.get(pKey) - (65) + 26);
+                Base64CharCodes.put(pKey, AlphaNumCharCodes.get(pKey) - 65);
+                Base64CharCodes.put(pKey.toLowerCase(), AlphaNumCharCodes.get(pKey) - (65) + 26);
             }
             //numerics
-            for (Integer i=0; i<=9; i++){
-                AlphaNumCharCodes.put(string.valueOf(i),i+48);
+            for (Integer i = 0; i <= 9; i++) {
+                AlphaNumCharCodes.put(string.valueOf(i), i + 48);
                 //base 64 numeric starts from 52
                 Base64CharCodes.put(string.valueOf(i), i + 52);
             }
@@ -2842,28 +2871,27 @@ public inherited sharing class Utils {
             Effect: Method takes a validFor string and tests it against a set of controlling indexes
             Postcondition: Returns a list of all controlling indexes for which the validFor string test True
         */
-        public List<Integer> testBits(String pValidFor,List<Integer> nList){
+        public List<Integer> testBits(String pValidFor, List<Integer> nList) {
             List<Integer> results = new List<Integer>();
             //the list of bytes (not derived from n)
             List<Integer> pBytes = new List<Integer>();
             //multiply by 6 since base 64 uses 6 bits (not derived form n)
-            Integer bytesBeingUsed = (pValidFor.length() * 6)/8;
+            Integer bytesBeingUsed = (pValidFor.length() * 6) / 8;
             //will be used to hold the full decimal value (not derived from n)
             Integer pFullValue = 0;
             //must be more than 1 byte
             if (bytesBeingUsed <= 1)
                 return results;
             //get the base64bytes
-            for(Integer i=0;i<pValidFor.length();i++){
+            for (Integer i = 0; i < pValidFor.length(); i++) {
                 //get currenct character value
-                pBytes.Add((Base64CharCodes.get((pValidFor.Substring(i, i+1)))));
+                pBytes.Add((Base64CharCodes.get((pValidFor.Substring(i, i + 1)))));
             }
             //calculate the full decimal value
-            for (Integer i = 0; i < pBytes.size(); i++)
-            {
-                Integer pShiftAmount = (pBytes.size()-(i+1))*6;//used to shift by a factor 6 bits to get the value
+            for (Integer i = 0; i < pBytes.size(); i++) {
+                Integer pShiftAmount = (pBytes.size() - (i + 1)) * 6;//used to shift by a factor 6 bits to get the value
 
-                if (pBytes[i] != null){
+                if (pBytes[i] != null) {
                     pFullValue = pFullValue + (pBytes[i] << (pShiftAmount));
                 }
             }
@@ -2875,10 +2903,10 @@ public inherited sharing class Utils {
             Integer tBitVal;
             Integer n;
             Integer nListSize = nList.size();
-            for(Integer i=0; i<nListSize; i++){
+            for (Integer i = 0; i < nListSize; i++) {
                 n = nList[i];
                 //calculate the target bit for comparison
-                bit = 7 - (Math.mod(n,8));
+                bit = 7 - (Math.mod(n, 8));
                 //calculate the octet that has in the target bit
                 targetOctet = (bytesBeingUsed - 1) - (n >> bytesBeingUsed);
                 //the number of bits to shift by until we find the bit to compare for true or false
@@ -2886,8 +2914,8 @@ public inherited sharing class Utils {
                 //& is to set the same set of bits for testing
                 //shift to the bit which will dictate true or false
                 //Math.Pow(2, shiftBits) == 2 << (shiftBits+1)
-                tBitVal = ((Integer)(2 << (shiftBits-1)) & pFullValue) >> shiftBits;
-                if (tBitVal==1)
+                tBitVal = ((Integer) (2 << (shiftBits - 1)) & pFullValue) >> shiftBits;
+                if (tBitVal == 1)
                     results.add(n);
             }
             return results;
@@ -2895,44 +2923,46 @@ public inherited sharing class Utils {
     }
 
     // Converts a base64 string into a list of integers representing the encoded bytes
-    public static List<Integer> B64ToBytes (String sIn) {
-        Map<Integer,Integer> base64 = new Map<Integer,Integer>{65=>0,66=>1,67=>2,68=>3,69=>4,70=>5,71=>6,72=>7,73=>8,74=>9,75=>10,76=>11,77=>12,78=>13,79=>14,80=>15,81=>16,82=>17,83=>18,84=>19,85=>20,86=>21,87=>22,88=>23,89=>24,90=>25
-        ,97=>26,98=>27,99=>28,100=>29,101=>30,102=>31,103=>32,104=>33,105=>34,106=>35,107=>36,108=>37,109=>38,110=>39,111=>40,112=>41,113=>42,114=>43,115=>44,116=>45,117=>46,118=>47,119=>48,120=>49,121=>50,122=>51
-        ,48=>52,49=>53,50=>54,51=>55,52=>56,53=>57,54=>58,55=>59,56=>60,57=>61,43=>62,47=>63};
+    public static List<Integer> B64ToBytes(String sIn) {
+        Map<Integer, Integer> base64 = new Map<Integer, Integer>{
+                65 => 0, 66 => 1, 67 => 2, 68 => 3, 69 => 4, 70 => 5, 71 => 6, 72 => 7, 73 => 8, 74 => 9, 75 => 10, 76 => 11, 77 => 12, 78 => 13, 79 => 14, 80 => 15, 81 => 16, 82 => 17, 83 => 18, 84 => 19, 85 => 20, 86 => 21, 87 => 22, 88 => 23, 89 => 24, 90 => 25
+                , 97 => 26, 98 => 27, 99 => 28, 100 => 29, 101 => 30, 102 => 31, 103 => 32, 104 => 33, 105 => 34, 106 => 35, 107 => 36, 108 => 37, 109 => 38, 110 => 39, 111 => 40, 112 => 41, 113 => 42, 114 => 43, 115 => 44, 116 => 45, 117 => 46, 118 => 47, 119 => 48, 120 => 49, 121 => 50, 122 => 51
+                , 48 => 52, 49 => 53, 50 => 54, 51 => 55, 52 => 56, 53 => 57, 54 => 58, 55 => 59, 56 => 60, 57 => 61, 43 => 62, 47 => 63
+        };
 
         List<Integer> lstOut = new List<Integer>();
-        if ( sIn == null || sIn == '' ) return lstOut;
+        if (sIn == null || sIn == '') return lstOut;
 
-        sIn += '='.repeat( 4 - Math.mod( sIn.length(), 4) );
+        sIn += '='.repeat(4 - Math.mod(sIn.length(), 4));
 
-        for ( Integer idx=0; idx < sIn.length(); idx += 4 ) {
-            if ( base64.get(sIn.charAt(idx+1)) != null ) lstOut.add( (base64.get(sIn.charAt(idx)) << 2) | (base64.get(sIn.charAt(idx+1)) >>> 4) );
-            if ( base64.get(sIn.charAt(idx+2)) != null ) lstOut.add( ((base64.get(sIn.charAt(idx+1)) & 15)<<4) | (base64.get(sIn.charAt(idx+2)) >>> 2) );
-            if ( base64.get(sIn.charAt(idx+3)) != null ) lstOut.add( ((base64.get(sIn.charAt(idx+2)) & 3)<<6) | base64.get(sIn.charAt(idx+3)) );
+        for (Integer idx = 0; idx < sIn.length(); idx += 4) {
+            if (base64.get(sIn.charAt(idx + 1)) != null) lstOut.add((base64.get(sIn.charAt(idx)) << 2) | (base64.get(sIn.charAt(idx + 1)) >>> 4));
+            if (base64.get(sIn.charAt(idx + 2)) != null) lstOut.add(((base64.get(sIn.charAt(idx + 1)) & 15) << 4) | (base64.get(sIn.charAt(idx + 2)) >>> 2));
+            if (base64.get(sIn.charAt(idx + 3)) != null) lstOut.add(((base64.get(sIn.charAt(idx + 2)) & 3) << 6) | base64.get(sIn.charAt(idx + 3)));
         }
 
         //System.Debug('B64ToBytes: [' + sIn + '] = ' + lstOut);
         return lstOut;
     }//B64ToBytes
 
-    public static List<Integer> BlobToBytes (Blob input) {
-        return B64ToBytes( EncodingUtil.base64Encode(input) );
+    public static List<Integer> BlobToBytes(Blob input) {
+        return B64ToBytes(EncodingUtil.base64Encode(input));
     }//BlobToBytes
 
     // Converts a base64 string into a list of integers indicating at which position the bits are on
-    public static List<Integer> cnvBits (String b64Str) {
+    public static List<Integer> cnvBits(String b64Str) {
         List<Integer> lstOut = new List<Integer>();
-        if ( b64Str == null || b64Str == '' ) return lstOut;
+        if (b64Str == null || b64Str == '') return lstOut;
 
         List<Integer> lstBytes = B64ToBytes(b64Str);
 
         Integer i, b, v;
-        for ( i = 0; i < lstBytes.size(); i++ ) {
+        for (i = 0; i < lstBytes.size(); i++) {
             v = lstBytes[i];
             //System.debug ( 'i['+i+'] v['+v+']' );
-            for ( b = 1; b <= 8; b++ ) {
+            for (b = 1; b <= 8; b++) {
                 //System.debug ( 'i['+i+'] b['+b+'] v['+v+'] = ['+(v & 128)+']' );
-                if ( ( v & 128 ) == 128 ) lstOut.add( (i*8) + b );
+                if ((v & 128) == 128) lstOut.add((i * 8) + b);
                 v <<= 1;
             }
         }
