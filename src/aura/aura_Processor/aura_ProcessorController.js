@@ -69,5 +69,9 @@
         }else{
             cmp.set('v.meta.showMoreErrorDetails', true);
         }
-    }
+    },
+
+    handleSetStage: function (cmp, event, helper) {
+        cmp.set('v.stage', event.getParams().arguments.stage);
+    },
 });

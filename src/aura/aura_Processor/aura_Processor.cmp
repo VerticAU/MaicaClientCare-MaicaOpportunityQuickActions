@@ -4,14 +4,9 @@
     <aura:set attribute="hideContentOnBusy" value="{!false}"/>
     <aura:set attribute="spinner"></aura:set>
 
-    <aura:registerEvent name="onInit" type="c:aura_ComponentEvent"/>
-
     <aura:attribute name="response" type="Object" access="public"/>
-
-    <aura:method name="process" action="{!c.handleProcess}" access="public">
-        <aura:attribute type="String" name="processor" access="public"/>
-        <aura:attribute type="Object" name="request" access="public"/>
-    </aura:method>
+    <aura:attribute name="stage" type="String" default="initial"/>
+    <aura:attribute name="validateOnProcess" type="Boolean" default="{!false}"/>
 
     <aura:attribute name="initial" type="Aura.Component[]" access="public">
         <lightning:button label="Process"
@@ -21,20 +16,17 @@
                           onclick="{!c.handleProcess}"
         />
     </aura:attribute>
-
     <aura:attribute name="pending" type="Aura.Component[]" access="public">
         <p>
             <lightning:icon iconName="utility:sync" class="slds-show_inline" size="small"/>
             Processing...
         </p>
     </aura:attribute>
-
     <aura:attribute name="success" type="Aura.Component[]" access="public">
         <c:aura_ScopedNotification iconName="utility:success" iconVariant="success">
             Processed
         </c:aura_ScopedNotification>
     </aura:attribute>
-
     <aura:attribute name="failure" type="Aura.Component[]" access="public">
         <c:aura_ScopedNotification iconName="utility:clear" iconVariant="error">
             {!v.meta.error}
@@ -42,9 +34,16 @@
         </c:aura_ScopedNotification>
     </aura:attribute>
 
-    <aura:attribute name="stage" type="String" default="initial"/>
-    <aura:attribute name="validateOnProcess" type="Boolean" default="{!false}"/>
+    <aura:method name="process" action="{!c.handleProcess}" access="public">
+        <aura:attribute type="String" name="processor" access="public"/>
+        <aura:attribute type="Object" name="request" access="public"/>
+    </aura:method>
+    <aura:method name="setStage" action="{!c.handleSetStage}" access="public">
+        <aura:attribute type="String" name="stage" access="public"/>
+    </aura:method>
+
     <aura:handler name="init" value="{!this}" action="{!c.handleInit}"/>
+    <aura:registerEvent name="onInit" type="c:aura_ComponentEvent"/>
 
     <div>
         <aura:if isTrue="{!v.stage == 'initial'}">
