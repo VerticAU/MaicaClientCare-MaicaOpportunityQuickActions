@@ -6,7 +6,7 @@ public inherited sharing class UnitOfWork extends fflib_SObjectUnitOfWork {
     private DoHierarchyWork doHierarchyWork;
 
     public UnitOfWork(List<SObjectType> types) {
-        this(types, new SimpleDML());
+        this(types, new DMLManagerAsUserImpl());
     }
 
     public UnitOfWork(List<SObjectType> types, fflib_SObjectUnitOfWork.IDML dmlImpl) {
@@ -93,7 +93,11 @@ public inherited sharing class UnitOfWork extends fflib_SObjectUnitOfWork {
     }
 
     public void registerHierarchy(SObject child, SObjectField field, SObject parent) {
+//        if (child.getSObjectType() == parent.getSObjectType()) {
         doHierarchyWork.registerRelationship(child, field, parent);
+//        } else {
+//            throw new Structs.InvalidDataException('Couldn\'t create hierarchy relationship for different SObject Types.');
+//        }
     }
 
     private class DoHierarchyWork implements fflib_SObjectUnitOfWork.IDoWork {
@@ -151,4 +155,37 @@ public inherited sharing class UnitOfWork extends fflib_SObjectUnitOfWork {
             this.parent = parent;
         }
     }
+
+    public inherited sharing class DMLManagerAsUserImpl implements IDML
+    {
+        public void dmlInsert(List<SObject> objList){
+            DMLManager.insertAsUser(objList);
+        }
+        public void dmlUpdate(List<SObject> objList){
+            DMLManager.updateAsUser(objList);
+        }
+        public void dmlDelete(List<SObject> objList){
+            DMLManager.deleteAsUser(objList);
+        }
+        public void eventPublish(List<SObject> objList){
+            EventBus.publish(objList);
+        }
+    }
+
+    public inherited sharing class DMLManagerAsSystemImpl implements IDML
+    {
+        public void dmlInsert(List<SObject> objList){
+            DMLManager.insertAsSystem(objList);
+        }
+        public void dmlUpdate(List<SObject> objList){
+            DMLManager.updateAsSystem(objList);
+        }
+        public void dmlDelete(List<SObject> objList){
+            DMLManager.deleteAsSystem(objList);
+        }
+        public void eventPublish(List<SObject> objList){
+            EventBus.publish(objList);
+        }
+    }
+
 }
