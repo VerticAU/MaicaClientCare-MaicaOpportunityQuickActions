@@ -176,7 +176,8 @@ private class NDISProductManagementQATest {
         insert oppVar2;
 
         Product2 productVar = new Product2(
-            Name = 'testProduct'
+            Name = 'testProduct',
+            Support_Category__c = supportCategoryVar.Id
         );
         insert productVar;
     }
