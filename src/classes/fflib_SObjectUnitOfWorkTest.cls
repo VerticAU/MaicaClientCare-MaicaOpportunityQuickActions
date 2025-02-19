@@ -122,6 +122,10 @@ private with sharing class fflib_SObjectUnitOfWorkTest {
 
         // Update some records with UnitOfWork
         {
+            maica_cc__Support_Category__c supportCategory = new maica_cc__Support_Category__c(
+                Name = 'Test'
+            );
+            insert supportCategory;
             fflib_SObjectUnitOfWork uow = new fflib_SObjectUnitOfWork(MY_SOBJECTS);
             Opportunity opp = opps[0];
             opp.Name = opp.Name + ' Changed';
@@ -130,6 +134,7 @@ private with sharing class fflib_SObjectUnitOfWorkTest {
             });
             Product2 product = new Product2();
             product.Name = opp.Name + ' : New Product';
+            product.Support_Category__c = supportCategory.Id;
             uow.registerNew(new List<SObject>{
                 product
             });
