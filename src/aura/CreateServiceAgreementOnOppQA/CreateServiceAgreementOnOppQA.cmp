@@ -18,18 +18,18 @@
 
             <div class="slds-col slds-size_4-of-12  slds-p-right_small">
                 <c:aura_Lookup
-                        label="Pricebook"
-                        object="maica_cc__Price_List__c"
-                        searchField="Name"
-                        placeholder="Select a Price List..."
-                        iconName="standard:pricebook"
-                        limit="8"
-                        errorMessage="Error"
-                        showRecentRecords="{!true}"
-                        disabled="{!true}"
-                        required="{!true}"
-                        value="{!v.meta.dto.serviceAgreement.maica_cc__Price_List__c}"
-                        class="label-hidden"
+                    label="Pricebook"
+                    object="maica_cc__Price_List__c"
+                    searchField="Name"
+                    placeholder="Select a Price List..."
+                    iconName="standard:pricebook"
+                    limit="8"
+                    errorMessage="Error"
+                    showRecentRecords="{!true}"
+                    disabled="{!true}"
+                    required="{!true}"
+                    value="{!v.meta.dto.serviceAgreement.maica_cc__Price_List__c}"
+                    class="label-hidden"
                 />
             </div>
         </div>
@@ -54,21 +54,21 @@
 
             <div class="slds-col slds-size_1-of-2">
                 <c:aura_Lookup label="Service Provider"
-                                 object="Account"
-                                 subtitleField="maica_cc__ABN__c"
-                                 subtitleFieldPrefix="ABN: "
-                                 searchField="Name,maica_cc__ABN__c,maica_cc__ABN_Search_Format__c"
-                                 searchMode="SOQL"
-                                 filter="maica_cc__ABN__c != NULL"
-                                 placeholder="Select a Service Provider..."
-                                 iconName="standard:account"
-                                 order="Name"
-                                 limit="10"
-                                 loadingMessage="Loading..."
-                                 errorMessage="Error"
-                                 showRecentRecords="{!true}"
-                                 disabled="{!v.isBusy}"
-                                 value="{!v.meta.dto.serviceAgreement.maica_cc__Service_Provider__c}"
+                               object="Account"
+                               subtitleField="maica_cc__ABN__c"
+                               subtitleFieldPrefix="ABN: "
+                               searchField="Name,maica_cc__ABN__c,maica_cc__ABN_Search_Format__c"
+                               searchMode="SOQL"
+                               filter="maica_cc__ABN__c != NULL"
+                               placeholder="Select a Service Provider..."
+                               iconName="standard:account"
+                               order="Name"
+                               limit="10"
+                               loadingMessage="Loading..."
+                               errorMessage="Error"
+                               showRecentRecords="{!true}"
+                               disabled="{!v.isBusy}"
+                               value="{!v.meta.dto.serviceAgreement.maica_cc__Service_Provider__c}"
                 />
             </div>
         </div>
@@ -96,10 +96,10 @@
                                 <th scope="col" style="width: 15%;">
                                     Rate
                                 </th>
-<!--                                <th scope="col" style="{!if(v.meta.dto.isCombinationFunding == true, 'width: 7%;', 'width: 5%;')}">-->
-<!--                                    <span>Mode&nbsp;</span>-->
-<!--                                    <lightning:helptext content="Indicates if the Support Category can be delivered in a flexible manner, meaning an alternative Support Item can be delivered."/>-->
-<!--                                </th>-->
+                                <!--                                <th scope="col" style="{!if(v.meta.dto.isCombinationFunding == true, 'width: 7%;', 'width: 5%;')}">-->
+                                <!--                                    <span>Mode&nbsp;</span>-->
+                                <!--                                    <lightning:helptext content="Indicates if the Support Category can be delivered in a flexible manner, meaning an alternative Support Item can be delivered."/>-->
+                                <!--                                </th>-->
                                 <aura:if isTrue="{!v.meta.dto.isCombinationFunding == true}">
                                     <th scope="col" style="width: 15%;">
                                         <span>Funding Type&nbsp;</span>
@@ -128,10 +128,10 @@
                                 >
                                     <aura:set attribute="oppLineItemsSelector">
                                         <c:aura_Select label="Product"
-                                                         class="label-hidden"
-                                                         required="{!true}"
-                                                         value="{!item.oppLineItemId}"
-                                                         options="{!v.meta.selectOptions.oppLineItemsOptions}"
+                                                       class="label-hidden"
+                                                       required="{!true}"
+                                                       value="{!item.oppLineItemId}"
+                                                       options="{!v.meta.selectOptions.oppLineItemsOptions}"
                                         />
                                     </aura:set>
                                 </c:CreateServiceAgreementOnOppItem>
@@ -177,27 +177,28 @@
 
     </aura:attribute>
 
-<!--    <c:AssertPermissionSet permSetApiName="Maica_Manage_Plan_Service_Booking" showToast="true" closeQuickAction="true">-->
-        <c:aura_QuickActionModal aura:id="modal"
-                                   title="Create Service Agreement"
-                                   heightPX="650px"
-                                   widthPercentage="65"
-                                   maxWidthRem="80"
-                                   minWidthRem="40"
-                                   refreshOnCancel="{!true}">
+    <!--    <c:AssertPermissionSet permSetApiName="Maica_Manage_Plan_Service_Booking" showToast="true" closeQuickAction="true">-->
+    <c:aura_QuickActionModal aura:id="modal"
+                             title="Create Service Agreement"
+                             heightPX="650px"
+                             widthPercentage="65"
+                             maxWidthRem="80"
+                             minWidthRem="40"
+                             refreshOnCancel="{!true}">
 
+        <aura:if isTrue="{!not(empty(v.meta))}">
             {!v.mainBody}
+        </aura:if>
+        <aura:set attribute="footer">
+            <lightning:button type="button"
+                              disabled="{!or(empty(v.meta.dto.agreementItems), v.isBusy)}"
+                              label="Confirm"
+                              variant="brand"
+                              onclick="{!c.handleConfirmClick}">
+            </lightning:button>
+        </aura:set>
 
-            <aura:set attribute="footer">
-                <lightning:button type="button"
-                                  disabled="{!or(empty(v.meta.dto.agreementItems), v.isBusy)}"
-                                  label="Confirm"
-                                  variant="brand"
-                                  onclick="{!c.handleConfirmClick}">
-                </lightning:button>
-            </aura:set>
-
-        </c:aura_QuickActionModal>
-<!--    </c:AssertPermissionSet>-->
+    </c:aura_QuickActionModal>
+    <!--    </c:AssertPermissionSet>-->
 
 </aura:component>
