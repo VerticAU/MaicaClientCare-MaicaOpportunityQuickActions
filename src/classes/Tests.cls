@@ -1491,7 +1491,7 @@ private class Tests {
 
             UnitOfWork uow = new UnitOfWork(new List<SObjectType>{
                     Account.SObjectType
-            }, new UnitOfWork.DMLManagerAsUserImpl());
+            }, new fflib_SObjectUnitOfWork.SimpleDML());
             uow.registerUpsert(parentAccount);
             uow.registerUpsert(childAccount);
             uow.registerHierarchy(childAccount, Account.ParentId, parentAccount);
