@@ -1650,7 +1650,7 @@ private class Tests {
     }
 
     @IsTest
-    static void coverUtils() {
+    static void coverCommon() {
         Account acc = new Account(Name = 'Test', Type = 'Other', NumberOfEmployees = 10);
         Account acc1 = new Account(Name = 'Test1', Type = 'Other', NumberOfEmployees = 11);
         if (Type.forName('Schema.' + 'tc9_et__Timesheet__c') != null) {
@@ -1669,6 +1669,19 @@ private class Tests {
         Assert.isTrue(sum == 21);
         String repUrl = Utils.URLs.generateReportURL('Test', new List<String>());
         Assert.areEqual('/lightning/r/Report/null/view?queryScope=userFolders', repUrl);
+        UnitOfWork uow = new UnitOfWork(
+                new List<SObjectType>{
+                        Account.SObjectType
+                }
+        );
+        acc1.Name = 'Test11';
+        uow.registerDirty(acc1);
+        uow.commitWork();
+        Assert.areEqual('Test11', acc1.Name);
+        AutoMapper am = new AutoMapper(new Map<String, Object>{'obj1' => new AutoMapper().getSObjectsAsMaps(new List<SObject>{acc1})});
+        am.getOptions().setIsVisualforce(true);
+        List<SObject> obj1Records = am.mapToListSObjects('obj1', Account.SObjectType);
+        Assert.isNotNull(obj1Records);
     }
 
     /**
