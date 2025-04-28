@@ -71,6 +71,7 @@ private with sharing class fflib_SObjectUnitOfWorkTest {
     @isTest
     private static void testUnitOfWorkNewDirtyDelete() {
         // Insert Opporunities with UnitOfWork
+        List<String> oppNames = new List<String>();
         {
             maica_cc__Support_Category__c supportCategory = new maica_cc__Support_Category__c(
                 Name = 'Test'
@@ -78,8 +79,10 @@ private with sharing class fflib_SObjectUnitOfWorkTest {
             insert supportCategory;
             fflib_SObjectUnitOfWork uow = new fflib_SObjectUnitOfWork(MY_SOBJECTS);
             for (Integer o = 0; o < 10; o++) {
+                String oppName = 'UoW Test Name ' + o;
+                oppNames.add(oppName);
                 Opportunity opp = new Opportunity();
-                opp.Name = 'UoW Test Name ' + o;
+                opp.Name = oppName;
                 opp.StageName = 'Open';
                 opp.CloseDate = System.today();
                 opp.Probability = 25;
@@ -112,13 +115,13 @@ private with sharing class fflib_SObjectUnitOfWorkTest {
         }
 
         // Assert Results
-        assertResults('UoW');
+        assertResults(oppNames);
         // TODO: Need to re-instate this check with a better approach, as it is not possible when
         //       product triggers contribute to DML (e.g. in sample app Opportunity trigger)
         // System.assertEquals(5 /* Oddly a setSavePoint consumes a DML */, Limits.getDmlStatements());
 
         // Records to update
-        List<Opportunity> opps = [select Id, Name, (Select Id from OpportunityLineItems) from Opportunity where Name like 'UoW Test Name %' order by Name];
+        List<Opportunity> opps = [select Id, Name, (Select Id from OpportunityLineItems) from Opportunity where Name IN :oppNames order by Name];
 
         // Update some records with UnitOfWork
         {
@@ -129,6 +132,7 @@ private with sharing class fflib_SObjectUnitOfWorkTest {
             fflib_SObjectUnitOfWork uow = new fflib_SObjectUnitOfWork(MY_SOBJECTS);
             Opportunity opp = opps[0];
             opp.Name = opp.Name + ' Changed';
+            oppNames.add(opp.Name);
             uow.registerDirty(new List<SObject>{
                 opp
             });
@@ -167,7 +171,7 @@ private with sharing class fflib_SObjectUnitOfWorkTest {
         // TODO: Need to re-instate this check with a better approach, as it is not possible when
         //       product triggers contribute to DML (e.g. in sample app Opportunity trigger)
         // System.assertEquals(11, Limits.getDmlStatements());
-        opps = [select Id, Name, (Select Id, PricebookEntry.Product2.Name, Quantity, TotalPrice from OpportunityLineItems Order By PricebookEntry.Product2.Name) from Opportunity where Name like 'UoW Test Name %' order by Name];
+        opps = [select Id, Name, (Select Id, PricebookEntry.Product2.Name, Quantity, TotalPrice from OpportunityLineItems Order By PricebookEntry.Product2.Name) from Opportunity where Name IN :oppNames order by Name];
         System.assertEquals(10, opps.size());
         System.assertEquals('UoW Test Name 0 Changed', opps[0].Name);
         System.assertEquals(2, opps[0].OpportunityLineItems.size());
@@ -206,7 +210,7 @@ private with sharing class fflib_SObjectUnitOfWorkTest {
         // TODO: Need to re-instate this check with a better approach, as it is not possible when
         //       product triggers contribute to DML (e.g. in sample app Opportunity trigger)
         // System.assertEquals(15, Limits.getDmlStatements());
-        opps = [select Id, Name, (Select Id, PricebookEntry.Product2.Name, Quantity from OpportunityLineItems Order By PricebookEntry.Product2.Name) from Opportunity where Name like 'UoW Test Name %' order by Name];
+        opps = [select Id, Name, (Select Id, PricebookEntry.Product2.Name, Quantity from OpportunityLineItems Order By PricebookEntry.Product2.Name) from Opportunity where Name IN :oppNames order by Name];
         List<Product2> prods = [Select Id from Product2 where Name = 'UoW Test Name 0 Changed : New Product'];
         System.assertEquals(10, opps.size());
         System.assertEquals('UoW Test Name 0 Changed', opps[0].Name);
@@ -214,10 +218,10 @@ private with sharing class fflib_SObjectUnitOfWorkTest {
         System.assertEquals(0, prods.size()); // Should have deleted Product added above
     }
 
-    private static void assertResults(String prefix) {
+    private static void assertResults(List<String> oppNames) {
         // Standard Assertions on tests data inserted by tests
-        String filter = prefix + ' Test Name %';
-        List<Opportunity> opps = [select Id, Name, (Select Id from OpportunityLineItems) from Opportunity where Name like :filter order by Name];
+//        String filter = prefix + ' Test Name %';
+        List<Opportunity> opps = [select Id, Name, (Select Id from OpportunityLineItems) from Opportunity where Name IN :oppNames order by Name];
         System.assertEquals(10, opps.size());
         System.assertEquals(1, opps[0].OpportunityLineItems.size());
         System.assertEquals(2, opps[1].OpportunityLineItems.size());
@@ -242,14 +246,17 @@ private with sharing class fflib_SObjectUnitOfWorkTest {
     @isTest
     private static void testDerivedUnitOfWork_CommitSuccess() {
         // Insert Opporunities with UnitOfWork
+        List<String> oppNames = new List<String>();
         DerivedUnitOfWork uow = new DerivedUnitOfWork(MY_SOBJECTS);
         maica_cc__Support_Category__c supportCategory = new maica_cc__Support_Category__c(
             Name = 'Test'
         );
         insert supportCategory;
         for (Integer o = 0; o < 10; o++) {
+            String oppName = 'UoW Test Name ' + o;
+            oppNames.add(oppName);
             Opportunity opp = new Opportunity();
-            opp.Name = 'UoW Test Name ' + o;
+            opp.Name = oppName;
             opp.StageName = 'Open';
             opp.CloseDate = System.today();
             opp.Probability = 25;
@@ -280,7 +287,7 @@ private with sharing class fflib_SObjectUnitOfWorkTest {
         uow.commitWork();
 
         // Assert Results
-        assertResults('UoW');
+        assertResults(oppNames);
 
         assertEvents(new List<String>{
             'onCommitWorkStarting'
