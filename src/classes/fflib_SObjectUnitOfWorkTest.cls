@@ -84,7 +84,7 @@ private with sharing class fflib_SObjectUnitOfWorkTest {
                 Opportunity opp = new Opportunity();
                 opp.Name = oppName;
                 opp.StageName = 'Open';
-                opp.CloseDate = System.today();
+                opp.CloseDate = System.today() + 1;
                 opp.Probability = 25;
                 opp.Funding_Source__c = 'Home Care Package';
                 uow.registerNew(new List<SObject>{
@@ -258,7 +258,7 @@ private with sharing class fflib_SObjectUnitOfWorkTest {
             Opportunity opp = new Opportunity();
             opp.Name = oppName;
             opp.StageName = 'Open';
-            opp.CloseDate = System.today();
+            opp.CloseDate = System.today() + 1;
             opp.Probability = 25;
             uow.registerNew(new List<SObject>{
                 opp
@@ -356,7 +356,7 @@ private with sharing class fflib_SObjectUnitOfWorkTest {
         Opportunity opp = new Opportunity();
         opp.Name = 'UoW Test Name 1';
         opp.StageName = 'Open';
-        opp.CloseDate = System.today();
+        opp.CloseDate = System.today() + 1;
         opp.Funding_Source__c = 'Home Care Package';
         uow.registerNew(new List<SObject>{
             opp
@@ -404,7 +404,7 @@ private with sharing class fflib_SObjectUnitOfWorkTest {
         final Opportunity insertedOpp = new Opportunity(
             Name = 'Original',
             StageName = 'Open',
-            CloseDate = System.today(),
+            CloseDate = System.today() = 1,
             Probability = 25,
             Funding_Source__c = 'Home Care Package'
         );
@@ -444,7 +444,7 @@ private with sharing class fflib_SObjectUnitOfWorkTest {
         Opportunity opp = new Opportunity(
             Name = 'test name',
             StageName = 'Open',
-            CloseDate = System.today(),
+            CloseDate = System.today() + 1,
             Probability = 25,
             Funding_Source__c = 'Home Care Package'
             );
