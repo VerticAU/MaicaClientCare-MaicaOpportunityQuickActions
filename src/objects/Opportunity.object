@@ -48,7 +48,7 @@
         <description>Represents the source or program providing the funding to the Participant.</description>
         <inlineHelpText>Represents the source or program providing the funding to the Participant.</inlineHelpText>
         <label>Funding Source</label>
-        <required>true</required>
+        <required>false</required>
         <trackFeedHistory>false</trackFeedHistory>
         <trackTrending>false</trackTrending>
         <type>Picklist</type>
