@@ -147,23 +147,22 @@ private class DMLManagerTest {
     }
 
     static testMethod void crudUnrestrictedInsertUpdateDelete() {
-        Campaign c1 = new Campaign(Name = 'Test1 Campaign');
+        Account c1 = new Account(Name = 'Test1 Account');
         DMLManager.insertAsUser(c1);
 
         //Would blow up if the Campaign wasn't inserted (List has no rows for assignment)
-        Campaign c1Reload = [SELECT Id, Name, StartDate FROM Campaign WHERE Id = :c1.Id];
-        System.assert(c1Reload.StartDate == null);
+        Account c1Reload = [SELECT Id, Name FROM Account WHERE Id = :c1.Id];
 
-        c1Reload.StartDate = Date.today();
+        c1Reload.Name = 'Test1 Account1';
 
         DMLManager.updateAsUser(c1Reload);
 
-        c1Reload = [SELECT Id, Name, StartDate FROM Campaign WHERE Id = :c1.Id];
-        System.assertEquals(Date.today(), c1Reload.StartDate);
+        c1Reload = [SELECT Id, Name FROM Account WHERE Id = :c1.Id];
+        System.assertEquals('Test1 Account1', c1Reload.Name);
 
         DMLManager.deleteAsUser(c1Reload);
 
-        List<Campaign> reloaded = [SELECT Id, Name FROM Campaign];
+        List<Account> reloaded = [SELECT Id, Name FROM Account];
         System.assertEquals(0, reloaded.size());
     }
 
@@ -210,7 +209,7 @@ private class DMLManagerTest {
     }
 
     static testmethod void testFailedUpdateWithErroneousId() {
-        Campaign c1 = new Campaign(Name = 'Test1 Campaign');
+        Account c1 = new Account(Name = 'Test1 Account');
         Id cId = null;
 
         insert new SObject[]{
@@ -220,7 +219,7 @@ private class DMLManagerTest {
         delete c1;
 
         try {
-            Campaign c1Resurrected = new Campaign(Id = cId, Name = 'Resurrected Campaign');
+            Account c1Resurrected = new Account(Id = cId, Name = 'Resurrected Account');
             DMLManager.upsertAsUser(c1Resurrected);
             System.assert(false, 'Expected a DMLManagerException! Attempting to update a record with an erroneous Id should fail');
         } catch (DMLManager.DMLManagerException dmle) {

@@ -145,7 +145,7 @@ private class NDISProductManagementQATest {
         Opportunity oppVar = new Opportunity(
             Name = 'Test Opp',
             StageName = 'Closed Won',
-            CloseDate = Date.today(),
+            CloseDate = Date.today() + 1,
             Pricebook2Id = Test.getStandardPricebookId(),
             Participant__c = contactVar.Id,
             Funding_Source__c = 'Home Care Package'
@@ -156,7 +156,7 @@ private class NDISProductManagementQATest {
         Opportunity oppVar1 = new Opportunity(
             Name = 'Test Opp',
             StageName = 'Closed Won',
-            CloseDate = Date.today(),
+            CloseDate = Date.today() + 1,
             Pricebook2Id = Test.getStandardPricebookId(),
             Participant__c = contactVar.Id,
             NDIS_Funding__c = planVar.Id,
@@ -168,7 +168,7 @@ private class NDISProductManagementQATest {
         Opportunity oppVar2 = new Opportunity(
             Name = 'Test Opp',
             StageName = 'Closed Won',
-            CloseDate = Date.today(),
+            CloseDate = Date.today() + 1,
             Pricebook2Id = Test.getStandardPricebookId(),
             NDIS_Funding__c = planVar.Id,
             Funding_Source__c = 'Home Care Package'

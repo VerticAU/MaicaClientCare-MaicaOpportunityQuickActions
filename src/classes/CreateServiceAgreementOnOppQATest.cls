@@ -52,7 +52,7 @@ private class CreateServiceAgreementOnOppQATest {
         insert fundAdmin;
         Opportunity opportunityVar = new Opportunity(
             StageName = 'Closed Won',
-            CloseDate = Date.today(),
+            CloseDate = Date.today() + 1,
             Name = 'testOpp',
             Agreement_Start_Date__c = Date.today(),
             Agreement_End_Date__c = Date.today() + 1,
