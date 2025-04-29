@@ -182,7 +182,7 @@ private class NDISProductManagementCalcProcTest {
             Service_Frequency__c = 'Month',
             Start_Date__c = Date.newInstance(2022, 7, 25),
             End_Date__c = Date.newInstance(2022, 8, 25),
-            PricebookEntryId = pricebookEntryVar.Id
+            PricebookEntryId = pricebookEntryVar3.Id
         );
         insert oppLineItemFrequencyMonth;
 
@@ -192,7 +192,7 @@ private class NDISProductManagementCalcProcTest {
             TotalPrice = 1,
             Start_Date__c = Date.newInstance(2022, 3, 22),
             End_Date__c = Date.newInstance(2022, 4, 23),
-            PricebookEntryId = pricebookEntryVar.Id,
+            PricebookEntryId = pricebookEntryVar4.Id,
             Service_Day__c = 'Public Holiday'
         );
         insert oppLineItemFrequencyPH;
