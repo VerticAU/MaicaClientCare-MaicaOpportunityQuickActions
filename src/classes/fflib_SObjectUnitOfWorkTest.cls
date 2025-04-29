@@ -404,7 +404,7 @@ private with sharing class fflib_SObjectUnitOfWorkTest {
         final Opportunity insertedOpp = new Opportunity(
             Name = 'Original',
             StageName = 'Open',
-            CloseDate = System.today() = 1,
+            CloseDate = System.today() + 1,
             Probability = 25,
             Funding_Source__c = 'Home Care Package'
         );
