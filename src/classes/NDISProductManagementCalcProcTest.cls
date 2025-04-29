@@ -70,7 +70,7 @@ private class NDISProductManagementCalcProcTest {
         Opportunity oppVar = new Opportunity(
             Name = 'testOpp',
             CloseDate = Date.today() + 1,
-            StageName = 'Closed Won',
+            StageName = 'New',
             Funding_Source__c = 'Home Care Package'
         );
         insert oppVar;

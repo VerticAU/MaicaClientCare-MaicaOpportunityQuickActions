@@ -97,12 +97,12 @@ private class LookupCtrlTest {
 
     @isTest static void test_getData_addressField() {
         Account a = new Account(
-            Name = 'Test Account',
-            BillingStreet = 'Test Street',
-            BillingCity = 'Test City',
-            BillingState = 'Test State',
-            BillingCountry = 'Test Country',
-            BillingPostalCode = 'Test Postal Code');
+                Name = 'Test Account',
+                BillingStreet = 'Test Street',
+                BillingCity = 'Test City',
+                BillingState = 'VIC',
+                BillingCountry = 'Australia',
+                BillingPostalCode = '12314');
         insert a;
 
         String jsonString = '{"searchField":"Name", "subtitleField": "BillingAddress", "object": "Account", "filter": "Name = \'Test Account\'", "searchTerm": "Test","searchMode": "SOQL"}';

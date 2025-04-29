@@ -83,7 +83,7 @@ private with sharing class fflib_SObjectUnitOfWorkTest {
                 oppNames.add(oppName);
                 Opportunity opp = new Opportunity();
                 opp.Name = oppName;
-                opp.StageName = 'Open';
+                opp.StageName = 'New';
                 opp.CloseDate = System.today() + 1;
                 opp.Probability = 25;
                 opp.Funding_Source__c = 'Home Care Package';
@@ -257,7 +257,7 @@ private with sharing class fflib_SObjectUnitOfWorkTest {
             oppNames.add(oppName);
             Opportunity opp = new Opportunity();
             opp.Name = oppName;
-            opp.StageName = 'Open';
+            opp.StageName = 'New';
             opp.CloseDate = System.today() + 1;
             opp.Probability = 25;
             uow.registerNew(new List<SObject>{
@@ -355,7 +355,7 @@ private with sharing class fflib_SObjectUnitOfWorkTest {
         DerivedUnitOfWork uow = new DerivedUnitOfWork(MY_SOBJECTS);
         Opportunity opp = new Opportunity();
         opp.Name = 'UoW Test Name 1';
-        opp.StageName = 'Open';
+        opp.StageName = 'New';
         opp.CloseDate = System.today() + 1;
         opp.Funding_Source__c = 'Home Care Package';
         uow.registerNew(new List<SObject>{
@@ -403,7 +403,7 @@ private with sharing class fflib_SObjectUnitOfWorkTest {
     private static void testRegisterDirty_ExpectReplacement() {
         final Opportunity insertedOpp = new Opportunity(
             Name = 'Original',
-            StageName = 'Open',
+            StageName = 'New',
             CloseDate = System.today() + 1,
             Probability = 25,
             Funding_Source__c = 'Home Care Package'
@@ -443,7 +443,7 @@ private with sharing class fflib_SObjectUnitOfWorkTest {
     private static void testRegisterDirty_field() {
         Opportunity opp = new Opportunity(
             Name = 'test name',
-            StageName = 'Open',
+            StageName = 'New',
             CloseDate = System.today() + 1,
             Probability = 25,
             Funding_Source__c = 'Home Care Package'

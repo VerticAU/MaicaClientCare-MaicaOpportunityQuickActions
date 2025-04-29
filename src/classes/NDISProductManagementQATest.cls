@@ -144,7 +144,7 @@ private class NDISProductManagementQATest {
         //Opportunity with NDIS_Funding__c == null
         Opportunity oppVar = new Opportunity(
             Name = 'Test Opp',
-            StageName = 'Closed Won',
+            StageName = 'New',
             CloseDate = Date.today() + 1,
             Pricebook2Id = Test.getStandardPricebookId(),
             Participant__c = contactVar.Id,
@@ -155,7 +155,7 @@ private class NDISProductManagementQATest {
         //Opportunity with NDIS_Funding__c != null
         Opportunity oppVar1 = new Opportunity(
             Name = 'Test Opp',
-            StageName = 'Closed Won',
+            StageName = 'New',
             CloseDate = Date.today() + 1,
             Pricebook2Id = Test.getStandardPricebookId(),
             Participant__c = contactVar.Id,
@@ -167,7 +167,7 @@ private class NDISProductManagementQATest {
         //oppVar.maica__Participant__c != planVar.Participant__c (Active Plan)
         Opportunity oppVar2 = new Opportunity(
             Name = 'Test Opp',
-            StageName = 'Closed Won',
+            StageName = 'New',
             CloseDate = Date.today() + 1,
             Pricebook2Id = Test.getStandardPricebookId(),
             NDIS_Funding__c = planVar.Id,
