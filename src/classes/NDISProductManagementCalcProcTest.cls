@@ -157,8 +157,7 @@ private class NDISProductManagementCalcProcTest {
             Service_Frequency__c = 'Day',
             Start_Date__c = Date.today(),
             End_Date__c = Date.today() + 1,
-            PricebookEntryId = pricebookEntryVar1.Id,
-            Product2Id = productVar.Id
+            PricebookEntryId = pricebookEntryVar1.Id
         );
         insert oppLineItemFrequencyDay;
 
