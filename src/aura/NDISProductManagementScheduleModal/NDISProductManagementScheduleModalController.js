@@ -39,8 +39,8 @@
         cmp.set('v.item.PricebookEntryId', selectedEntry.Id);
         cmp.set('v.item.Product2Id', selectedEntry.Product2Id);
         cmp.set('v.item.Product2', selectedEntry.Product2);
-        cmp.set('v.item.UnitPrice', selectedEntry.maica_cc__Unit_Price__c);
-        cmp.set('v.item.TotalPrice', (selectedEntry.maica_cc__Unit_Price__c || 0) * (item.Quantity || 0));
+        cmp.set('v.item.UnitPrice', selectedEntry.UnitPrice);
+        cmp.set('v.item.TotalPrice', (selectedEntry.UnitPrice || 0) * (item.Quantity || 0));
 
         $A.enqueueAction(cmp.get('c.handleScheduleChange'));
     },

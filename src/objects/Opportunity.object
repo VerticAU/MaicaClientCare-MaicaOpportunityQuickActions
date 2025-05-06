@@ -112,6 +112,18 @@
         <type>Lookup</type>
     </fields>
     <fields>
+        <fullName>Funding__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <label>Funding</label>
+        <referenceTo>maica_cc__Funding__c</referenceTo>
+        <relationshipLabel>Opportunities2</relationshipLabel>
+        <relationshipName>Opportunities2</relationshipName>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
         <fullName>Participant__c</fullName>
         <deleteConstraint>SetNull</deleteConstraint>
         <label>Participant</label>
