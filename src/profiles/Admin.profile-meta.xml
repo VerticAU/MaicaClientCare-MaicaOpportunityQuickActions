@@ -22,7 +22,7 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Opportunity.NDIS_Funding__c</field>
+        <field>Opportunity.Funding__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
