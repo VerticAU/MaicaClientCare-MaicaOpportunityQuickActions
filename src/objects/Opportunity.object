@@ -99,25 +99,13 @@
         </valueSet>
     </fields>
     <fields>
-        <fullName>NDIS_Funding__c</fullName>
+        <fullName>Funding__c</fullName>
         <deleteConstraint>SetNull</deleteConstraint>
-        <inlineHelpText>Represents the NDIS Funding for which this Service Agreement is being developed.</inlineHelpText>
-        <label>NDIS Funding</label>
+        <inlineHelpText>Represents the Funding for which this Service Agreement is being developed.</inlineHelpText>
+        <label>Funding</label>
         <referenceTo>maica_cc__Funding__c</referenceTo>
         <relationshipLabel>Opportunities</relationshipLabel>
         <relationshipName>Opportunities</relationshipName>
-        <required>false</required>
-        <trackFeedHistory>false</trackFeedHistory>
-        <trackTrending>false</trackTrending>
-        <type>Lookup</type>
-    </fields>
-    <fields>
-        <fullName>Funding__c</fullName>
-        <deleteConstraint>SetNull</deleteConstraint>
-        <label>Funding</label>
-        <referenceTo>maica_cc__Funding__c</referenceTo>
-        <relationshipLabel>Opportunities2</relationshipLabel>
-        <relationshipName>Opportunities2</relationshipName>
         <required>false</required>
         <trackFeedHistory>false</trackFeedHistory>
         <trackTrending>false</trackTrending>

@@ -1,17 +1,17 @@
 @IsTest
 private class NDISProductManagementQATest {
-    //oppVar.NDIS_Funding__c == null
+    //oppVar.Funding__c == null
     static testMethod void testMetaProc() {
 
         setupData();
 
         maica_cc__Funding__c planVar = [SELECT Id FROM maica_cc__Funding__c LIMIT 1];
         Product2 productVar = [SELECT Id FROM Product2 LIMIT 1];
-        Opportunity oppVarNullPlan = [SELECT Id, Pricebook2Id FROM Opportunity WHERE NDIS_Funding__c = NULL LIMIT 1];
-        Opportunity oppVarNotNullPlan = [SELECT Id FROM Opportunity WHERE NDIS_Funding__c != NULL LIMIT 1];
+        Opportunity oppVarNullPlan = [SELECT Id, Pricebook2Id FROM Opportunity WHERE Funding__c = NULL LIMIT 1];
+        Opportunity oppVarNotNullPlan = [SELECT Id FROM Opportunity WHERE Funding__c != NULL LIMIT 1];
         Opportunity oppVarNullParticipant = [SELECT Id FROM Opportunity WHERE Participant__c = NULL LIMIT 1];
 
-        //Opportunity with NDIS_Funding__c == null
+        //Opportunity with Funding__c == null
         MetadataProcessor.MetadataRequest requestVarNullPlan = new MetadataProcessor.MetadataRequest(
             JSON.serialize(
                 new Map<String, Object>{
@@ -23,7 +23,7 @@ private class NDISProductManagementQATest {
         Response responseVarNullPlan = new NDISProductManagementQAMetaProc().process(requestVarNullPlan);
 
 
-        //Opportunity with NDIS_Funding__c != null
+        //Opportunity with Funding__c != null
         MetadataProcessor.MetadataRequest requestVarNotNullPlan = new MetadataProcessor.MetadataRequest(
             JSON.serialize(
                 new Map<String, Object>{
@@ -58,7 +58,7 @@ private class NDISProductManagementQATest {
 //        Pricebook2 priceList = [SELECT Id FROM Pricebook2 LIMIT 1];
         maica_cc__Funding__c planVar = [SELECT Id FROM maica_cc__Funding__c LIMIT 1];
         Product2 productVar = [SELECT Id FROM Product2 LIMIT 1];
-        Opportunity oppVarNullPlan = [SELECT Id, Pricebook2Id FROM Opportunity WHERE NDIS_Funding__c = NULL LIMIT 1];
+        Opportunity oppVarNullPlan = [SELECT Id, Pricebook2Id FROM Opportunity WHERE Funding__c = NULL LIMIT 1];
 
 //        PricebookEntry pricebookEntryVar = new PricebookEntry(
 //            UnitPrice = 10,
@@ -91,7 +91,7 @@ private class NDISProductManagementQATest {
 
         maica_cc__Funding__c planVar = [SELECT Id FROM maica_cc__Funding__c LIMIT 1];
         Product2 productVar = [SELECT Id FROM Product2 LIMIT 1];
-        Opportunity oppVarNullPlan = [SELECT Id, Pricebook2Id FROM Opportunity WHERE NDIS_Funding__c = NULL LIMIT 1];
+        Opportunity oppVarNullPlan = [SELECT Id, Pricebook2Id FROM Opportunity WHERE Funding__c = NULL LIMIT 1];
 
         Request requestVarNotNullPriceListEntry = new Request(new Map<String, Object>{
             'recordId' => oppVarNullPlan.Id,
@@ -141,7 +141,7 @@ private class NDISProductManagementQATest {
         );
         insert serviceItemVar;
 
-        //Opportunity with NDIS_Funding__c == null
+        //Opportunity with Funding__c == null
         Opportunity oppVar = new Opportunity(
             Name = 'Test Opp',
             StageName = 'New',
@@ -152,14 +152,14 @@ private class NDISProductManagementQATest {
         );
         insert oppVar;
 
-        //Opportunity with NDIS_Funding__c != null
+        //Opportunity with Funding__c != null
         Opportunity oppVar1 = new Opportunity(
             Name = 'Test Opp',
             StageName = 'New',
             CloseDate = Date.today() + 1,
             Pricebook2Id = Test.getStandardPricebookId(),
             Participant__c = contactVar.Id,
-            NDIS_Funding__c = planVar.Id,
+            Funding__c = planVar.Id,
             Funding_Source__c = 'Home Care Package'
         );
         insert oppVar1;
@@ -170,7 +170,7 @@ private class NDISProductManagementQATest {
             StageName = 'New',
             CloseDate = Date.today() + 1,
             Pricebook2Id = Test.getStandardPricebookId(),
-            NDIS_Funding__c = planVar.Id,
+            Funding__c = planVar.Id,
             Funding_Source__c = 'Home Care Package'
         );
         insert oppVar2;

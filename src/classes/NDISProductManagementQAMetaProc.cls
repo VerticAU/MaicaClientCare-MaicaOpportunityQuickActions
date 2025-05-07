@@ -27,7 +27,7 @@ public with sharing class NDISProductManagementQAMetaProc extends MetadataProces
         String opportunityId = this.request.getRequiredString('recordId');
 
         oppVar = (Opportunity) Utils.arrays.firstOrException([
-                SELECT Id, Participant__c, AccountId, Pricebook2Id, NDIS_Funding__c, Agreement_Start_Date__c, Agreement_End_Date__c, Funding_Type__c
+                SELECT Id, Participant__c, AccountId, Pricebook2Id, Funding__c, Agreement_Start_Date__c, Agreement_End_Date__c, Funding_Type__c
                 FROM Opportunity
                 WHERE Id = :opportunityId
                 WITH USER_MODE
@@ -58,7 +58,7 @@ public with sharing class NDISProductManagementQAMetaProc extends MetadataProces
 
         this.response.selectOptions.put('periodTypeOptions', Utils.picklists.getPicklistValuesAsSelectOptions(OpportunityLineItem.Period_Type__c, new Set<String>{
                 oppVar.Agreement_Start_Date__c == null || oppVar.Agreement_End_Date__c == null ? 'Agreement' : null,
-                oppVar.NDIS_Funding__c == null ? 'Plan' : null
+                oppVar.Funding__c == null ? 'Plan' : null
         }));
 
         List<Structs.SelectOption> weekdayOptions = new List<Structs.SelectOption>{
@@ -91,7 +91,7 @@ public with sharing class NDISProductManagementQAMetaProc extends MetadataProces
         maica_cc__Funding__c activePlan = (maica_cc__Funding__c) Utils.arrays.firstOrNull([
                 SELECT Id, Name, maica_cc__Participant__c, maica_cc__Last_NDIS_Sync__c, maica_cc__Start_Date__c, maica_cc__End_Date__c
                 FROM maica_cc__Funding__c
-                WHERE Id = :oppVar.NDIS_Funding__c
+                WHERE Id = :oppVar.Funding__c
                 WITH USER_MODE
         ]);
 

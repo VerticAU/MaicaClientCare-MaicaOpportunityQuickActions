@@ -22,7 +22,7 @@ public with sharing class NDISProductManagementQASubmitProc extends AbstractProc
     private void doSubmit() {
         String opportunityId = this.request.getRequiredString('recordId');
         Opportunity opportunityVar = (Opportunity) Utils.arrays.firstOrException(
-                [SELECT Id, Pricebook2Id, NDIS_Funding__c FROM Opportunity WHERE Id = :opportunityId WITH USER_MODE],
+                [SELECT Id, Pricebook2Id, Funding__c FROM Opportunity WHERE Id = :opportunityId WITH USER_MODE],
                 'No Opportunity with Id: ' + opportunityId
         );
         Utils.objects.throwIfBlank(opportunityVar.Pricebook2Id, 'Opportunity has no Pricebook assigned');
