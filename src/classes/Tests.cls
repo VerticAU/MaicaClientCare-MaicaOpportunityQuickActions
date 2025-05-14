@@ -1664,8 +1664,12 @@ private class Tests {
         Utils.picklists.getPicklistAsSetStrings(Account.Type);
         Utils.picklists.convertFlowPicklistFieldValues(acc);
         Utils.users.hasPermSetAssigned('Test');
-        Utils.sObjects.getSObjectDescribe(new List<SObjectType>{Account.SObjectType});
-        Decimal sum = Utils.sObjects.sum(new List<SObject>{acc, acc1}, Account.NumberOfEmployees);
+        Utils.sObjects.getSObjectDescribe(new List<SObjectType>{
+                Account.SObjectType
+        });
+        Decimal sum = Utils.sObjects.sum(new List<SObject>{
+                acc, acc1
+        }, Account.NumberOfEmployees);
         Assert.isTrue(sum == 21);
         String repUrl = Utils.URLs.generateReportURL('Test', new List<String>());
         Assert.areEqual('/lightning/r/Report/null/view?queryScope=userFolders', repUrl);
@@ -1678,11 +1682,17 @@ private class Tests {
         uow.registerDirty(acc1);
         uow.commitWork();
         Assert.areEqual('Test11', acc1.Name);
-        AutoMapper am = new AutoMapper(new Map<String, Object>{'obj1' => new AutoMapper().getSObjectsAsMaps(new List<SObject>{acc1})});
+        AutoMapper am = new AutoMapper(new Map<String, Object>{
+                'obj1' => new AutoMapper().getSObjectsAsMaps(new List<SObject>{
+                        acc1
+                })
+        });
         am.getOptions().setIsVisualforce(true);
         List<SObject> obj1Records = am.mapToListSObjects('obj1', Account.SObjectType);
         Assert.isNotNull(obj1Records);
-        Utils.encodings.mapToFormUrlEncoded(new Map<String,String>{'test' => 'test'});
+        Utils.encodings.mapToFormUrlEncoded(new Map<String, String>{
+                'test' => 'test'
+        });
         Blob key = Crypto.generateAesKey(256);
         String keyString = EncodingUtil.base64Encode(key);
         String encryptedStr = Utils.encodings.getEncryptedValue('test', keyString);
@@ -1698,10 +1708,204 @@ private class Tests {
                     WHERE Name = 'firstOrException'
             ]);
         } catch (Exception ex) {
-            Assert.isTrue( ex.getMessage().contains('The list is empty'));
+            Assert.isTrue(ex.getMessage().contains('The list is empty'));
         }
-        List<List<Object>> splitList = Utils.arrays.split(new List<Integer>{1, 2, 3, 4, 5, 6, 7, 8, 9 ,10}, 2, List<Integer>.class);
+        List<List<Object>> splitList = Utils.arrays.split(new List<Integer>{
+                1, 2, 3, 4, 5, 6, 7, 8, 9, 10
+        }, 2, List<Integer>.class);
         System.assertEquals(5, splitList.size());
+
+        DTO dto = new DTO(new Map<String, Object>{
+                'map' => new Map<String, Object>{
+                        'test' => 'test'
+                },
+                'id' => acc.Id,
+                'test' => 'test',
+                'int' => 12,
+                'intNull' => null,
+                'long' => 1234567890,
+                'longNull' => null,
+                'longStr' => '1234567890',
+                'decimal' => 1234567890,
+                'decimalNull' => null,
+                'decimalStr' => '1234567890',
+                'boolean' => true,
+                'booleanNull' => null,
+                'booleanStr' => 'true',
+                'date' => '2025-01-10',
+                'time' => '14:30:15.123Z',
+                'timeNull' => null,
+                'listStr' => new List<String>{
+                        '1', '2'
+                },
+                'listStrNull' => null,
+                'listMap' => new List<Map<String, Object>>{
+                        new Map<String, Object>{
+                                'test' => 'test'
+                        }
+                },
+                'listMapNull' => null
+        });
+        DTO dto1 = new DTO('{}');
+        dto1.getMapper();
+        dto.has('id');
+        dto.getMap();
+        dto.getMap('map');
+        dto.get('test', String.class);
+        dto.getId('id');
+        dto.getInteger('int');
+        dto.getInteger('intNull');
+        dto.getRequiredString('test');
+        dto.getRequiredString('test', 'test error message');
+        dto.getLong('long');
+        dto.getLong('longNull');
+        dto.getLong('longStr');
+        dto.getDecimal('decimal');
+        dto.getDecimal('decimalNull');
+        dto.getDecimal('decimalStr');
+        dto.getBoolean('boolean');
+        dto.getBoolean('booleanNull');
+        dto.getBoolean('booleanStr');
+        dto.getISODate('date');
+        dto.getTime('time');
+        dto.getTime('timeNull');
+        dto.getListAsStrings('listStr');
+        dto.getList('listStr');
+        dto.getListAsStrings('listStrNull');
+        dto.getListAsMap('listMap');
+        dto.getListAsMap('listMapNull');
+        dto.getListAsDTO('listMap');
+        dto.getListAsDTO('listMapNull');
+        dto.getListAsDTONonNull('listMap');
+        dto.getListAsDTONonNull('listMapNull');
+
+        Account acc2 = new Account();
+        Account acc3 = new Account();
+        uow.registerDirty(acc, Account.ParentId, acc1);
+        uow.registerDirty(new List<Account>{acc,acc1});
+        uow.registerDeleted(acc);
+        uow.registerDeleted(new List<Account>{acc,acc1});
+        uow.registerNew(acc2);
+        uow.registerNew(new List<Account>{acc2,acc3});
+        uow.registerNew(acc2, Account.ParentId, acc3);
+    }
+
+    /**
+  * ==============================================================================================================
+  *                                          vertic_RestService
+  * ==============================================================================================================
+  */
+
+    public class TestGetProc extends AbstractProcessor implements RestService.AllowREST {
+
+        public override Response process(Request request) {
+            this.request = (RestService.RestRequest) request;
+            this.response = (RestService.RestResponse) super.response;
+
+            String accountId = this.request.params.get('Id');
+            Account acc = (Account) Utils.arrays.firstOrException([SELECT Name FROM Account WHERE Id = :accountId], 'Account not found');
+
+            this.response.getMapper().mapFromSObject('account', acc);
+
+            return this.response;
+        }
+
+        private RestService.RestResponse response;
+
+        public override Response getResponseInstance() {
+            return new RestService.RestResponse();
+        }
+
+        private RestService.RestRequest request;
+
+        public override Type getRequestType() {
+            return RestService.RestRequest.class;
+        }
+
+        public override Request getRequestInstance(String requestJSON) {
+            return (RestService.RestRequest) JSON.deserialize(requestJSON, this.getRequestType());
+        }
+
+    }
+
+    @IsTest
+    static void test_RestService_GetBehavior() {
+        Account testAccount = new Account(Name = 'Vertic');
+        insert testAccount;
+
+        RestRequest request = new RestRequest();
+        request.requestURI = '/tests.test';
+        request.httpMethod = 'GET';
+        request.params.put('Id', testAccount.Id);
+
+        RestContext.request = request;
+        RestContext.response = new RestResponse();
+
+        RestService.handleRequest();
+
+        if (RestContext.response.statusCode == 400) {
+            System.debug(RestContext.response.responseBody.toString());
+        }
+
+        System.assertEquals(200, RestContext.response.statusCode);
+        Map<String, Object> result = (Map<String, Object>) JSON.deserializeUntyped(RestContext.response.responseBody.toString());
+        DTO dto = new DTO(result);
+        System.assertEquals('Vertic', dto.getString('account.Name'));
+    }
+
+    public class TestPostProc extends AbstractProcessor implements RestService.AllowREST {
+        public override Response process(Request request) {
+            this.request = (RestService.RestRequest) request;
+            this.response = (RestService.RestResponse) super.response;
+
+            Account acc = new Account();
+            this.request.getMapper().mapToSObject('account', acc);
+            insert acc;
+
+            return this.response;
+        }
+
+        private RestService.RestResponse response;
+
+        public override Response getResponseInstance() {
+            return new RestService.RestResponse();
+        }
+
+        private RestService.RestRequest request;
+
+        public override Type getRequestType() {
+            return RestService.RestRequest.class;
+        }
+
+        public override Request getRequestInstance(String requestJSON) {
+            return (RestService.RestRequest) JSON.deserialize(requestJSON, this.getRequestType());
+        }
+
+    }
+
+    @IsTest
+    static void test_RestService_PostBehavior() {
+        RestRequest request = new RestRequest();
+        request.requestURI = '/tests.test';
+        request.httpMethod = 'POST';
+        request.requestBody = Blob.valueOf(JSON.serialize(new Map<String, Object>{
+                'account' => new Map<String, Object>{
+                        'Name' => 'Vertic'
+                }
+        }));
+
+        RestContext.request = request;
+        RestContext.response = new RestResponse();
+
+        RestService.handleRequest();
+
+        if (RestContext.response.statusCode == 400) {
+            System.debug(RestContext.response.responseBody.toString());
+        }
+
+        System.assertEquals(200, RestContext.response.statusCode);
+        System.assertEquals(1, [SELECT count() FROM Account]);
+        System.assertEquals('Vertic', [SELECT Name FROM Account][0].Name);
     }
 
     /**
