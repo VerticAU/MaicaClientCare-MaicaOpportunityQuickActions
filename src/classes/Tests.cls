@@ -1682,6 +1682,26 @@ private class Tests {
         am.getOptions().setIsVisualforce(true);
         List<SObject> obj1Records = am.mapToListSObjects('obj1', Account.SObjectType);
         Assert.isNotNull(obj1Records);
+        Utils.encodings.mapToFormUrlEncoded(new Map<String,String>{'test' => 'test'});
+        Blob key = Crypto.generateAesKey(256);
+        String keyString = EncodingUtil.base64Encode(key);
+        String encryptedStr = Utils.encodings.getEncryptedValue('test', keyString);
+        String decryptedStr = Utils.encodings.getDecryptedValue(encryptedStr, keyString);
+        System.assertEquals('test', decryptedStr);
+        Assert.areEqual('test', decryptedStr);
+        Boolean isSandbox = Utils.orgs.isSandbox();
+        Boolean isScratch = Utils.orgs.isScratch();
+        try {
+            Contact contacts = (Contact) Utils.arrays.firstOrException([
+                    SELECT Id
+                    FROM Contact
+                    WHERE Name = 'firstOrException'
+            ]);
+        } catch (Exception ex) {
+            Assert.isTrue( ex.getMessage().contains('The list is empty'));
+        }
+        List<List<Object>> splitList = Utils.arrays.split(new List<Integer>{1, 2, 3, 4, 5, 6, 7, 8, 9 ,10}, 2, List<Integer>.class);
+        System.assertEquals(5, splitList.size());
     }
 
     /**
