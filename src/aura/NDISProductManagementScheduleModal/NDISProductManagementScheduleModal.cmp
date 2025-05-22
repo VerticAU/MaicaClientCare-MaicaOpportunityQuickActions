@@ -317,19 +317,20 @@
             <div class="slds-m-horizontal_small">
                 <div class="slds-grid slds-gutters slds-m-bottom--medium">
                     <div class="slds-col">
-                        <c:aura_Lookup label="Support Category"
-                                       object="maica_cc__Support_Category__c"
-                                       searchField="Name"
-                                       subtitleField="maica_cc__Short_Name__c"
-                                       placeholder="Type to search by Support Category..."
-                                       iconName="custom:custom71"
-                                       order="Name"
-                                       limit="10"
-                                       errorMessage="Invalid input"
-                                       showRecentRecords="{!true}"
-                                       disabled="{!v.isBusy}"
-                                       value="{!v.filter.supportCategoryId}"
-                        />
+                        <maica_cc:lwcLookup disabled="{!v.isBusy}"
+                                            isClickable="{!true}"
+                                            searchField="Name"
+                                            subtitleField="maica_cc__Short_Name__c"
+                                            iconTag="custom71"
+                                            label="Support Category"
+                                            searchMode="SOQL"
+                                            object="maica_cc__Support_Category__c"
+                                            placeholder="Type to search by Support Category..."
+                                            showRecentRecords="{!true}"
+                                            value="{!v.filter.supportCategoryId}"
+                                            order="Name"
+                                            limit="10">
+                        </maica_cc:lwcLookup>
                     </div>
                     <aura:if isTrue="{!v.item.type != 'Category'}">
                         <div class="slds-col">

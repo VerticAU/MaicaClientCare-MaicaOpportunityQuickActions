@@ -17,20 +17,21 @@
             </div>
 
             <div class="slds-col slds-size_4-of-12  slds-p-right_small">
-                <c:aura_Lookup
-                    label="Pricebook"
-                    object="maica_cc__Price_List__c"
-                    searchField="Name"
-                    placeholder="Select a Price List..."
-                    iconName="standard:pricebook"
-                    limit="8"
-                    errorMessage="Error"
-                    showRecentRecords="{!true}"
-                    disabled="{!true}"
-                    required="{!true}"
-                    value="{!v.meta.dto.serviceAgreement.maica_cc__Price_List__c}"
-                    class="label-hidden"
-                />
+                <maica_cc:lwcLookup disabled="{!true}"
+                                    required="{!true}"
+                                    labelHidden="{!true}"
+                                    isClickable="{!true}"
+                                    searchField="Name"
+                                    iconTag="pricebook"
+                                    label="Pricebook"
+                                    searchMode="SOQL"
+                                    object="maica_cc__Price_List__c"
+                                    placeholder="Select a Price List..."
+                                    showRecentRecords="{!true}"
+                                    value="{!v.meta.dto.serviceAgreement.maica_cc__Price_List__c}"
+                                    order="Name"
+                                    limit="8">
+                </maica_cc:lwcLookup>
             </div>
         </div>
 
@@ -53,23 +54,20 @@
             </div>
 
             <div class="slds-col slds-size_1-of-2">
-                <c:aura_Lookup label="Service Provider"
-                               object="Account"
-                               subtitleField="maica_cc__ABN__c"
-                               subtitleFieldPrefix="ABN: "
-                               searchField="Name,maica_cc__ABN__c,maica_cc__ABN_Search_Format__c"
-                               searchMode="SOQL"
-                               filter="maica_cc__ABN__c != NULL"
-                               placeholder="Select a Service Provider..."
-                               iconName="standard:account"
-                               order="Name"
-                               limit="10"
-                               loadingMessage="Loading..."
-                               errorMessage="Error"
-                               showRecentRecords="{!true}"
-                               disabled="{!v.isBusy}"
-                               value="{!v.meta.dto.serviceAgreement.maica_cc__Service_Provider__c}"
-                />
+                <maica_cc:lwcLookup disabled="{!v.isBusy}"
+                                    searchField="Name,maica_cc__ABN__c,maica_cc__ABN_Search_Format__c"
+                                    subtitleField="maica_cc__ABN__c"
+                                    filter="maica_cc__ABN__c != NULL"
+                                    iconTag="account"
+                                    label="Service Provider"
+                                    searchMode="SOQL"
+                                    object="Account"
+                                    placeholder="Select a Service Provider..."
+                                    showRecentRecords="{!true}"
+                                    value="{!v.meta.dto.serviceAgreement.maica_cc__Service_Provider__c}"
+                                    order="Name"
+                                    limit="10">
+                </maica_cc:lwcLookup>
             </div>
         </div>
     </aura:attribute>

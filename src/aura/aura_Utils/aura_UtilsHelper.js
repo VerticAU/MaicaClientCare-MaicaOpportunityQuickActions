@@ -297,7 +297,7 @@
             'lightning:checkboxGroup',
             'c:aura_Validity',
             'c:aura_Lookup',
-            'c:lwcLookup',
+            'maica_cc:lwcLookup',
             'c:aura_Combobox'
         ];
 
