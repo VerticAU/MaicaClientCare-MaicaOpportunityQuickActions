@@ -55,6 +55,7 @@
 
             <div class="slds-col slds-size_1-of-2">
                 <maica_cc:lwcLookup disabled="{!v.isBusy}"
+                                    isClickable="{!true}"
                                     searchField="Name,maica_cc__ABN__c,maica_cc__ABN_Search_Format__c"
                                     subtitleField="maica_cc__ABN__c"
                                     filter="maica_cc__ABN__c != NULL"
