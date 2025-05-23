@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <PermissionSet xmlns="http://soap.sforce.com/2006/04/metadata">
-    <description>Access to the Opportunity Management features within Maica, including permissions to view and edit Opportunities, manage Service Agreements, access related Price Book and Product records, and use the Product Management QA for generating Service Agreements</description>
+    <description>Grants access to key fields on objects needed to compose a Maica Service Agreement, including custom fields on Opportunity, Opportunity Product, Price Book, Product, Price List, Service Agreement, Support Category, and Support Item.</description>
     <fieldPermissions>
         <editable>true</editable>
         <field>Opportunity.AccountId</field>
