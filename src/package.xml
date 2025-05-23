@@ -38,5 +38,12 @@
         <members>*</members>
         <name>FlexiPage</name>
     </types>
+    <types>
+        <name>LightningComponentBundle</name>
+    </types>
+    <types>
+        <members>Maica_Opportunity_Management_Compose_Service_Agreements</members>
+        <name>PermissionSet</name>
+    </types>
     <version>59.0</version>
 </Package>
