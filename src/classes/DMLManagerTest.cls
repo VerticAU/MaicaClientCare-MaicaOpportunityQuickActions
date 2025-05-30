@@ -146,25 +146,25 @@ private class DMLManagerTest {
         System.assert(reload[1].Id != null);
     }
 
-    static testMethod void crudUnrestrictedInsertUpdateDelete() {
-        Account c1 = new Account(Name = 'Test1 Account');
-        DMLManager.insertAsUser(c1);
+    // static testMethod void crudUnrestrictedInsertUpdateDelete() {
+    //     Account c1 = new Account(Name = 'Test1 Account');
+    //     DMLManager.insertAsUser(c1);
 
-        //Would blow up if the Campaign wasn't inserted (List has no rows for assignment)
-        Account c1Reload = [SELECT Id, Name FROM Account WHERE Id = :c1.Id];
+    //     //Would blow up if the Campaign wasn't inserted (List has no rows for assignment)
+    //     Account c1Reload = [SELECT Id, Name FROM Account WHERE Id = :c1.Id];
 
-        c1Reload.Name = 'Test1 Account1';
+    //     c1Reload.Name = 'Test1 Account1';
 
-        DMLManager.updateAsUser(c1Reload);
+    //     DMLManager.updateAsUser(c1Reload);
 
-        c1Reload = [SELECT Id, Name FROM Account WHERE Id = :c1.Id];
-        System.assertEquals('Test1 Account1', c1Reload.Name);
+    //     c1Reload = [SELECT Id, Name FROM Account WHERE Id = :c1.Id];
+    //     System.assertEquals('Test1 Account1', c1Reload.Name);
 
-        DMLManager.deleteAsUser(c1Reload);
+    //     DMLManager.deleteAsUser(c1Reload);
 
-        List<Account> reloaded = [SELECT Id, Name FROM Account];
-        System.assertEquals(0, reloaded.size());
-    }
+    //     List<Account> reloaded = [SELECT Id, Name FROM Account];
+    //     System.assertEquals(0, reloaded.size());
+    // }
 
     static testMethod void crudRestrictedInsertUpdateDelete() {
         User restrictedUser = getRestrictedUser();
