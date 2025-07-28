@@ -1,3 +1,0 @@
-<aura:event type="COMPONENT" description="aura_ComponentEvent" access="public">
-    <aura:attribute name="payload" type="Map"/>
-</aura:event>

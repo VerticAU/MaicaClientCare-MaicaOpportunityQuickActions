@@ -43,6 +43,7 @@
     </types>
     <types>
         <members>Maica_Opportunity_Management_Compose_Service_Agreements</members>
+        <members>Maica_Component_Opportunity_Management_Compose_Service_Agreements</members>
         <name>PermissionSet</name>
     </types>
     <version>59.0</version>
