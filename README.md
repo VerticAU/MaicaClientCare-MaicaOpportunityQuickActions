@@ -3,6 +3,10 @@
        src="https://raw.githubusercontent.com/afawcett/githubsfdeploy/master/deploy.png">
 </a>
 
+> **Important:**  
+> The [`MaicaClientCare-Common`](https://github.com/VerticAU/MaicaClientCare-Common) package must be deployed **prior to** installing or deploying any other MaicaClientCare-related packages
+
+
 ## Solution Overview
 
 The **Product Management** and **Create Service Agreement** quick actions on the **Opportunity** object streamline key Maica onboarding processes.
