@@ -278,11 +278,6 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>maica_cc__Price_List__c.maica_cc__State__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
         <field>maica_cc__Service_Agreement__c.Accommodation__c</field>
         <readable>true</readable>
     </fieldPermissions>
