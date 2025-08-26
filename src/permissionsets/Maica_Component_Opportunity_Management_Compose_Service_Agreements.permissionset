@@ -363,7 +363,7 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>maica_cc__Service_Agreement__c.maica_cc__NDIS_Funding__c</field>
+        <field>maica_cc__Service_Agreement__c.maica_cc__Funding__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
