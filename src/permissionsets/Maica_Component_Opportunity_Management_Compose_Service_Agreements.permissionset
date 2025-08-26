@@ -423,11 +423,6 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>maica_cc__Support_Category__c.Revenue_Category__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
         <field>maica_cc__Support_Category__c.maica_cc__Budget_Type__c</field>
         <readable>true</readable>
     </fieldPermissions>
