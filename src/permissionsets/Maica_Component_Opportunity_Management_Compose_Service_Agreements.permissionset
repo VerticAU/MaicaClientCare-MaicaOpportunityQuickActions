@@ -278,11 +278,6 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>maica_cc__Service_Agreement__c.maica_cc_Location_Name__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
         <field>maica_cc__Service_Agreement__c.maica_cc__Account__c</field>
         <readable>true</readable>
     </fieldPermissions>
