@@ -268,7 +268,7 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>maica_cc__Price_List__c.maica_cc__Last_NDIS_Sync__c</field>
+        <field>maica_cc__Price_List__c.maica_cc__Last_External_Sync__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
