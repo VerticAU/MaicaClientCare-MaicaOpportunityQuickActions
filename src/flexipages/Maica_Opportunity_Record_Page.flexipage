@@ -85,9 +85,6 @@
                             <value>AddToActionableList</value>
                         </valueListItems>
                         <valueListItems>
-                            <value>CreateSalesSummaries</value>
-                        </valueListItems>
-                        <valueListItems>
                             <value>AssignRecordLabel</value>
                         </valueListItems>
                         <valueListItems>
