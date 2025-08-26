@@ -288,7 +288,7 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>maica_cc__Service_Agreement__c.maica_cc__Auto_Renew__c</field>
+        <field>maica_cc__Service_Agreement__c.maica_cc__Auto_Renewal__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
