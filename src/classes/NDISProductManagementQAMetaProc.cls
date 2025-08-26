@@ -89,7 +89,7 @@ public with sharing class NDISProductManagementQAMetaProc extends MetadataProces
 
     private void initPlanAndCategoriesTotalRemaining() {
         maica_cc__Funding__c activePlan = (maica_cc__Funding__c) Utils.arrays.firstOrNull([
-                SELECT Id, Name, maica_cc__Participant__c, maica_cc__Last_NDIS_Sync__c, maica_cc__Start_Date__c, maica_cc__End_Date__c
+                SELECT Id, Name, maica_cc__Participant__c, maica_cc__Last_External_Sync__c, maica_cc__Start_Date__c, maica_cc__End_Date__c
                 FROM maica_cc__Funding__c
                 WHERE Id = :oppVar.Funding__c
                 WITH USER_MODE
