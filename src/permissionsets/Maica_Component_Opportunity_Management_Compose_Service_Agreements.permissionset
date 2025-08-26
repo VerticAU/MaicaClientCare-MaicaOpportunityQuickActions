@@ -278,21 +278,6 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>maica_cc__Service_Agreement__c.Opportunity__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
-        <field>maica_cc__Service_Agreement__c.Related_Opportunity__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>maica_cc__Service_Agreement__c.Sale_Settlement_Date__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
         <field>maica_cc__Service_Agreement__c.maica_cc_Location_Name__c</field>
         <readable>true</readable>
     </fieldPermissions>
