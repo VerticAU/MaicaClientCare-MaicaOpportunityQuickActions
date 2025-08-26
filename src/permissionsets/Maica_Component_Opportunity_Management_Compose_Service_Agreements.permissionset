@@ -133,11 +133,6 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>maica_cc__Agreement_Item__c.maica_cc__Allow_Support_Item_Change__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
         <field>maica_cc__Agreement_Item__c.maica_cc__Approved_Amount__c</field>
         <readable>true</readable>
     </fieldPermissions>
